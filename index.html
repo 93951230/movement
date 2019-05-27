@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>93951230's test</title>
+		<title>test</title>
 		<meta name="author" content="93951230">
 		<meta name="description" content="useless game">
 		<meta name="keywords" content="qazwsxedc9395">
@@ -10,8 +10,8 @@
 		{
 			background: #eee;
 			position:absolute;
-			top:2%;
-			left:18%;
+			top:0%;
+			left:0%;
 		}
 		font
 		{
@@ -21,66 +21,55 @@
 	</head>
 	<body>
 		<img id="dirt" src="https://i.ibb.co/YkYgTRc/haha.png" />
-		<canvas id="Canvas" width="900" height="600" />
+		<canvas id="Canvas" width="1365" height="768" />
 		<script>
 			var canvas = document.getElementById("Canvas");
 			var ctx = canvas.getContext("2d");
+			var CamX;
+			var CamY;
 			var XdrawVar = 0;
 			var YdrawVar = 0;
 			var imgs = [];
 			imgs[0] = document.getElementById("dirt");
 			var keyPressed = {}
-			var barWi = 400;
-			var barHi = 1;
-			var barrier = [];
-			function camera(object)
-			{
-				if ((object.x > (character.x-XdrawVar)-600) && (object.x < (character.x-XdrawVar)+600))
-				{
-					return true;
-				}
-			}
+			var tileWi = 200;
+			var tileHi = 200;
+			var tiles = [];
 			//////////////
 			//OBJECT OUT//
 			//////////////
-			for (iteration=0;iteration<barHi;iteration++)
+			function tile(filled)
 			{
-				barrier[iteration] = [];
-				for (iteration2=0;iteration2<barWi;iteration2++)
+				this.fill = new dirt();
+			}
+			function dirt()
+			{
+				this.countHi = iteration;
+				this.countWi = iteration2;
+				this.height = 45;
+				this.width = 45;
+				this.collideVar = null;
+				this.x = 22.5+(iteration2*(this.height));
+				this.y = 405+(iteration*(this.width));
+				this.getcollide = function()
 				{
-					(barrier[iteration])[iteration2] = new function()
-					{
-						this.countHi = iteration;
-						this.countWi = iteration2;
-						this.height = 45;
-						this.width = 45;
-						this.collideVar = null;
-						this.initialize = function()
-						{
-							this.x = 22.5+(iteration2*(this.height-1));
-							this.y = 405+(iteration*(this.width-1));
-							if (Math.random() > 0.5)
-							{
-								this.color = "#0095DD";
-							}
-							else
-							{
-								this.color = "#FF2B4A";
-							}
-						}
-						this.getcollide = function()
-						{
-							NaN;
-						}
-						this.draw = function()
-						{
-							ctx.beginPath();
-							ctx.drawImage(imgs[0],(this.x-(this.width/2))+XdrawVar,(this.y-(this.height/2))+YdrawVar);
-							ctx.fillStyle = this.color;
-							ctx.fill();
-							ctx.closePath();
-						}
-					}
+					NaN;
+				}
+				this.draw = function()
+				{
+					ctx.beginPath();
+					ctx.drawImage(imgs[0],(this.x-(this.width/2))+XdrawVar,(this.y-(this.height/2))+YdrawVar);
+					ctx.fillStyle = this.color;
+					ctx.fill();
+					ctx.closePath();
+				}
+			}
+			for (iteration=0;iteration<tileHi;iteration++)
+			{
+				tiles[iteration] = [];
+				for (iteration2=0;iteration2<tileWi;iteration2++)
+				{
+					(tiles[iteration])[iteration2] = new tile(dirt());
 				}
 			}
 			var character = new function()
@@ -91,8 +80,8 @@
 				this.width = 30;
 				this.fallingVar = 0;
 				this.collideVar = null;
-				this.x = 450;
-				this.y = 300;
+				this.x = (canvas.width/2);
+				this.y = (canvas.height/2);
 				this.draw = function()
 				{
 					ctx.beginPath();
@@ -109,12 +98,14 @@
 					}
 					if ((this.fallingVar == 0) && (this.downForce == 0))
 					{
-						this.downForce = 0.3;
+						this.downForce = 2;
 					}
-					if (this.fallingVar == 0)
+					if ((this.fallingVar == 0) && (this.downForce < 5))
 					{
-						this.downForce *= 1.01;
+						this.remupForce *= 0.3;
 					}
+					CamX = -(Math.round(XdrawVar/45)-15);
+					CamY = (Math.round(YdrawVar/45)+5);
 				}
 				this.getXcollide = function()
 				{
@@ -134,11 +125,11 @@
 				{
 					if (keyPressed["d"])
 					{
-						XdrawVar -= 1.2;
+						XdrawVar -= 3.5;
 					}
 					if (keyPressed["a"])
 					{
-						XdrawVar += 1.2;
+						XdrawVar += 3.5;
 					}
 					if (keyPressed["s"])
 					{
@@ -146,9 +137,9 @@
 					}
 					if (keyPressed[" "])
 					{
-						if (this.upForce <= 1.5)
+						if (this.upForce <= 3)
 						{
-							this.upForce += 0.5;
+							this.upForce += 1*remupForce;
 						}
 					}
 				}
@@ -210,34 +201,27 @@
 				}
             }
 			
-			for (iteration=0;iteration<barHi;iteration++)
+			function drawScore()
 			{
-				for (iteration2 = 0;iteration2 < barWi;iteration2++)
-				{
-					(barrier[iteration][iteration2]).initialize();
-				}
+				ctx.font = "20px Microsoft JhengHei";
+				ctx.fillText("x/y = " + String(CamX) + " / " + String(CamY), 10, 20);
 			}
-			
-
 
 			function rendering() 
 			{
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
-				for (iteration=0;iteration<barHi;iteration++)
+				for (iteration=CamY-14;iteration<=CamY+14;iteration++)
 				{
-					for (iteration2 = 0;iteration2 < barWi;iteration2++)
+					for (iteration_2=CamX-16;iteration_2<=CamX+15;iteration_2++)
 					{
-						if ((barrier[iteration])[iteration2] == null)
+						try
+						{
+							(tiles[-iteration])[iteration_2].fill.draw();
+							collide(character,(tiles[-iteration])[iteration_2].fill);
+						}
+						catch
 						{
 							NaN;
-						}
-						else
-						{
-							if (camera((barrier[iteration])[iteration2]))
-							{
-								(barrier[iteration])[iteration2].draw();
-							}
-							collide(character,(barrier[iteration])[iteration2]);
 						}
 					}
 				}
@@ -245,9 +229,10 @@
 				character.draw();
 				character.updating();
 				character.befall();
+				drawScore();
 			}
 			
-			setInterval("rendering()", 2);
+			setInterval("rendering()", 15);
 		</script>
 	</body>
 </html>
