@@ -143,18 +143,14 @@
 					{
 						this.fallingVar -= 1;
 					}
-					if ((this.fallingVar == 0) && (this.downForce == 0))
+					if ((this.fallingVar == 0) && (this.downForce == 0) && (this.upForce != 0))
 					{
 						this.downForce = 2;
-						this.needfalling = true;
 					}
-					if (this.needfalling)
+					if ((this.fallingVar == 0) && (this.downForce < 15))
 					{
-						if ((this.fallingVar == 0) && (this.downForce < 15))
-						{
-							this.downForce *= 1.07;
-							this.upForce * 0.9;
-						}
+						this.downForce *= 1.07;
+						this.upForce * 0.9;
 					}
 					CamX = -(Math.round(XdrawVar/45)-15);
 					CamY = (Math.round(YdrawVar/45)+5);
@@ -171,8 +167,7 @@
 				{
 					this.downForce = 0;
 					this.upForce = 0;
-					this.fallingVar = 5;
-					this.needfalling = false
+					this.fallingVar = 10;
 				}
 				this.controlling = function()
 				{
@@ -198,10 +193,7 @@
 				}
 				this.befall = function()
 				{
-					if (this.needfalling)
-					{
-						YdrawVar += this.upForce-this.downForce;
-					}
+					YdrawVar += this.upForce-this.downForce;
 				}
 			}
 			/////////////////
