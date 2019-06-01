@@ -1,7 +1,7 @@
 <!doctype html>
 <html oncontextmenu="return false;">
 	<head>
-		<title>test</title>
+		<title>Terrarie: China Version</title>
 		<meta name="author" content="93951230">
 		<meta name="description" content="useless game">
 		<meta name="keywords" content="qazwsxedc9395">
@@ -44,7 +44,7 @@
 			imgs[0][1] = document.getElementById("dirt_2");
 			imgs[1] = document.getElementById("rock");
 			var keyPressed = {}
-			var tileWi = 6400;
+			var tileWi = 640;
 			var tileHi = 180;
 			var tiles = [];
 			function tile(filled)
@@ -56,39 +56,60 @@
 			///////////////////////////////
 			function dirt()
 			{
+				this.countX = iteration2;
+				this.countY = iteration;
+				this.breakTime = 4;
 				this.collideVar = null;
 				this.x = 22.5+(iteration2*(usualLen));
 				this.y = 405+(iteration*(usualLen));
 				if (Math.random() > 0.5)
 				{
 					this.drawImg = imgs[0][0];
-				}			else
+				}
+				else
 				{
 					this.drawImg = imgs[0][1];
 				}
 				this.getcollide = function() {}
+				this.update = function()
+				{
+					if (this.breakTime <= 0)
+					{
+						(tiles[this.countY])[this.countX].fill = null;
+					}
+					this.breakPhase = 1-(this.breakTime/4);
+				}
 				this.draw = function()
 				{
-					ctx.beginPath();
 					ctx.drawImage(this.drawImg,(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
-					ctx.fillStyle = this.color;
-					ctx.fill();
-					ctx.closePath();
+					ctx.globalAlpha = this.breakPhase;
+					ctx.fillRect(this.x-(usualLen/2)+XdrawVar,this.y-(usualLen/2)+YdrawVar,45,45);
+					ctx.globalAlpha = 1.0;
 				}
 			}
 			function rock()
 			{
+				this.countX = iteration2;
+				this.countY = iteration;
+				this.breakTime = 7;
 				this.collideVar = null;
 				this.x = 22.5+(iteration2*(usualLen));
 				this.y = 405+(iteration*(usualLen));
 				this.getcollide = function() {}
+				this.update = function()
+				{
+					if (this.breakTime <= 0)
+					{
+						(tiles[this.countY])[this.countX].fill = null;
+					}
+					this.breakPhase = 1-(this.breakTime/7);
+				}
 				this.draw = function()
 				{
-					ctx.beginPath();
 					ctx.drawImage(imgs[1],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
-					ctx.fillStyle = this.color;
-					ctx.fill();
-					ctx.closePath();
+					ctx.globalAlpha = this.breakPhase;
+					ctx.fillRect(this.x-(usualLen/2)+XdrawVar,this.y-(usualLen/2)+YdrawVar,45,45);
+					ctx.globalAlpha = 1.0;
 				}
 			}
 			//////////
@@ -101,7 +122,7 @@
 				{
 					if (iteration > Math.floor(Math.random()*10))
 					{
-						if (Math.random() > 0.5)
+						if (Math.random() > 0.1)
 						{
 							(tiles[iteration])[iteration2] = new tile(dirt);
 						}
@@ -232,7 +253,7 @@
 			{
 				keyPressed[e.key] = false;
 			}
-			function LOL(e)
+			function mouse(e)
 			{
 				if (e.buttons == 1)
 				{
@@ -249,9 +270,9 @@
 					}
 				}
 			}
-			document.addEventListener("keydown", keyDownHandler, false);
-			document.addEventListener("keyup", keyUpHandler, false);
-			document.addEventListener("mousedown", LOL, false);
+			document.addEventListener("keydown",keyDownHandler,false);
+			document.addEventListener("keyup",keyUpHandler,false);
+			document.addEventListener("mousedown",mouse,false);
 			//////////////////
 			//method calling//
 			//////////////////
@@ -261,7 +282,7 @@
 				let Ycondition = ((e.clientY > (getHurt.fill.y-(usualLen/2))+YdrawVar) && (e.clientY < (getHurt.fill.y+(usualLen/2))+YdrawVar));
 				if ((Xcondition) && (Ycondition))
 				{
-					getHurt.fill = null;
+					getHurt.fill.breakTime -= 1;
 				}
 			}
 			function collide(object,getHurt)
@@ -322,9 +343,13 @@
 			{
 				ctx.fillText("x/y = " + String(Math.round(CamX*100)/100) + " / " + String(Math.round(CamY*100)/100), 10, 40);
 			}
+			/////////////////////
 			function rendering() 
 			{
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.globalAlpha = 1;
+				ctx.fillRect(50,50,75,50);
+				ctx.globalAlpha = 1.0;
 				for (iteration=Math.round(CamY)-14;iteration<=Math.round(CamY)+14;iteration++)
 				{
 					for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
@@ -332,6 +357,7 @@
 						try
 						{
 							(tiles[-iteration])[iteration_2].fill.draw();
+							(tiles[-iteration])[iteration_2].fill.update();
 							collide(character,(tiles[-iteration])[iteration_2].fill);
 						}
 						catch (error) {}
@@ -344,7 +370,11 @@
 				drawScore();
 			}
 			
-			setInterval("rendering()", 15);
+			function startGame()
+			{
+				setInterval("rendering()", 15);
+			}
+			startGame();
 		</script>
 	</body>
 </html>
