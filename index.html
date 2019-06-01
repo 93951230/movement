@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html oncontextmenu="return false;">
 	<head>
 		<title>test</title>
 		<meta name="author" content="93951230">
@@ -8,7 +8,7 @@
 		<style>
 		canvas
 		{
-			background: #eee;
+			background: #A0E1FB;
 			position:absolute;
 			top:0%;
 			left:0%;
@@ -32,6 +32,8 @@
 		<script>
 			var canvas = document.getElementById("Canvas");
 			var ctx = canvas.getContext("2d");
+			ctx.font = "40px Microsoft JhengHei";
+			const usualLen = 45;
 			var CamX;
 			var CamY;
 			var XdrawVar = 0;
@@ -42,8 +44,8 @@
 			imgs[0][1] = document.getElementById("dirt_2");
 			imgs[1] = document.getElementById("rock");
 			var keyPressed = {}
-			var tileWi = 640;
-			var tileHi = 100;
+			var tileWi = 6400;
+			var tileHi = 180;
 			var tiles = [];
 			function tile(filled)
 			{
@@ -54,13 +56,9 @@
 			///////////////////////////////
 			function dirt()
 			{
-				this.countHi = iteration;
-				this.countWi = iteration2;
-				this.height = 45;
-				this.width = 45;
 				this.collideVar = null;
-				this.x = 22.5+(iteration2*(this.height));
-				this.y = 405+(iteration*(this.width));
+				this.x = 22.5+(iteration2*(usualLen));
+				this.y = 405+(iteration*(usualLen));
 				if (Math.random() > 0.5)
 				{
 					this.drawImg = imgs[0][0];
@@ -72,7 +70,7 @@
 				this.draw = function()
 				{
 					ctx.beginPath();
-					ctx.drawImage(this.drawImg,(this.x-(this.width/2))+XdrawVar,(this.y-(this.height/2))+YdrawVar);
+					ctx.drawImage(this.drawImg,(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.fillStyle = this.color;
 					ctx.fill();
 					ctx.closePath();
@@ -80,19 +78,14 @@
 			}
 			function rock()
 			{
-				this.countHi = iteration;
-				this.countWi = iteration2;
-				this.height = 45;
-				this.width = 45;
 				this.collideVar = null;
-				this.x = 22.5+(iteration2*(this.height));
-				this.y = 405+(iteration*(this.width));
-				this.getcollide = function()
-				{}
+				this.x = 22.5+(iteration2*(usualLen));
+				this.y = 405+(iteration*(usualLen));
+				this.getcollide = function() {}
 				this.draw = function()
 				{
 					ctx.beginPath();
-					ctx.drawImage(imgs[1],(this.x-(this.width/2))+XdrawVar,(this.y-(this.height/2))+YdrawVar);
+					ctx.drawImage(imgs[1],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.fillStyle = this.color;
 					ctx.fill();
 					ctx.closePath();
@@ -173,10 +166,7 @@
 						this.downForce *= 1.02;
 					}
 				}
-				this.getcollide = function()
-				{
-					
-				}
+				this.getcollide = function(){}
 				this.getXcollide = function()
 				{
 					if (this.x>this.collideO.x)
@@ -244,15 +234,18 @@
 			}
 			function LOL(e)
 			{
-				for (iteration=Math.round(CamY)-14;iteration<=Math.round(CamY)+14;iteration++)
+				if (e.buttons == 1)
 				{
-					for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
+					for (iteration=Math.round(CamY)-14;iteration<=Math.round(CamY)+14;iteration++)
 					{
-						try
+						for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
 						{
-							breakBlock(e,(tiles[-iteration])[iteration_2]);
+							try
+							{
+								breakBlock(e,(tiles[-iteration])[iteration_2]);
+							}
+							catch (error) {}
 						}
-						catch (error) {}
 					}
 				}
 			}
@@ -264,8 +257,8 @@
 			//////////////////
 			function breakBlock(e,getHurt)
 			{
-				let Xcondition = ((e.clientX > (getHurt.fill.x-(getHurt.fill.width/2))+XdrawVar) && (e.clientX < (getHurt.fill.x+(getHurt.fill.width/2))+XdrawVar));
-				let Ycondition = ((e.clientY > (getHurt.fill.y-(getHurt.fill.height/2))+YdrawVar) && (e.clientY < (getHurt.fill.y+(getHurt.fill.height/2))+YdrawVar));
+				let Xcondition = ((e.clientX > (getHurt.fill.x-(usualLen/2))+XdrawVar) && (e.clientX < (getHurt.fill.x+(usualLen/2))+XdrawVar));
+				let Ycondition = ((e.clientY > (getHurt.fill.y-(usualLen/2))+YdrawVar) && (e.clientY < (getHurt.fill.y+(usualLen/2))+YdrawVar));
 				if ((Xcondition) && (Ycondition))
 				{
 					getHurt.fill = null;
@@ -273,10 +266,10 @@
 			}
 			function collide(object,getHurt)
             {
-				let Xcondition = ((object.x+(object.width/2) > (getHurt.x-(getHurt.width/2))+XdrawVar) && (object.x-(object.width/2) < (getHurt.x+(getHurt.width/2))+XdrawVar));
-				let lessXcondition = ((object.x+(object.width/2) > (getHurt.x-(getHurt.width/2)-1)+XdrawVar) && (object.x-(object.width/2) < (getHurt.x+(getHurt.width/2)+1)+XdrawVar));
-				let Ycondition = ((object.y+(object.height/2) > (getHurt.y-(getHurt.height/2))+YdrawVar) && (object.y-(object.height/2) < (getHurt.y+(getHurt.height/2))+YdrawVar));
-				let lessYcondition = ((object.y+(object.height/2) > (getHurt.y-(getHurt.height/2)-1)+YdrawVar) && (object.y-(object.height/2) < (getHurt.y+(getHurt.height/2)+1)+YdrawVar));
+				let Xcondition = ((object.x+(object.width/2) > (getHurt.x-(usualLen/2))+XdrawVar) && (object.x-(object.width/2) < (getHurt.x+(usualLen/2))+XdrawVar));
+				let lessXcondition = ((object.x+(object.width/2) > (getHurt.x-(usualLen/2)-1)+XdrawVar) && (object.x-(object.width/2) < (getHurt.x+(usualLen/2)+1)+XdrawVar));
+				let Ycondition = ((object.y+(object.height/2) > (getHurt.y-(usualLen/2))+YdrawVar) && (object.y-(object.height/2) < (getHurt.y+(usualLen/2))+YdrawVar));
+				let lessYcondition = ((object.y+(object.height/2) > (getHurt.y-(usualLen/2)-1)+YdrawVar) && (object.y-(object.height/2) < (getHurt.y+(usualLen/2)+1)+YdrawVar));
 				if (!((lessXcondition) || (lessYcondition)))
 				{
 					getHurt.collideVar = null;
@@ -327,8 +320,7 @@
 			}
 			function drawScore()
 			{
-				ctx.font = "20px Microsoft JhengHei";
-				ctx.fillText("x/y = " + String(Math.round(CamX*100)/100) + " / " + String(Math.round(CamY*100)/100), 10, 20);
+				ctx.fillText("x/y = " + String(Math.round(CamX*100)/100) + " / " + String(Math.round(CamY*100)/100), 10, 40);
 			}
 			function rendering() 
 			{
