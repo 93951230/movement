@@ -42,8 +42,8 @@
 			imgs[0][1] = document.getElementById("dirt_2");
 			imgs[1] = document.getElementById("rock");
 			var keyPressed = {}
-			var tileWi = 640;
-			var tileHi = 180;
+			var tileWi = 64;
+			var tileHi = 18;
 			var tiles = [];
 			function tile(filled)
 			{
@@ -64,13 +64,11 @@
 				if (Math.random() > 0.5)
 				{
 					this.drawImg = imgs[0][0];
-				}
-				else
+				}			else
 				{
 					this.drawImg = imgs[0][1];
 				}
-				this.getcollide = function()
-				{}
+				this.getcollide = function() {}
 				this.draw = function()
 				{
 					ctx.beginPath();
@@ -184,13 +182,13 @@
 					if (this.x>this.collideO.x)
 					{
 						this.ableA = 10;
-						this.XdrawVar -=100;
+						XdrawVar -= 3.5;
 						console.log("g")
 					}
-					else if (this.x<this.collideO.x)
+					if (this.x<this.collideO.x)
 					{
 						this.ableD = 10;
-						this.XdrawVar +=3.5;
+						XdrawVar +=3.5;
 						console.log("")
 					}
 				}
@@ -248,7 +246,19 @@
 			}
 			function LOL(e)
 			{
-				console.log(e);
+				console.log(e.clientX);
+				console.log(e.clientY);
+				for (iteration=Math.round(CamY)-14;iteration<=Math.round(CamY)+14;iteration++)
+				{
+					for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
+					{
+						try
+						{
+							breakBlock(e,(tiles[-iteration])[iteration_2]);
+						}
+						catch (error) {}
+					}
+				}
 			}
 			document.addEventListener("keydown", keyDownHandler, false);
 			document.addEventListener("keyup", keyUpHandler, false);
@@ -256,6 +266,20 @@
 			//////////////////
 			//method calling//
 			//////////////////
+			function breakBlock(e,getHurt)
+			{
+				let Xcondition = ((e.clientX > (getHurt.x-(getHurt.width/2))+XdrawVar) && (e.clientX < (getHurt.x+(getHurt.width/2))+XdrawVar));
+				let Ycondition = ((e.clientY > (getHurt.y-(getHurt.height/2))+YdrawVar) && (e.clientY < (getHurt.y+(getHurt.height/2))+YdrawVar));
+				if ((Xcondition) && (Ycondition))
+				{
+					console.log("asgqawetg");
+				}
+				else if (Xcondition)
+				{
+					
+					console.log("NOWE")
+				}
+			}
 			function collide(object,getHurt)
             {
 				let Xcondition = ((object.x+(object.width/2) > (getHurt.x-(getHurt.width/2))+XdrawVar) && (object.x-(object.width/2) < (getHurt.x+(getHurt.width/2))+XdrawVar));
@@ -321,7 +345,6 @@
 				{
 					for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
 					{
-						Math.round(iteration_2)
 						try
 						{
 							(tiles[-iteration])[iteration_2].fill.draw();
