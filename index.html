@@ -246,8 +246,6 @@
 			}
 			function LOL(e)
 			{
-				console.log(e.clientX);
-				console.log(e.clientY);
 				for (iteration=Math.round(CamY)-14;iteration<=Math.round(CamY)+14;iteration++)
 				{
 					for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
@@ -268,16 +266,11 @@
 			//////////////////
 			function breakBlock(e,getHurt)
 			{
-				let Xcondition = ((e.clientX > (getHurt.x-(getHurt.width/2))+XdrawVar) && (e.clientX < (getHurt.x+(getHurt.width/2))+XdrawVar));
-				let Ycondition = ((e.clientY > (getHurt.y-(getHurt.height/2))+YdrawVar) && (e.clientY < (getHurt.y+(getHurt.height/2))+YdrawVar));
+				let Xcondition = ((e.clientX > (getHurt.fill.x-(getHurt.fill.width/2))+XdrawVar) && (e.clientX < (getHurt.fill.x+(getHurt.fill.width/2))+XdrawVar));
+				let Ycondition = ((e.clientY > (getHurt.fill.y-(getHurt.fill.height/2))+YdrawVar) && (e.clientY < (getHurt.fill.y+(getHurt.fill.height/2))+YdrawVar));
 				if ((Xcondition) && (Ycondition))
 				{
-					console.log("asgqawetg");
-				}
-				else if (Xcondition)
-				{
-					
-					console.log("NOWE")
+					getHurt.fill = null;
 				}
 			}
 			function collide(object,getHurt)
