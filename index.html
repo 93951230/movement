@@ -54,10 +54,6 @@
 			//////////
 			//blocks//
 			///////////////////////////////
-			function lightTest()
-			{
-				Math.max((tiles[this.countY+1])[this.countX].fill.light,(tiles[this.countY-1])[this.countX].fill.light,(tiles[this.countY])[this.countX+1].fill.light,(tiles[this.countY])[this.countX-1].fill.light)
-			}
 			function dirt()
 			{
 				this.light = 4;
@@ -310,7 +306,7 @@
 			document.addEventListener("mousedown",mouse,false);
 			//////////////////
 			//method calling//
-			//////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			function breakBlock(e,getHurt)
 			{
 				let Xcondition = ((e.clientX > (getHurt.fill.x-(usualLen/2))+XdrawVar) && (e.clientX < (getHurt.fill.x+(usualLen/2))+XdrawVar));
@@ -340,15 +336,7 @@
 				}
 				try
 				{
-					if (Xcondition)
-					{
-						getHurt.collideVar -= 10;
-					}
-					else if (Ycondition)
-					{
-						getHurt.collideVar += 10;
-					}
-					if ((lessXcondition) && (lessYcondition))
+					if ((Xcondition) && (Ycondition))
 					{
 						object.collideO = getHurt;
 						if (getHurt.collideVar > 0)
