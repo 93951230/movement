@@ -54,8 +54,13 @@
 			//////////
 			//blocks//
 			///////////////////////////////
+			function lightTest()
+			{
+				Math.max((tiles[this.countY+1])[this.countX].fill.light,(tiles[this.countY-1])[this.countX].fill.light,(tiles[this.countY])[this.countX+1].fill.light,(tiles[this.countY])[this.countX-1].fill.light)
+			}
 			function dirt()
 			{
+				this.light = 4;
 				this.countX = iteration2;
 				this.countY = iteration;
 				this.breakTime = 4;
@@ -78,17 +83,30 @@
 						(tiles[this.countY])[this.countX].fill = null;
 					}
 					this.breakPhase = 1-(this.breakTime/4);
+					//light about
+					if (((tiles[this.countY-1])[this.countX].fill == null) || ((tiles[this.countY+1])[this.countX].fill == null) || ((tiles[this.countY])[this.countX-1].fill == null) || ((tiles[this.countY])[this.countX+1].fill == null))
+					{
+						this.light = 4;
+					}
+					else
+					{
+						this.light = Math.max((tiles[this.countY+1])[this.countX].fill.light,(tiles[this.countY-1])[this.countX].fill.light,(tiles[this.countY])[this.countX+1].fill.light,(tiles[this.countY])[this.countX-1].fill.light)-1
+					}
 				}
 				this.draw = function()
 				{
 					ctx.drawImage(this.drawImg,(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect(this.x-(usualLen/2)+XdrawVar,this.y-(usualLen/2)+YdrawVar,45,45);
-					ctx.globalAlpha = 1.0;
+					ctx.fillRect((this.x-20)+XdrawVar,(this.y-20)+YdrawVar,40,40);
+					ctx.globalAlpha = 1.0;this.breakPhase = 1-(this.breakTime/4);
+					ctx.globalAlpha = 1-(this.light/4);
+					ctx.fillRect((this.x-23)+XdrawVar,(this.y-23)+YdrawVar,46,46);
+					ctx.globalAlpha = 1.0;this.breakPhase = 1-(this.breakTime/4);
 				}
 			}
 			function rock()
 			{
+				this.light = 4;
 				this.countX = iteration2;
 				this.countY = iteration;
 				this.breakTime = 7;
@@ -103,13 +121,25 @@
 						(tiles[this.countY])[this.countX].fill = null;
 					}
 					this.breakPhase = 1-(this.breakTime/7);
+					//light about
+					if (((tiles[this.countY-1])[this.countX].fill == null) || ((tiles[this.countY+1])[this.countX].fill == null) || ((tiles[this.countY])[this.countX-1].fill == null) || ((tiles[this.countY])[this.countX+1].fill == null))
+					{
+						this.light = 4;
+					}
+					else
+					{
+						this.light = Math.max((tiles[this.countY+1])[this.countX].fill.light,(tiles[this.countY-1])[this.countX].fill.light,(tiles[this.countY])[this.countX+1].fill.light,(tiles[this.countY])[this.countX-1].fill.light)-1
+					}
 				}
 				this.draw = function()
 				{
 					ctx.drawImage(imgs[1],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect(this.x-(usualLen/2)+XdrawVar,this.y-(usualLen/2)+YdrawVar,45,45);
+					ctx.fillRect((this.x-20)+XdrawVar,(this.y-20)+YdrawVar,40,40);
 					ctx.globalAlpha = 1.0;
+					ctx.globalAlpha = 1-(this.light/4);
+					ctx.fillRect((this.x-23)+XdrawVar,(this.y-23)+YdrawVar,46,46);
+					ctx.globalAlpha = 1.0;this.breakPhase = 1-(this.breakTime/4);
 				}
 			}
 			//////////
@@ -120,7 +150,9 @@
 				tiles[iteration] = [];
 				for (iteration2=0;iteration2<tileWi;iteration2++)
 				{
-					if (iteration > Math.floor(Math.random()*10))
+					//if (iteration > Math.floor(Math.random()*10))
+					//{
+					if ((iteration > 5) && (iteration2 > 5))
 					{
 						if (Math.random() > 0.1)
 						{
@@ -131,6 +163,11 @@
 							(tiles[iteration])[iteration2] = new tile(rock);
 						}
 					}
+					else
+					{
+						(tiles[iteration])[iteration2] = null;
+					}
+					//}
 				}
 			}
 			
@@ -193,12 +230,10 @@
 					if (this.x>this.collideO.x)
 					{
 						this.ableA = 10;
-						console.log("g")
 					}
 					if (this.x<this.collideO.x)
 					{
 						this.ableD = 10;
-						console.log("")
 					}
 				}
 				this.getYcollide = function()
@@ -318,7 +353,6 @@
 						object.collideO = getHurt;
 						if (getHurt.collideVar > 0)
 						{
-							console.log("sd");
 							object.getXcollide();
 						}
 						else if (getHurt.collideVar < 0)
@@ -347,9 +381,6 @@
 			function rendering() 
 			{
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
-				ctx.globalAlpha = 1;
-				ctx.fillRect(50,50,75,50);
-				ctx.globalAlpha = 1.0;
 				for (iteration=Math.round(CamY)-14;iteration<=Math.round(CamY)+14;iteration++)
 				{
 					for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
