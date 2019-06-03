@@ -1,38 +1,71 @@
 <!doctype html>
 <html oncontextmenu="return false;">
 	<head>
-		<title>Terrarie: China Version</title>
+		<title id = "titile">Terrarie: China Version</title>
 		<meta name="author" content="93951230">
 		<meta name="description" content="useless game">
 		<meta name="keywords" content="qazwsxedc9395">
 		<style>
-		canvas
-		{
-			background: #A0E1FB;
-			position:absolute;
-			top:0%;
-			left:0%;
-		}
 		font
 		{
 			font-size: 8em;
 		}
 		</style>
 	</head>
-	<body>
+	<body onresize="canvasUpdate()">
 		<noscript>
 			<bold>
 				enable JavaScript or begone.
 			</bold>
 		</noscript>
-		<img id="dirt_1" src="data:image/png;base64,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" />
-		<img id="dirt_2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAtCAIAAAC1eHXNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIrSURBVFhH1ZjJT8JAFMb7X5K4JRqPHLwYCELLopSdGhYx6MGEGBK9GBMTQcLSxIsH/yU/fGYYpmVpmS6Snzrziu3XNx9vXlGG2uF7IhI4Cn7q5SLgo35SVc81TZvrCAPKKHsyTO2zOaaATeWCrBuGYZrm5KUvHOLycbGI+s+u6yLLW6HxB/2Z9LssFAh/Oox6rV4psyhBtrJ6ygsW6wIbs7H/LHTMBm9s7AgkDPeAzOGFk3y0NOENa2B+kOzTQe60XsyjPkKTbZ1YIrlnTic0lqxjG1qpMxqMbvPjXpPGCx3Q3mlcfzZigA/izra9v01gK6ml4zgbTaevT4PMMY2X8qHrOj/1iLyaECJgSYdrq+5OAP6wRYKO+RaDGqgeCXFHyMnHsBCdPD8IQR44tFzQ19jcv3WxtSfj//hjqB60a6Vm6errLiMckoiv+ejk4rNylOokBvwhex1URqU0Wjw5LQnDCkFi13xQ129k7TyY3Bs/3ojBFXi4Lu1ihm1jG/FKB/KUy2bZNrYRX326Bgc6WA8wN8Rv64VuCt0Xeh/hnS5wnw9cHiIgBYKoLyR97tqUJR34fxencATKxnevcl+93Kp+eA0yJ0SC0WHd84LRYSWsOtiHE7+99iyjW0qHIh+47VDogG091IFlZfWNXmuqnBsddAG6Bp3a6eO1FYV/iuQpqbFVPYsVelqEJtfWts8H7dq+fV5AKHwK5jrcfWcq92tWxdOngW1JRH4AGBhTohqb/owAAAAASUVORK5CYII=" />
-		<img id="rock" src="data:image/png;base64,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" />
-		<canvas id="Canvas" width="1366" height="768" />
+		<img id="dirt_1" style = "display: none;" src="resource/blocks/dirt_1.png" />
+		<img id="dirt_2" style = "display: none;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAtCAIAAAC1eHXNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIrSURBVFhH1ZjJT8JAFMb7X5K4JRqPHLwYCELLopSdGhYx6MGEGBK9GBMTQcLSxIsH/yU/fGYYpmVpmS6Snzrziu3XNx9vXlGG2uF7IhI4Cn7q5SLgo35SVc81TZvrCAPKKHsyTO2zOaaATeWCrBuGYZrm5KUvHOLycbGI+s+u6yLLW6HxB/2Z9LssFAh/Oox6rV4psyhBtrJ6ygsW6wIbs7H/LHTMBm9s7AgkDPeAzOGFk3y0NOENa2B+kOzTQe60XsyjPkKTbZ1YIrlnTic0lqxjG1qpMxqMbvPjXpPGCx3Q3mlcfzZigA/izra9v01gK6ml4zgbTaevT4PMMY2X8qHrOj/1iLyaECJgSYdrq+5OAP6wRYKO+RaDGqgeCXFHyMnHsBCdPD8IQR44tFzQ19jcv3WxtSfj//hjqB60a6Vm6errLiMckoiv+ejk4rNylOokBvwhex1URqU0Wjw5LQnDCkFi13xQ129k7TyY3Bs/3ojBFXi4Lu1ihm1jG/FKB/KUy2bZNrYRX326Bgc6WA8wN8Rv64VuCt0Xeh/hnS5wnw9cHiIgBYKoLyR97tqUJR34fxencATKxnevcl+93Kp+eA0yJ0SC0WHd84LRYSWsOtiHE7+99iyjW0qHIh+47VDogG091IFlZfWNXmuqnBsddAG6Bp3a6eO1FYV/iuQpqbFVPYsVelqEJtfWts8H7dq+fV5AKHwK5jrcfWcq92tWxdOngW1JRH4AGBhTohqb/owAAAAASUVORK5CYII=" />
+		<img id="rock" style = "display: none;" src="resource/blocks/rock.png" />
+		<img id="startImg" style = "display: none;" src="resource/other/start.png">
+		<canvas id="Canvas" width="1366" height="768" style="position: absolute;top: 0%;left: 00%;"/>
 		<script>
+			var randomNumber = Math.random();
+			if (randomNumber <= 0.2)
+			{
+				document.getElementById("titile").innerHTML = "93951230's trash";
+			}
+			else if ((randomNumber > 0.2) && (randomNumber <= 0.4))
+			{
+			document.getElementById("titile").innerHTML = "Terrarin: China";
+			}
+			else if ((randomNumber > 0.4) && (randomNumber <= 0.6))
+			{
+				document.getElementById("titile").innerHTML = "minecraft 2.0";
+			}
+			else if ((randomNumber > 0.6) && (randomNumber <= 0.8))
+			{
+				document.getElementById("titile").innerHTML = "毛澤東";
+			}
+			else
+			{
+				document.getElementById("titile").innerHTML = "( ͡◉ ͜ʖ ͡◉)";
+			}
+			delete randomNumber;
+			//other
 			var canvas = document.getElementById("Canvas");
 			var ctx = canvas.getContext("2d");
-			ctx.font = "40px Microsoft JhengHei";
+			var startButton = new function()
+			{
+				this.drawImg = document.getElementById("startImg");
+				this.update = function()
+				{
+					this.x = (canvas.width/2)
+					this.y = (canvas.height/2)
+				}
+				this.draw = function()
+				{
+					ctx.drawImage(this.drawImg,this.x-150,this.y-50);
+				}
+			}
+			canvas.height = innerHeight;
+			canvas.width = innerWidth;
+			var started = false;
+			//other
 			const usualLen = 45;
 			var CamX;
 			var CamY;
@@ -51,6 +84,14 @@
 			{
 				this.fill = new filled(X,Y);
 			}
+			function canvasUpdate()
+			{
+				if (!(started))
+				{
+					canvas.height = innerHeight;
+					canvas.width = innerWidth;
+				}
+			}
 			//////////
 			//blocks//
 			///////////////////////////////
@@ -62,8 +103,8 @@
 				this.countY = Y;
 				this.breakTime = 3;
 				this.collideVar = null;
-				this.x = 22.5+(iteration2*(usualLen));
-				this.y = 405+(iteration*(usualLen));
+				this.x = 22.5+(i*(usualLen));
+				this.y = 405+(j*(usualLen));
 				if (Math.random() > 0.5)
 				{
 					this.drawImg = imgs[0][0];
@@ -109,8 +150,8 @@
 				this.countY = Y;
 				this.breakTime = 7;
 				this.collideVar = null;
-				this.x = 22.5+(iteration2*(usualLen));
-				this.y = 405+(iteration*(usualLen));
+				this.x = 22.5+(i*(usualLen));
+				this.y = 405+(j*(usualLen));
 				this.update = function()
 				{
 					if (this.breakTime <= 0)
@@ -146,8 +187,8 @@
 				this.countX = X;
 				this.countY = Y;
 				this.breakTime = Infinity;
-				this.x = 22.5+(iteration2*(usualLen));
-				this.y = 405+(iteration*(usualLen));
+				this.x = 22.5+(i*(usualLen));
+				this.y = 405+(j*(usualLen));
 				this.update = function() {}
 				this.draw = function() {}
 			}
@@ -156,26 +197,26 @@
 			///////////////////////////////
 			function generateWorld()
 			{
-				for (iteration=0;iteration<tileHi;iteration++)
+				for (i=0;i<tileWi;i++)
 				{
-					tiles[iteration] = [];
-					for (iteration2=0;iteration2<tileWi;iteration2++)
+					tiles[i] = [];
+					for (j=0;j<tileHi;j++)
 					{
-						if ((iteration > 5) && (iteration2 > 5))
+						if ((i > 1) && (j > 5))
 						{
 							// really creatin'
-							if (Math.random() > (iteration/100))
+							if (Math.random() > (j/100))
 							{
-								(tiles[iteration])[iteration2] = new tile(dirt,iteration2,iteration);
+								(tiles[i])[j] = new tile(dirt,j,i);
 							}
 							else //not dirt how about rocks?
 							{
-								(tiles[iteration])[iteration2] = new tile(rock,iteration2,iteration);
+								(tiles[i])[j] = new tile(rock,j,i);
 							}
 						}
 						else
 						{
-							(tiles[iteration])[iteration2] = new tile(air,iteration2,iteration);
+							(tiles[i])[j] = new tile(air,j,i);
 						}
 					}
 				}
@@ -191,8 +232,8 @@
 				this.height = 60;
 				this.width = 30;
 				this.collideVar = null;
-				this.x = (canvas.width/2)+15;
-				this.y = (canvas.height/2)-30;
+				this.x = null;
+				this.y = null;
 				this.draw = function()
 				{
 					ctx.beginPath();
@@ -314,15 +355,32 @@
 			{
 				if (e.buttons == 1)
 				{
-					for (iteration=Math.round(CamY)-14;iteration<=Math.round(CamY)+14;iteration++)
+					if (started)
 					{
-						for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
+						for (i=Math.round(CamX)-20;i<=Math.round(CamX)+20;i++)
 						{
-							try
+							for (j=Math.round(CamY)-14;j<=Math.round(CamY)+14;j++)
 							{
-								breakBlock(e,(tiles[-iteration])[iteration_2]);
+								try
+								{
+									breakBlock(e,(tiles[i])[-j].fill);
+								}
+								catch (error) {}
 							}
-							catch (error) {}
+						}
+					}
+					else
+					{
+						let Xcondition = ((e.clientX > (startButton.x-(300/2))) && (e.clientX < (startButton.x+(300/2))));
+						let Ycondition = ((e.clientY > (startButton.y-(50/2))) && (e.clientY < (startButton.y+(50/2))));
+						if ((Xcondition) && (Ycondition))
+						{
+							/////////////////////////////////////////////////////////////////////////////////////////start
+							started = true;
+							document.getElementById("Canvas").style = "background-image: url('resource/other/background.png');position: absolute;top: 0%;left: 00%;";
+							character.x = (canvas.width/2)+15;
+							character.y = (canvas.height/2)-30;
+							ctx.font = "30px monospace";
 						}
 					}
 				}
@@ -335,11 +393,11 @@
 			//////////////////
 			function breakBlock(e,getHurt)
 			{
-				let Xcondition = ((e.clientX > (getHurt.fill.x-(usualLen/2))+XdrawVar) && (e.clientX < (getHurt.fill.x+(usualLen/2))+XdrawVar));
-				let Ycondition = ((e.clientY > (getHurt.fill.y-(usualLen/2))+YdrawVar) && (e.clientY < (getHurt.fill.y+(usualLen/2))+YdrawVar));
+				let Xcondition = ((e.clientX > (getHurt.x-(usualLen/2))+XdrawVar) && (e.clientX < (getHurt.x+(usualLen/2))+XdrawVar));
+				let Ycondition = ((e.clientY > (getHurt.y-(usualLen/2))+YdrawVar) && (e.clientY < (getHurt.y+(usualLen/2))+YdrawVar));
 				if ((Xcondition) && (Ycondition))
 				{
-					getHurt.fill.breakTime -= 1;
+					getHurt.breakTime -= 1;
 				}
 			}
 			function collide(object,getHurt)
@@ -382,7 +440,7 @@
 				}
 				catch (Error) {}
 			}
-			function drawScore()
+			function drawPosition()
 			{
 				ctx.fillText("x/y = " + String(Math.round(CamX*100)/100) + " / " + String(Math.round(CamY*100)/100), 10, 40);
 			}
@@ -390,44 +448,54 @@
 			function rendering() 
 			{
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
-				for (iteration=Math.round(CamY)-14;iteration<=Math.round(CamY)+14;iteration++)
+				if (started)
 				{
-					for (iteration_2=Math.round(CamX)-16;iteration_2<=Math.round(CamX)+15;iteration_2++)
+					for (i=Math.round(CamX)-16;i<=Math.round(CamX)+15;i++)
 					{
-						try
+						for (j=Math.round(CamY)-14;j<=Math.round(CamY)+14;j++)
 						{
-							(tiles[-iteration])[iteration_2].fill.draw();
-							if ((tiles[-iteration])[iteration_2].fill.ID != "air")
+							try
 							{
-								collide(character,(tiles[-iteration])[iteration_2].fill);
+								(tiles[i])[-j].fill.draw();
+								if ((tiles[i])[-j].fill.ID != "air")
+								{
+									collide(character,(tiles[i])[-j].fill);
+								}
 							}
+							catch (error) {}
 						}
-						catch (error) {}
-					}
-				} //update tiles that u can see on screen;
-				for (iteration=Math.round(CamY)-15;iteration<=Math.round(CamY)+15;iteration++)
-				{
-					for (iteration_2=Math.round(CamX)-20;iteration_2<=Math.round(CamX)+20;iteration_2++)
+					} //update tiles that u can see on screen;
+					for (i=Math.round(CamX)-20;i<=Math.round(CamX)+20;i++)
 					{
-						try
+						for (j=Math.round(CamY)-14;j<=Math.round(CamY)+14;j++)
 						{
-							if ((tiles[-iteration])[iteration_2].fill.ID != "air")
+							try
 							{
-								(tiles[-iteration])[iteration_2].fill.update();
+								if ((tiles[i])[-j].fill.ID != "air")
+								{
+									(tiles[i])[-j].fill.update();
+								}
 							}
+							catch (error) {}
 						}
-						catch (error) {}
 					}
+					character.controlling();
+					character.draw();
+					character.updating();
+					drawPosition();
 				}
-				character.controlling();
-				character.draw();
-				character.updating();
-				drawScore();
+				else
+				{
+					startButton.update();
+					startButton.draw();
+					ctx.font = "20px monospace";
+					ctx.fillText("When the start button being click",20,30);
+					ctx.fillText("the height and width of the game will be fix",20,60);
+				}
 			}
-			
 			function startGame() //start the (game)
 			{
-				generateWorld()
+				generateWorld();
 				setInterval("rendering()", 15);
 			}
 			startGame();
