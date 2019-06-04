@@ -263,11 +263,11 @@
 						if (j >= igenerate[i])
 						{
 							// really creatin'
-                            if (Math.random() > (j - igenerate[i] / 100))
+                            if (Math.random() > ((j-256) / 256))
 							{
 								(tiles[i])[j] = new tile(dirt,j,i);
 							}
-							else //not dirt how about rocks?
+							else // not dirt how about rocks?
 							{
 								(tiles[i])[j] = new tile(rock,j,i);
 							}
@@ -282,6 +282,7 @@
 				{
                     (tiles[i])[igenerate[i]] = new tile(grass, igenerate[i], i)
                 }
+                
                 XdrawVar = -Math.floor(45 * (tileWi / 2));
                 YdrawVar = -(45 * igenerate[815]);
 			}
@@ -293,8 +294,8 @@
 				this.ableD = 0;
 				this.upForce = 0;
 				this.downForce = 0;
-				this.height = 60;
-				this.width = 30;
+				this.height = 64;
+				this.width = 32;
 				this.collideVar = null;
 				this.x = null;
 				this.y = null;
@@ -376,9 +377,9 @@
 				}
 				this.controlling = function()
 				{
-					if ((keyPressed["d"]) || (keyPressed["D"]))
+                    if ((keyPressed["d"]) || (keyPressed["D"]))
 					{
-						if (this.ableD == 0)
+                        if (this.ableD == 0)
 						{
 							XdrawVar -= 3.5;
 						}
@@ -390,10 +391,7 @@
 							XdrawVar += 3.5;
 						}
 					}
-					if ((keyPressed["s"]) || (keyPressed["S"]))
-					{
-						NaN;
-					}
+					if ((keyPressed["s"]) || (keyPressed["S"])) {}
 					if (keyPressed[" "])
 					{
 						if (((this.upForce <= 6) && (!(this.jumpAlready))) && ((this.jCool == 0) && (this.jumpTime != 0)))
@@ -429,7 +427,7 @@
 								{
 									breakBlock(e,(tiles[i])[-j].fill);
 								}
-								catch (error) {}
+                                catch (error) {}
 							}
 						}
 					}
@@ -555,7 +553,9 @@
 					startButton.draw();
 					ctx.font = "20px monospace";
 					ctx.fillText("When the start button being click",20,30);
-					ctx.fillText("the height and width of the game will be fix",20,60)
+                    ctx.fillText("the height and width of the game will be fix", 20, 60)
+                    ctx.fillText("\"如果當的話就調小視窗:)\" - developer", 20, 90)
+                    ctx.fillText("\"吸屌\" - 木木合車干",20,120)
 				}
 			}
 			function startGame() //start the (game)
