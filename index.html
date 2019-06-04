@@ -80,8 +80,8 @@
 			imgs["Block"][1] = document.getElementById("rock");
 			imgs["Block"][2] = document.getElementById("grass");
 			var keyPressed = {}
-			var tileWi = 320;
-			var tileHi = 256;
+			var tileWi = 1600;
+			var tileHi = 512;
 			var tiles = [];
 			function tile(filled,X,Y)
 			{
@@ -240,14 +240,13 @@
 			function generateWorld()
 			{
 				let randomNumber = Math.random();
-				var igenerate = [Math.floor(randomNumber*100)];
-				for (i=0;i<tileWi;i++)
+				var igenerate = [256];
+                for (i = 0; i < tileWi; i++)
 				{
-					if (Math.random() < 0.2)
-					{
-						igenerate[i+1] = igenerate[i]+1;
-					}
-					else if ((Math.random() >= 0.2) && (Math.random() < 0.4))
+                    if (Math.random() < 0.2) {
+                        igenerate[i + 1] = igenerate[i] + 1;
+                    }
+                    else if ((Math.random() >= 0.2) && (Math.random() < 0.4))
 					{
 						igenerate[i+1] = igenerate[i]-1;
 					}
@@ -259,12 +258,12 @@
 				for (i=0;i<tileWi;i++)
 				{
 					tiles[i] = [];
-					for (j=0;j<tileHi;j++)
+                    for (j = 0; j < tileHi; j++)
 					{
 						if (j >= igenerate[i])
 						{
 							// really creatin'
-							if (Math.random() > (j-igenerate[i]/100))
+                            if (Math.random() > (j - igenerate[i] / 100))
 							{
 								(tiles[i])[j] = new tile(dirt,j,i);
 							}
@@ -281,9 +280,10 @@
 				}
 				for (i=0;i<tileWi;i++)
 				{
-					(tiles[i])[igenerate[i]] = new tile(grass,igenerate[i],i);
+                    (tiles[i])[igenerate[i]] = new tile(grass, igenerate[i], i)
                 }
-                XdrawVar = -Math.floor(45 * (tileWi/2));
+                XdrawVar = -Math.floor(45 * (tileWi / 2));
+                YdrawVar = -(45 * igenerate[815]);
 			}
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			var character = new function()
