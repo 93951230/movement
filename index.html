@@ -135,10 +135,10 @@
 				{
 					ctx.drawImage(this.drawImg,(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect((this.x-(usualLen-10/2))+XdrawVar,(this.y-(usualLen-10/2))+YdrawVar,usualLen-10,usualLen-10);
+					ctx.fillRect((this.x-((usualLen-10)/2))+XdrawVar,(this.y-((usualLen-10)/2))+YdrawVar,usualLen-10,usualLen-10);
 					ctx.globalAlpha = 1.0;this.breakPhase = 1-(this.breakTime/4);
 					ctx.globalAlpha = 1-(this.light/4);
-					ctx.fillRect((this.x-(usualLen+1/2))+XdrawVar,(this.y-(usualLen+1/2))+YdrawVar,usualLen+1,usualLen+1);
+					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;this.breakPhase = 1-(this.breakTime/4);
 				}
 			}
@@ -173,10 +173,10 @@
 				{
 					ctx.drawImage(imgs[1],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect((this.x-(usualLen-10/2))+XdrawVar,(this.y-(usualLen-10/2))+YdrawVar,usualLen-10,usualLen-10);
+					ctx.fillRect((this.x-((usualLen-10)/2))+XdrawVar,(this.y-((usualLen-10)/2))+YdrawVar,usualLen-10,usualLen-10);
 					ctx.globalAlpha = 1.0;
 					ctx.globalAlpha = 1-(this.light/4);
-					ctx.fillRect((this.x-(usualLen+1/2))+XdrawVar,(this.y-(usualLen+1/2))+YdrawVar,usualLen+1,usualLen+1);
+					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;this.breakPhase = 1-(this.breakTime/4);
 				}
 			}
