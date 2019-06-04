@@ -5,12 +5,6 @@
 		<meta name="author" content="93951230">
 		<meta name="description" content="useless game">
 		<meta name="keywords" content="qazwsxedc9395">
-		<style>
-		font
-		{
-			font-size: 8em;
-		}
-		</style>
 	</head>
 	<body onresize="canvasUpdate()">
 		<noscript>
@@ -27,26 +21,31 @@
 		<canvas id="Canvas" width="1366" height="768" style="position: absolute;top: 0%;left: 00%;"/>
 		<script>
 			var randomNumber = Math.random();
-			if (randomNumber <= 0.2)
+			if (randomNumber <= 0.1)
 			{
 				document.getElementById("titile").innerHTML = "93951230's trash";
 			}
-			else if ((randomNumber > 0.2) && (randomNumber <= 0.4))
+			else if ((randomNumber > 0.1) && (randomNumber <= 0.2))
 			{
 				document.getElementById("titile").innerHTML = "Terrarin: China";
 			}
-			else if ((randomNumber > 0.4) && (randomNumber <= 0.6))
+			else if ((randomNumber > 0.3) && (randomNumber <= 0.4))
 			{
-				document.getElementById("titile").innerHTML = "minecraft 2.0";
+			    document.getElementById("titile").innerHTML = "minecraft 2.0";
 			}
-			else if ((randomNumber > 0.6) && (randomNumber <= 0.8))
+			else if ((randomNumber > 0.5) && (randomNumber <= 0.6))
 			{
 				document.getElementById("titile").innerHTML = "毛澤東";
 			}
-			else
+            else if ((randomNumber > 0.7) && (randomNumber <= 0.8))
+            {  
+                document.getElementById("titile").innerHTML = "\"吸屌\"-木木合車干";
+            }
+            else
 			{
-				document.getElementById("titile").innerHTML = "( ͡◉ ͜ʖ ͡◉)";
-			}
+                document.getElementById("titile").innerHTML = "( ͡◉ ͜ʖ ͡◉)";
+            }
+
 			delete randomNumber;
 			//other
 			var canvas = document.getElementById("Canvas");
@@ -73,7 +72,6 @@
 			var CamY;
 			var XdrawVar = 0;
 			var YdrawVar = 0;
-			var another
 			var imgs = {"Block":[],"Other":[]};
 			imgs["Other"][0] = document.getElementById("background");
 			imgs["Block"][0] = [];
@@ -121,6 +119,7 @@
 				this.getcollide = function() {}
 				this.update = function()
 				{
+					//breaking about
 					if (this.breakTime <= 0)
 					{
 						(tiles[this.countY])[this.countX] = new tile(air,this.countX,this.countY);;
@@ -140,11 +139,9 @@
 				{
 					ctx.drawImage(this.drawImg,(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect((this.x-((usualLen-10)/2))+XdrawVar,(this.y-((usualLen-10)/2))+YdrawVar,usualLen-10,usualLen-10);
-					ctx.globalAlpha = 1.0;this.breakPhase = 1-(this.breakTime/4);
-					ctx.globalAlpha = 1-(this.light/4);
-					ctx.fillRect((this.x-23)+XdrawVar,(this.y-23)+YdrawVar,46,46);
+					ctx.fillRect((this.x-((usualLen-((1-this.breakPhase)*usualLen)))/2)+XdrawVar,(this.y-((usualLen-((1-this.breakPhase)*usualLen))/2))+YdrawVar,usualLen-((1-this.breakPhase)*usualLen),usualLen-((1-this.breakPhase)*usualLen));
 					ctx.globalAlpha = 1.0;
+					ctx.globalAlpha = 1-(this.light/4);
 					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;
 				}
@@ -180,10 +177,10 @@
 				{
 					ctx.drawImage(imgs["Block"][1],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect((this.x-((usualLen-10)/2))+XdrawVar,(this.y-((usualLen-10)/2))+YdrawVar,usualLen-10,usualLen-10);
+					ctx.fillRect((this.x-((usualLen-((1-this.breakPhase)*usualLen)))/2)+XdrawVar,(this.y-((usualLen-((1-this.breakPhase)*usualLen))/2))+YdrawVar,usualLen-((1-this.breakPhase)*usualLen),usualLen-((1-this.breakPhase)*usualLen));
 					ctx.globalAlpha = 1.0;
 					ctx.globalAlpha = 1-(this.light/4);
-					ctx.fillRect((this.x-23)+XdrawVar,(this.y-23)+YdrawVar,46,46);
+					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;
 				}
 			}
@@ -218,11 +215,9 @@
 				{
 					ctx.drawImage(imgs["Block"][2],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect((this.x-20)+XdrawVar,(this.y-20)+YdrawVar,40,40);
+					ctx.fillRect((this.x-((usualLen-((1-this.breakPhase)*usualLen)))/2)+XdrawVar,(this.y-((usualLen-((1-this.breakPhase)*usualLen))/2))+YdrawVar,usualLen-((1-this.breakPhase)*usualLen),usualLen-((1-this.breakPhase)*usualLen));
 					ctx.globalAlpha = 1.0;
 					ctx.globalAlpha = 1-(this.light/4);
-					ctx.fillRect((this.x-23)+XdrawVar,(this.y-23)+YdrawVar,46,46);
-					ctx.globalAlpha = 1.0;
 					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;
 				}
@@ -244,10 +239,10 @@
 			///////////////////////////////
 			function generateWorld()
 			{
-				var igenerate = [Math.floor(Math.random()*100)];
+				let randomNumber = Math.random();
+				var igenerate = [Math.floor(randomNumber*100)];
 				for (i=0;i<tileWi;i++)
 				{
-					let randomNumber = Math.random();
 					if (Math.random() < 0.2)
 					{
 						igenerate[i+1] = igenerate[i]+1;
@@ -269,7 +264,7 @@
 						if (j >= igenerate[i])
 						{
 							// really creatin'
-							if (Math.random() > (j/100))
+							if (Math.random() > (j-igenerate[i]/100))
 							{
 								(tiles[i])[j] = new tile(dirt,j,i);
 							}
@@ -287,7 +282,8 @@
 				for (i=0;i<tileWi;i++)
 				{
 					(tiles[i])[igenerate[i]] = new tile(grass,igenerate[i],i);
-				}
+                }
+                XdrawVar = -Math.floor(45 * (tileWi/2));
 			}
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			var character = new function()
@@ -336,12 +332,12 @@
 					{
 						if (this.downForce == 0)
 						{
-							this.downForce = 1;
+							this.downForce = 2;
 						}
 					}
 					if (this.upForce != 0)
 					{
-						this.upForce *= 1;
+						this.upForce *= 0.99;
 					}
 					if (this.downForce < 10)
 					{
@@ -400,9 +396,9 @@
 					}
 					if (keyPressed[" "])
 					{
-						if (((this.upForce <= 4) && (!(this.jumpAlready))) && ((this.jCool == 0) && (this.jumpTime != 0)))
+						if (((this.upForce <= 6) && (!(this.jumpAlready))) && ((this.jCool == 0) && (this.jumpTime != 0)))
 						{
-							this.upForce += 4;
+							this.upForce += 6;
 							this.jumpAlready = true;
 						}
 					}
@@ -425,9 +421,9 @@
 				{
 					if (started)
 					{
-						for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
+                        for (i = (Math.round(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.round(CamX) + 15 + Math.floor(canvas.width / 80)); i++)
 						{
-							for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
+                            for (j = (Math.round(CamY) - 12 - Math.floor(canvas.height / 80)); j <= (Math.round(CamY) + 12 + Math.floor(canvas.height / 80)); j++)
 							{
 								try
 								{
@@ -439,15 +435,14 @@
 					}
 					else
 					{
-						let Xcondition = ((e.clientX > (startButton.x-(300/2))) && (e.clientX < (startButton.x+(300/2))));
-						let Ycondition = ((e.clientY > (startButton.y-(50/2))) && (e.clientY < (startButton.y+(50/2))));
+                        let Xcondition = ((e.clientX > (startButton.x - (300 / 2))) && (e.clientX < (startButton.x + (300 / 2))));
+                        let Ycondition = ((e.clientY > (startButton.y - (50 / 2))) && (e.clientY < (startButton.y + (50 / 2))));
 						if ((Xcondition) && (Ycondition))
 						{
 							/////////////////////////////////////////////////////////////////////////////////////////start
-							started = true;
-							document.getElementById("Canvas").style = "background-image: url('resource/other/background.png');position: absolute;top: 0%;left: 00%;";
-							character.x = (canvas.width/2)+15;
-							character.y = (canvas.height/2)-30;
+                            started = true;
+                            character.x = (canvas.width / 2) + 15;
+                            character.y = (canvas.height / 2) - 30;
 							ctx.font = "30px monospace";
 						}
 					}
@@ -520,24 +515,24 @@
 				if (started)
 				{
 					ctx.drawImage((imgs["Other"])[0],0,0);
-					for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
+                    for (i = (Math.round(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.round(CamX) + 15 + Math.floor(canvas.width / 80)); i++)
 					{
-						for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
+                        for (j = (Math.round(CamY) - 12 - Math.floor(canvas.height / 80)); j <= (Math.round(CamY) + 12 + Math.floor(canvas.height / 80)); j++)
 						{
 							try
 							{
 								(tiles[i])[-j].fill.draw();
 								if ((tiles[i])[-j].fill.ID != "air")
 								{
-									collide(character,(tiles[i])[-j].fill);
+                                    collide(character, (tiles[i])[-j].fill)
 								}
 							}
 							catch (Error) {}
 						}
 					} //update tiles that u can see on screen;canvas.height
-					for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
+                    for (i = (Math.round(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.round(CamX) + 15 + Math.floor(canvas.width / 80)); i++)
 					{
-						for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
+                        for (j = (Math.round(CamY) - 12 - Math.floor(canvas.height / 80)); j <= (Math.round(CamY) + 12 + Math.floor(canvas.height / 80)); j++)
 						{
 							try
 							{
