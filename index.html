@@ -375,9 +375,9 @@
 				{
 					if (started)-10-Math.floor(canvas.width/100)
 					{
-						for (i=Math.round(CamX)-15-Math.floor(canvas.width/100);i<=Math.round(CamX)+15+Math.floor(canvas.width/80);i++)
+						for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
 						{
-							for (j=Math.round(CamY)-12-Math.floor(canvas.height/80);j<=Math.round(CamY)+12+Math.floor(canvas.height/80);j++)
+							for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
 							{
 								try
 								{
@@ -468,9 +468,9 @@
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				if (started)
 				{
-					for (i=Math.round(CamX)-15-Math.floor(canvas.width/100);i<=Math.round(CamX)+15+Math.floor(canvas.width/80);i++)
+					for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
 					{
-						for (j=Math.round(CamY)-12-Math.floor(canvas.height/80);j<=Math.round(CamY)+12+Math.floor(canvas.height/80);j++)
+						for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
 						{
 							try
 							{
@@ -483,9 +483,9 @@
 							catch (Error) {}
 						}
 					} //update tiles that u can see on screen;canvas.height
-					for (i=Math.round(CamX)-15-Math.floor(canvas.width/100);i<=Math.round(CamX)+15+Math.floor(canvas.width/80);i++)
+					for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
 					{
-						for (j=Math.round(CamY)-12-Math.floor(canvas.height/80);j<=Math.round(CamY)+12+Math.floor(canvas.height/80);j++)
+						for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
 						{
 							try
 							{
