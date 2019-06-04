@@ -1,7 +1,7 @@
 <!doctype html>
 <html oncontextmenu="return false;">
 	<head>
-		<title id = "titile">Terrarie: China Version</title>
+		<title id = "titile">unknown LA</title>
 		<meta name="author" content="93951230">
 		<meta name="description" content="useless game">
 		<meta name="keywords" content="qazwsxedc9395">
@@ -140,10 +140,12 @@
 				{
 					ctx.drawImage(this.drawImg,(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect((this.x-20)+XdrawVar,(this.y-20)+YdrawVar,40,40);
+					ctx.fillRect((this.x-((usualLen-10)/2))+XdrawVar,(this.y-((usualLen-10)/2))+YdrawVar,usualLen-10,usualLen-10);
 					ctx.globalAlpha = 1.0;this.breakPhase = 1-(this.breakTime/4);
 					ctx.globalAlpha = 1-(this.light/4);
 					ctx.fillRect((this.x-23)+XdrawVar,(this.y-23)+YdrawVar,46,46);
+					ctx.globalAlpha = 1.0;
+					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;
 				}
 			}
@@ -178,7 +180,7 @@
 				{
 					ctx.drawImage(imgs["Block"][1],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect((this.x-20)+XdrawVar,(this.y-20)+YdrawVar,40,40);
+					ctx.fillRect((this.x-((usualLen-10)/2))+XdrawVar,(this.y-((usualLen-10)/2))+YdrawVar,usualLen-10,usualLen-10);
 					ctx.globalAlpha = 1.0;
 					ctx.globalAlpha = 1-(this.light/4);
 					ctx.fillRect((this.x-23)+XdrawVar,(this.y-23)+YdrawVar,46,46);
@@ -220,6 +222,8 @@
 					ctx.globalAlpha = 1.0;
 					ctx.globalAlpha = 1-(this.light/4);
 					ctx.fillRect((this.x-23)+XdrawVar,(this.y-23)+YdrawVar,46,46);
+					ctx.globalAlpha = 1.0;
+					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;
 				}
 			}
@@ -421,9 +425,9 @@
 				{
 					if (started)
 					{
-						for (i=Math.round(CamX)-20;i<=Math.round(CamX)+20;i++)
+						for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
 						{
-							for (j=Math.round(CamY)-14;j<=Math.round(CamY)+14;j++)
+							for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
 							{
 								try
 								{
@@ -516,9 +520,9 @@
 				if (started)
 				{
 					ctx.drawImage((imgs["Other"])[0],0,0);
-					for (i=Math.round(CamX)-16;i<=Math.round(CamX)+15;i++)
+					for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
 					{
-						for (j=Math.round(CamY)-14;j<=Math.round(CamY)+14;j++)
+						for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
 						{
 							try
 							{
@@ -528,12 +532,12 @@
 									collide(character,(tiles[i])[-j].fill);
 								}
 							}
-							catch (error) {}
+							catch (Error) {}
 						}
-					} //update tiles that u can see on screen;
-					for (i=Math.round(CamX)-20;i<=Math.round(CamX)+20;i++)
+					} //update tiles that u can see on screen;canvas.height
+					for (i=(Math.round(CamX)-15-Math.floor(canvas.width/80));i<=(Math.round(CamX)+15+Math.floor(canvas.width/80));i++)
 					{
-						for (j=Math.round(CamY)-14;j<=Math.round(CamY)+14;j++)
+						for (j=(Math.round(CamY)-12-Math.floor(canvas.height/80));j<=(Math.round(CamY)+12+Math.floor(canvas.height/80));j++)
 						{
 							try
 							{
