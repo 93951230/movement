@@ -5,11 +5,20 @@
 		<meta name="author" content="93951230">
 		<meta name="description" content="useless game">
 		<meta name="keywords" content="qazwsxedc9395">
+		<style>
+		canvas
+		{
+			cursor: crosshair;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+		}
+		</style>
 	</head>
 	<body onresize="canvasUpdate()">
 		<noscript>
 			<bold>
-				enable JavaScript or begone.
+				enable JavaScript or begone. url("resource/blocks/rock.png")
 			</bold>
 		</noscript>
 		<img id="dirt_1" style = "display: none;" src="resource/blocks/dirt_1.png" />
@@ -18,7 +27,8 @@
 		<img id="grass" style = "display: none;" src="resource/blocks/grass.png">
 		<img id="startImg" style = "display: none;" src="resource/other/start.png">
 		<img id="background" style = "display: none;" src="resource/other/background.png">
-		<canvas id="Canvas" width="1366" height="768" style="position: absolute;top: 0%;left: 00%;"/>
+		<!--IMG-->
+		<canvas id="Canvas" width="1366" height="768" />
 		<script>
 			var randomNumber = Math.random();
 			if (randomNumber <= 0.1)
