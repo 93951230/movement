@@ -283,7 +283,7 @@
                 }
                 
                 XdrawVar = -Math.floor(45 * (tileWi / 2));
-                YdrawVar = -(45 * igenerate[815]);
+                YdrawVar = -(45 * igenerate[815])-32;
 			}
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			var character = new function()
@@ -418,9 +418,9 @@
 				{
 					if (started)
 					{
-                        for (i = (Math.round(CamX) - 6); i <= (Math.round(CamX) + 6); i++)
+                        for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++)
 						{
-                            for (j = (Math.round(CamY) - 4); j <= (Math.round(CamY) + 4); j++)
+                            for (j = (Math.round(CamY) - 1); j <= (Math.round(CamY) + 5); j++)
 							{
 								try
 								{
