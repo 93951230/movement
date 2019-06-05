@@ -24,7 +24,7 @@
 		<img id="dirt_1" style = "display: none;" src="resource/blocks/dirt_1.png" />
 		<img id="dirt_2" style = "display: none;" src="resource/blocks/dirt_2.png" />
 		<img id="rock" style = "display: none;" src="resource/blocks/rock.png" />
-		<img id="grass" style = "display: none;" src="resource/blocks/grass.png">
+		<img id="grass" style = "display: none;" src="resource/blocks/normal_tree.png">
 		<img id="startImg" style = "display: none;" src="resource/other/start.png">
 		<img id="background" style = "display: none;" src="resource/other/background.png">
 		<!--IMG-->
@@ -281,7 +281,11 @@
 				{
                     (tiles[i])[igenerate[i]] = new tile(grass, igenerate[i], i)
                 }
-                
+                for (i=0;i<tileWi;i++)
+                {
+
+                    (tiles[i])[igenerate[i]-1] = new tile(grass, igenerate[i]-1, i)
+                }
                 XdrawVar = -Math.floor(45 * (tileWi / 2));
                 YdrawVar = -(45 * igenerate[815])-32;
 			}
