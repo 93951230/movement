@@ -104,10 +104,35 @@
 					canvas.height = innerHeight;
 					canvas.width = innerWidth;
 				}
-			}
-			//////////
-			//blocks//
-			///////////////////////////////
+            }
+            /////////////////////////////
+            //     public function     //
+            /////////////////////////////
+            function ligthTest(block)
+            {
+                if (((tiles[block.countY-1])[block.countX].fill.light == "glow") || ((tiles[block.countY+1])[block.countX].fill.light == "glow") || ((tiles[block.countY])[block.countX-1].fill.light == "glow") || ((tiles[block.countY])[block.countX+1].fill.light == "glow"))
+                {
+					block.light = 4;
+				}
+				else
+                {
+                    if (Math.max((tiles[block.countY + 1])[block.countX].fill.light, (tiles[block.countY - 1])[block.countX].fill.light, (tiles[block.countY])[block.countX + 1].fill.light, (tiles[block.countY])[block.countX - 1].fill.light) != 0)
+                    {
+                        block.light = (Math.max((tiles[block.countY+1])[block.countX].fill.light,(tiles[block.countY-1])[block.countX].fill.light,(tiles[block.countY])[block.countX+1].fill.light,(tiles[block.countY])[block.countX-1].fill.light)-1)
+                    }
+				}
+            }
+            function breakTest(block,maxli)
+            {
+                if (block.breakTime <= 0)
+				{
+				    (tiles[block.countY])[block.countX] = new tile(air,block.countX,block.countY);
+			    }
+                block.breakPhase = 1 - (block.breakTime / maxli);
+            }
+			////////////////////
+			//     blocks     //
+			////////////////////
 			function dirt(X,Y)
 			{
 				this.ID = "dirt";
@@ -130,27 +155,14 @@
 				this.update = function()
 				{
 					//breaking about
-					if (this.breakTime <= 0)
-					{
-						(tiles[this.countY])[this.countX] = new tile(air,this.countX,this.countY);;
-					}
-					this.breakPhase = 1-(this.breakTime/3);
-					//light about
-					if (((tiles[this.countY-1])[this.countX].fill.light == "glow") || ((tiles[this.countY+1])[this.countX].fill.light == "glow") || ((tiles[this.countY])[this.countX-1].fill.light == "glow") || ((tiles[this.countY])[this.countX+1].fill.light == "glow"))
-					{
-						this.light = 4;
-					}
-					else
-					{
-						this.light = (Math.max((tiles[this.countY+1])[this.countX].fill.light,(tiles[this.countY-1])[this.countX].fill.light,(tiles[this.countY])[this.countX+1].fill.light,(tiles[this.countY])[this.countX-1].fill.light)-1)
-					}
+                    breakTest(this,3);
+                    ligthTest(this);
 				}
 				this.draw = function()
 				{
 					ctx.drawImage(this.drawImg,(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
 					ctx.fillRect((this.x-((usualLen-((1-this.breakPhase)*usualLen)))/2)+XdrawVar,(this.y-((usualLen-((1-this.breakPhase)*usualLen))/2))+YdrawVar,usualLen-((1-this.breakPhase)*usualLen),usualLen-((1-this.breakPhase)*usualLen));
-					ctx.globalAlpha = 1.0;
 					ctx.globalAlpha = 1-(this.light/4);
 					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;
@@ -168,27 +180,14 @@
 				this.y = 405+(X*(usualLen));
 				this.update = function()
 				{
-					if (this.breakTime <= 0)
-					{
-						(tiles[this.countY])[this.countX] = new tile(air,this.countX,this.countY);
-					}
-					this.breakPhase = 1-(this.breakTime/7);
-					//light about
-					if (((tiles[this.countY-1])[this.countX].fill.light == "glow") || ((tiles[this.countY+1])[this.countX].fill.light == "glow") || ((tiles[this.countY])[this.countX-1].fill.light == "glow") || ((tiles[this.countY])[this.countX+1].fill.light == "glow"))
-					{
-						this.light = 4;
-					}
-					else
-					{
-						this.light = (Math.max((tiles[this.countY+1])[this.countX].fill.light,(tiles[this.countY-1])[this.countX].fill.light,(tiles[this.countY])[this.countX+1].fill.light,(tiles[this.countY])[this.countX-1].fill.light)-1)
-					}
+					breakTest(this,7);
+					ligthTest(this);
 				}
 				this.draw = function()
 				{
 					ctx.drawImage(imgs["Block"][1],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
 					ctx.globalAlpha = this.breakPhase;
 					ctx.fillRect((this.x-((usualLen-((1-this.breakPhase)*usualLen)))/2)+XdrawVar,(this.y-((usualLen-((1-this.breakPhase)*usualLen))/2))+YdrawVar,usualLen-((1-this.breakPhase)*usualLen),usualLen-((1-this.breakPhase)*usualLen));
-					ctx.globalAlpha = 1.0;
 					ctx.globalAlpha = 1-(this.light/4);
 					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;
@@ -206,27 +205,17 @@
 				this.y = 405+(X*(usualLen));
 				this.update = function()
 				{
-					if (this.breakTime <= 0)
-					{
-						(tiles[this.countY])[this.countX] = new tile(air,this.countX,this.countY);
-					}
-					this.breakPhase = 1-(this.breakTime/2);
-					//light about
-					if (((tiles[this.countY-1])[this.countX].fill.light == "glow") || ((tiles[this.countY+1])[this.countX].fill.light == "glow") || ((tiles[this.countY])[this.countX-1].fill.light == "glow") || ((tiles[this.countY])[this.countX+1].fill.light == "glow"))
-					{
-						this.light = 4;
-					}
-					else
-					{
-						this.light = (Math.max((tiles[this.countY+1])[this.countX].fill.light,(tiles[this.countY-1])[this.countX].fill.light,(tiles[this.countY])[this.countX+1].fill.light,(tiles[this.countY])[this.countX-1].fill.light)-1)
-					}
+					breakTest(this,2);
+					ligthTest(this);
 				}
 				this.draw = function()
-				{
-					ctx.drawImage(imgs["Block"][2],(this.x-(usualLen/2))+XdrawVar,(this.y-(usualLen/2))+YdrawVar);
-					ctx.globalAlpha = this.breakPhase;
-					ctx.fillRect((this.x-((usualLen-((1-this.breakPhase)*usualLen)))/2)+XdrawVar,(this.y-((usualLen-((1-this.breakPhase)*usualLen))/2))+YdrawVar,usualLen-((1-this.breakPhase)*usualLen),usualLen-((1-this.breakPhase)*usualLen));
-					ctx.globalAlpha = 1.0;
+                {
+                    if (this.light != 0)
+                    {
+                        ctx.drawImage(imgs["Block"][2], (this.x - (usualLen / 2)) + XdrawVar, (this.y - (usualLen / 2)) + YdrawVar);
+                        ctx.globalAlpha = this.breakPhase;
+                        ctx.fillRect((this.x - ((usualLen - ((1 - this.breakPhase) * usualLen))) / 2) + XdrawVar, (this.y - ((usualLen - ((1 - this.breakPhase) * usualLen)) / 2)) + YdrawVar, usualLen - ((1 - this.breakPhase) * usualLen), usualLen - ((1 - this.breakPhase) * usualLen));
+                    }
 					ctx.globalAlpha = 1-(this.light/4);
 					ctx.fillRect((this.x-((usualLen+1)/2))+XdrawVar,(this.y-((usualLen+1)/2))+YdrawVar,usualLen+1,usualLen+1);
 					ctx.globalAlpha = 1.0;
@@ -387,22 +376,22 @@
 				}
 				this.controlling = function()
 				{
-                    if ((keyPressed["d"]) || (keyPressed["D"]))
+                    if (keyPressed["d"])
 					{
                         if (this.ableD == 0)
 						{
 							XdrawVar -= 3.5;
 						}
 					}
-					if ((keyPressed["a"]) || (keyPressed["A"]))
+					if (keyPressed["a"])
 					{
 						if (this.ableA == 0)
 						{
 							XdrawVar += 3.5;
 						}
 					}
-					if ((keyPressed["s"]) || (keyPressed["S"])) {}
-					if (keyPressed[" "])
+					if (keyPressed["s"]) {}
+					if (keyPressed[" "] || keyPressed["w"])
 					{
 						if (((this.upForce <= 6) && (!(this.jumpAlready))) && ((this.jCool == 0) && (this.jumpTime != 0)))
 						{
@@ -429,9 +418,9 @@
 				{
 					if (started)
 					{
-                        for (i = (Math.round(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.round(CamX) + 15 + Math.floor(canvas.width / 80)); i++)
+                        for (i = (Math.round(CamX) - 6); i <= (Math.round(CamX) + 6); i++)
 						{
-                            for (j = (Math.round(CamY) - 12 - Math.floor(canvas.height / 80)); j <= (Math.round(CamY) + 12 + Math.floor(canvas.height / 80)); j++)
+                            for (j = (Math.round(CamY) - 4); j <= (Math.round(CamY) + 4); j++)
 							{
 								try
 								{
@@ -459,9 +448,9 @@
 			document.addEventListener("keydown",keyDownHandler,false);
 			document.addEventListener("keyup",keyUpHandler,false);
 			document.addEventListener("mousedown",mouse,false);
-			//////////////////
-			//method calling//
-			//////////////////
+			////////////////////////////
+			//     method calling     //
+			////////////////////////////
 			function breakBlock(e,getHurt)
 			{
 				let Xcondition = ((e.clientX > (getHurt.x-(usualLen/2))+XdrawVar) && (e.clientX < (getHurt.x+(usualLen/2))+XdrawVar));
@@ -527,9 +516,9 @@
 					{
                         for (j = (Math.round(CamY) - 12 - Math.floor(canvas.height / 80)); j <= (Math.round(CamY) + 12 + Math.floor(canvas.height / 80)); j++)
 						{
-							try
-							{
-								(tiles[i])[-j].fill.draw();
+                            try
+                            {
+                                (tiles[i])[-j].fill.draw();
 								if ((tiles[i])[-j].fill.ID != "air")
 								{
                                     collide(character, (tiles[i])[-j].fill)
@@ -565,7 +554,6 @@
 					ctx.fillText("When the start button being click",20,30);
                     ctx.fillText("the height and width of the game will be fix", 20, 60)
                     ctx.fillText("\"如果當的話就調小視窗:)\" - developer", 20, 90)
-                    ctx.fillText("\"吸屌\" - 木木合車干",20,120)
 				}
 			}
 			function startGame() //start the (game)
