@@ -53,6 +53,8 @@
 
             delete randomNumber;
             //other
+            var canvas = document.getElementById("Canvas");
+            var ctx = canvas.getContext("2d");
             function canvasUpdate() {
                 if (!(started)) {
                     canvas.height = innerHeight;
