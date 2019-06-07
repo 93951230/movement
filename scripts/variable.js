@@ -19,6 +19,7 @@
             var CamY;
             var XdrawVar = 0;
             var YdrawVar = 0;
+			var progress = 0;
             var imgs = { "Block": [], "Other": [] };
             imgs["Other"][0] = document.getElementById("background");
             imgs["Block"][0] = [];
