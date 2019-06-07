@@ -1,4 +1,4 @@
-var character = new function () {
+/*Made by 93951230 with no rights*/var character = new function () {
                 this.jCool = 0;
                 this.ableA = 0;
                 this.ableD = 0;
@@ -88,4 +88,4 @@ var character = new function () {
                         }
                     }
                 }
-            }
+}

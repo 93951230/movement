@@ -1,3 +1,4 @@
+/*Made by 93951230 with no rights*/
 function generateWorld() {
                 randomNumber = Math.floor(Math.random()*10000000)/10000000;
                 var igenerate = [256];
@@ -36,11 +37,13 @@ function generateWorld() {
 					progress += 1;
 					this.updateProgress(progress);
                 }
+				//grass (surface)
                 for (i = 0; i < tileWi; i++) {
                     (tiles[i])[igenerate[i]] = new tile(grass, igenerate[i], i)
                 }
+				//generate trees
                 for (i = 0; i < tileWi; i++) {
-                    if (Math.random() < 0.1) {
+                    if (Math.random() < 0.125) {
 						for (j = 0;j < Math.floor(Math.random()*10);j++)
 							{
 							(tiles[i])[igenerate[i] - (1+j)] = new tile(normal_tree, igenerate[i] - (1+j), i)

@@ -1,3 +1,4 @@
+/*Made by 93951230 with no rights*/
             var canvas = document.getElementById("Canvas");
             var ctx = canvas.getContext("2d");
             var startButton = new function () {
@@ -29,7 +30,7 @@
             imgs["Block"][2] = document.getElementById("grass");
             imgs["Block"][3] = document.getElementById("normal_tree");
             var keyPressed = {}
-            const tileWi = 6400;
+            const tileWi = 2048;
             const tileHi = 512;
             var tiles = [];
             function tile(filled, X, Y) {
@@ -45,7 +46,7 @@
                 
             }
             function ligthTest(block) {
-                if (((tiles[block.countY - 1])[block.countX].fill.light == "glow") || ((tiles[block.countY + 1])[block.countX].fill.light == "glow") || ((tiles[block.countY])[block.countX - 1].fill.light == "glow") || ((tiles[block.countY])[block.countX + 1].fill.light == "glow")) {
+                if (((tiles[block.countY - 1])[block.countX].fill.light == -1) || ((tiles[block.countY + 1])[block.countX].fill.light == -1) || ((tiles[block.countY])[block.countX - 1].fill.light == -1) || ((tiles[block.countY])[block.countX + 1].fill.light == -1)) {
                     block.light = 4;
                 }
                 else {

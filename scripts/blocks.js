@@ -1,3 +1,4 @@
+/*Made by 93951230 with no rights*/
 			function dirt(X, Y) {
                 this.ID = "dirt";
                 this.light = 4;
@@ -77,8 +78,9 @@
             }
             function normal_tree(X, Y)
             {
+				this.notCollide = true;
                 this.ID = "normal_tree";
-                this.light = 4;
+                this.light = 0;
                 this.countX = X;
                 this.countY = Y;
                 this.breakTime = 7;
@@ -104,8 +106,9 @@
                 }
             }
             function air(X, Y) {
+				this.notCollide = true;
                 this.ID = "air";
-                this.light = "glow";
+                this.light = -1;
                 this.countX = X;
                 this.countY = Y;
                 this.breakTime = Infinity;
