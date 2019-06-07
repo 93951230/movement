@@ -4,6 +4,7 @@
                 this.light = 4;
                 this.countX = X;
                 this.countY = Y;
+				this.breakTimeF = 3;
                 this.breakTime = 3;
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
@@ -15,11 +16,7 @@
                     this.drawImg = imgs["Block"][0][1];
                 }
                 this.getcollide = function () { }
-                this.update = function () {
-                    //breaking about
-                    breakTest(this, 3);
-                    ligthTest(this);
-                }
+                this.update = function () { }
                 this.draw = function () {
                     ctx.drawImage(this.drawImg, (this.x - (usualLen / 2)) + XdrawVar, (this.y - (usualLen / 2)) + YdrawVar);
                     ctx.globalAlpha = this.breakPhase;
@@ -34,14 +31,12 @@
                 this.light = 4;
                 this.countX = X;
                 this.countY = Y;
+				this.breakTimeF = 7;
                 this.breakTime = 7;
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
-                this.update = function () {
-                    breakTest(this, 7);
-                    ligthTest(this);
-                }
+                this.update = function () { }
                 this.draw = function () {
                     ctx.drawImage(imgs["Block"][1], (this.x - (usualLen / 2)) + XdrawVar, (this.y - (usualLen / 2)) + YdrawVar);
                     ctx.globalAlpha = this.breakPhase;
@@ -57,14 +52,12 @@
                 this.light = 4;
                 this.countX = X;
                 this.countY = Y;
+				this.breakTimeF = 2;
                 this.breakTime = 2;
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
-                this.update = function () {
-                    breakTest(this, 2);
-                    ligthTest(this);
-                }
+                this.update = function () { }
                 this.draw = function () {
                     if (this.light != 0) {
                         ctx.drawImage(imgs["Block"][2], (this.x - (usualLen / 2)) + XdrawVar, (this.y - (usualLen / 2)) + YdrawVar);
@@ -80,18 +73,15 @@
             {
 				this.notCollide = true;
                 this.ID = "normal_tree";
-                this.light = 0;
+                this.light = -1;
                 this.countX = X;
                 this.countY = Y;
-                this.breakTime = 7;
+                this.breakTimeF = 7;
+				this.breakTime = 7;
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
-                this.update = function ()
-                {
-                    breakTest(this, 7);
-                    ligthTest(this);
-                }
+                this.update = function () { }
                 this.draw = function ()
                 {
                     if (this.light != 0)
@@ -100,9 +90,6 @@
                         ctx.globalAlpha = this.breakPhase;
                         ctx.fillRect((this.x - ((usualLen - ((1 - this.breakPhase) * usualLen))) / 2) + XdrawVar, (this.y - ((usualLen - ((1 - this.breakPhase) * usualLen)) / 2)) + YdrawVar, usualLen - ((1 - this.breakPhase) * usualLen), usualLen - ((1 - this.breakPhase) * usualLen));
                     }
-                    ctx.globalAlpha = 1 - (this.light / 4);
-                    ctx.fillRect((this.x - ((usualLen + 1) / 2)) + XdrawVar, (this.y - ((usualLen + 1) / 2)) + YdrawVar, usualLen + 1, usualLen + 1);
-                    ctx.globalAlpha = 1.0;
                 }
             }
             function air(X, Y) {

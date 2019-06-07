@@ -107,43 +107,33 @@
             }
             function collide(object, getHurt) {
                 let Xcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2)) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2)) + XdrawVar));
-                let lessXcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) - 1) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2) + 1) + XdrawVar));
+                let lessXcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) - 4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2) + 4) + XdrawVar));
                 let Ycondition = ((object.y + (object.height / 2) > (getHurt.y - (usualLen / 2)) + YdrawVar) && (object.y - (object.height / 2) < (getHurt.y + (usualLen / 2)) + YdrawVar));
-                let lessYcondition = ((object.y + (object.height / 2) > (getHurt.y - (usualLen / 2) - 1) + YdrawVar) && (object.y - (object.height / 2) < (getHurt.y + (usualLen / 2) + 1) + YdrawVar));
+                let lessYcondition = ((object.y + (object.height / 2) > (getHurt.y - (usualLen / 2) - 4) + YdrawVar) && (object.y - (object.height / 2) < (getHurt.y + (usualLen / 2) + 4) + YdrawVar));
                 if (!((lessXcondition) || (lessYcondition))) {
                     getHurt.collideVar = null;
                 }
-                if (lessXcondition)
-                {
+                if (lessXcondition) {
                     getHurt.collideVar -= 1;
                 }
-                else if (lessYcondition)
-                {
+                else if (lessYcondition) {
                     getHurt.collideVar += 1;
                 }
-                try {
-                    if ((lessXcondition) && (lessYcondition))
-                    {
-                        object.collideO = getHurt;
-                        if (getHurt.collideVar < 0)
-                        {
-                            object.getYcollide();
-                        }
-                        else if (Xcondition)
-                        {
-                            if (getHurt.collideVar > 0)
-                            {
-                                object.getXcollide();
-                            }
-                        }
-                        object.getcollide();
-                        getHurt.collideVar = null;
+                if ((lessXcondition) && (lessYcondition)) {
+                    object.collideO = getHurt;
+                    if ((getHurt.collideVar < 0) && (Ycondition)) {
+                        object.getYcollide();
                     }
+                    else if ((Xcondition) && (!(lessYcondition))) {
+                        if (getHurt.collideVar > 0) {
+                            object.getXcollide();
+                        }
+                    }
+                    object.getcollide();
+                    getHurt.collideVar = null;
                 }
-                catch (Error) { }
             }
-            function drawFont()
-            {
+            function drawFont() {
                 ctx.fillText("x/y = " + String(Math.floor(CamX * 100) / 100) + " / " + String(Math.floor(CamY * 100) / 100), 10, 40);
                 ctx.fillText("Made by 80102 Weirdo :/", 10, canvas.height - 10);
             }
@@ -169,8 +159,9 @@
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
                         for (j = (Math.floor(CamY) - 12 - Math.floor(canvas.height / 80)); j <= (Math.floor(CamY) + 12 + Math.floor(canvas.height / 80)); j++) {
                             try {
-                                if ((tiles[i])[-j].fill.ID != "air") {
-                                    (tiles[i])[-j].fill.update();
+                                if (!((tiles[i])[-j].fill.notCollide)) {
+                                    breakTest((tiles[i])[-j].fill, (tiles[i])[-j].fill.breakTimeF);
+                                    ligthTest((tiles[i])[-j].fill);
                                 }
                             }
                             catch (error) { }
