@@ -9,16 +9,13 @@
                 this.collideVar = null;
                 this.x = null;
                 this.y = null;
+				this.drawImg = document.getElementById("character");
                 this.draw = function () {
-                    ctx.beginPath();
-                    ctx.rect(this.x - (this.width / 2), this.y - (this.height / 2), this.width, this.height);
-                    ctx.fillStyle = "#141012";
-                    ctx.fill();
-                    ctx.closePath();
+                    ctx.drawImage(this.drawImg,this.x - 16,this.y - 32);
                 }
                 this.updating = function () {
                     CamX = -((XdrawVar / 45) - offset_X);
-                    CamY = ((YdrawVar / 45));
+                    CamY = ((YdrawVar / 45)+ offset_Y)+9;
                     //controll about
                     if (this.ableA != 0) {
                         this.ableA -= 1;

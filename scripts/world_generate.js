@@ -1,11 +1,8 @@
 /*Made by 93951230 with no rights*/
 function generateWorld() {
+				ctx.fillText("???", 20, 120);
                 randomNumber = Math.floor(Math.random()*10000000)/10000000;
                 var igenerate = [256];
-				this.updateProgress = function (vaule_1) {
-					ctx.clearRect(0, 0, canvas.width, canvas.height);
-					ctx.fillText("LOLOLOLLLLLLLLLLLLLLLLL", 20, 120);
-				}
                 for (i = 0; i < tileWi; i++) {
                     if ((Math.random() < 0.2) && (igenerate[i] + 1 < 224)) {
                         igenerate[i + 1] = igenerate[i] + 1;
@@ -34,8 +31,6 @@ function generateWorld() {
                             (tiles[i])[j] = new tile(air, j, i);
                         }
                     }
-					progress += 1;
-					this.updateProgress(progress);
                 }
 				//grass (surface)
                 for (i = 0; i < tileWi; i++) {
@@ -52,4 +47,5 @@ function generateWorld() {
                 }
                 XdrawVar = (-Math.floor((45 * (tileWi / 2))-offset_X));
                 YdrawVar = -(45 * igenerate[(tileWi / 2)]) +320;
+				XdrawVar = 0;
             }
