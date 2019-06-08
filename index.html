@@ -150,7 +150,7 @@
                 {
                     ctx.drawImage((imgs["Other"])[0], 0, 0);
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
-                        for (j = (Math.floor(CamY) - 12 - Math.floor(canvas.height / 80)); j <= (Math.floor(CamY) + 12 + Math.floor(canvas.height / 80)); j++) {
+                        for (j = (Math.floor(CamY) - 14 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 14 + Math.floor(canvas.height / 50)); j++) {
                             try {
                                 (tiles[i])[-j].fill.draw();
                                 if (!((tiles[i])[-j].fill.notCollide)) {
@@ -161,7 +161,7 @@
                         }
                     } //update tiles that u can see on screen;canvas.height
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
-                        for (j = (Math.floor(CamY) - 12 - Math.floor(canvas.height / 80)); j <= (Math.floor(CamY) + 12 + Math.floor(canvas.height / 80)); j++) {
+                        for (j = (Math.floor(CamY) - 18 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 18 + Math.floor(canvas.height / 50)); j++) {
                             try {
                                 if (!((tiles[i])[-j].fill.ID == "air")) {
                                     breakTest((tiles[i])[-j].fill, (tiles[i])[-j].fill.breakTimeF);

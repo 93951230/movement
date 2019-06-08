@@ -32,11 +32,30 @@ function generateWorld() {
                         }
                     }
                 }
+				/*
+				for (i = 0; i < 50; i++) {
+                    tiles[i] = [];
+                    for (j = 0; j < tileHi; j++) {
+                        if (j >= igenerate[i]) {
+                            // really creatin'
+                            if (Math.random() > ((j - 256) / 256)) {
+                                (tiles[i])[j] = new tile(dirt, j, i);
+                            }
+                            else // not dirt how about rocks?
+                            {
+                                (tiles[i])[j] = new tile(rock, j, i);
+                            }
+                        }
+                        else {
+                            (tiles[i])[j] = new tile(air, j, i);
+                        }
+                    }
+                }*/
 				//grass (surface)
                 for (i = 0; i < tileWi; i++) {
                     (tiles[i])[igenerate[i]] = new tile(grass, igenerate[i], i)
                 }
-				//generate trees
+				//trees
                 for (i = 0; i < tileWi; i++) {
                     if (Math.random() < 0.125) {
 						for (j = 0;j < Math.floor(Math.random()*10);j++)
@@ -45,7 +64,6 @@ function generateWorld() {
 						}
                     }
                 }
-                XdrawVar = (-Math.floor((45 * (tileWi / 2))-offset_X));
+                XdrawVar = (-Math.floor((45 * (tileWi / 2))));
                 YdrawVar = -(45 * igenerate[(tileWi / 2)]) +320;
-				XdrawVar = 0;
             }
