@@ -21,7 +21,7 @@
             var XdrawVar = 0;
             var YdrawVar = 0;
 			var progress = 0;
-            var imgs = { "Block": [], "Other": [] };
+            var imgs = { "Block": [], "Other": [], "Entity": []};
             imgs["Other"][0] = document.getElementById("background");
             imgs["Block"][0] = [];
             imgs["Block"][0][0] = document.getElementById("dirt_1");
@@ -29,9 +29,16 @@
             imgs["Block"][1] = document.getElementById("rock");
             imgs["Block"][2] = document.getElementById("grass");
             imgs["Block"][3] = document.getElementById("normal_tree");
+			imgs["Entity"][0] = document.getElementById("character");
+			imgs["Entity"][1] = document.getElementById("itembar");
+			imgs["Entity"][2] = document.getElementById("itembar_2");
             var keyPressed = {}
-            const tileWi = 2048;
-            const tileHi = 512;
+			//world generate
+			var tileWi = 2048;
+			var tileHi = 512;
+			var itembar_amount = 10;
+            var randomNumber = Math.floor(Math.random()*10000000)/10000000;
+			///////
             var tiles = [];
             function tile(filled, X, Y) {
                 this.fill = new filled(X, Y);

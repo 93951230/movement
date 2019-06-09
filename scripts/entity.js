@@ -1,4 +1,21 @@
-/*Made by 93951230 with no rights*/var character = new function () {
+/*
+Made by 93951230 
+whoever copy this file just for money gets curse by endless hell flame
+*/
+			function itemBar() {
+				this.x = (i*50)+10;
+				this.selected = false;
+				this.draw = function () {
+					if (this.selected == true) {
+						ctx.drawImage(imgs["Entity"][2],this.x,10);
+					}
+					else {
+						ctx.drawImage(imgs["Entity"][1],this.x,10);
+					}
+				}
+			}
+			//other
+			var character = new function () {
                 this.jCool = 0;
                 this.ableA = 0;
                 this.ableD = 0;
@@ -9,13 +26,13 @@
                 this.collideVar = null;
                 this.x = null;
                 this.y = null;
-				this.drawImg = document.getElementById("character");
+				this.drawImg = imgs["Entity"][0];
                 this.draw = function () {
                     ctx.drawImage(this.drawImg,this.x - 16,this.y - 32);
                 }
                 this.updating = function () {
                     CamX = -((XdrawVar / 45) - offset_X);
-                    CamY = ((YdrawVar / 45)+ offset_Y)+9;
+                    CamY = ((YdrawVar / 45) + (Math.round((768-canvas.height)/90)));
                     //controll about
                     if (this.ableA != 0) {
                         this.ableA -= 1;
@@ -85,4 +102,4 @@
                         }
                     }
                 }
-}
+			}

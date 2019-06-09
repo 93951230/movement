@@ -1,4 +1,7 @@
-/*Made by 93951230 with no rights*/
+/*
+Made by 93951230 
+whoever copy this file just for money gets curse by endless hell flame
+*/
 			function dirt(X, Y) {
                 this.ID = "dirt";
                 this.light = 4;

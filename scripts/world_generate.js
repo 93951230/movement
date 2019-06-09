@@ -1,7 +1,9 @@
-/*Made by 93951230 with no rights*/
-function generateWorld() {
+/*
+Made by 93951230 
+whoever copy this file just for money gets curse by endless hell flame
+*/
+			function generateWorld() {
 				ctx.fillText("???", 20, 120);
-                randomNumber = Math.floor(Math.random()*10000000)/10000000;
                 var igenerate = [256];
                 for (i = 0; i < tileWi; i++) {
                     if ((Math.random() < 0.2) && (igenerate[i] + 1 < 224)) {
@@ -32,25 +34,6 @@ function generateWorld() {
                         }
                     }
                 }
-				/*
-				for (i = 0; i < 50; i++) {
-                    tiles[i] = [];
-                    for (j = 0; j < tileHi; j++) {
-                        if (j >= igenerate[i]) {
-                            // really creatin'
-                            if (Math.random() > ((j - 256) / 256)) {
-                                (tiles[i])[j] = new tile(dirt, j, i);
-                            }
-                            else // not dirt how about rocks?
-                            {
-                                (tiles[i])[j] = new tile(rock, j, i);
-                            }
-                        }
-                        else {
-                            (tiles[i])[j] = new tile(air, j, i);
-                        }
-                    }
-                }*/
 				//grass (surface)
                 for (i = 0; i < tileWi; i++) {
                     (tiles[i])[igenerate[i]] = new tile(grass, igenerate[i], i)
@@ -66,4 +49,10 @@ function generateWorld() {
                 }
                 XdrawVar = (-Math.floor((45 * (tileWi / 2))));
                 YdrawVar = -(45 * igenerate[(tileWi / 2)]) +320;
+				//itembar...
+				itembar = [];
+				for (i = 0; i < 10;i++){
+					itembar[i] = new itemBar();
+				}
+				itembar[0].selected = true;
             }
