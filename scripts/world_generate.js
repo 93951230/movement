@@ -41,8 +41,7 @@ whoever copy this file just for money gets curse by endless hell flame
 				//trees
                 for (i = 0; i < tileWi; i++) {
                     if (Math.random() < 0.125) {
-						for (j = 0;j < Math.floor(Math.random()*10);j++)
-							{
+						for (j = 0;j < Math.floor(Math.random()*10);j++) {
 							(tiles[i])[igenerate[i] - (1+j)] = new tile(normal_tree, igenerate[i] - (1+j), i)
 						}
                     }

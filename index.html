@@ -21,17 +21,21 @@
                 enable JavaScript or begone. url("resource/blocks/rock.png")
             </bold>
         </noscript>
-		<img id="character" style="display: none;" src="resource/entity/character.png" />
-		<img id="itembar" style="display: none;" src="resource/entity/itembar.png" />
-		<img id="itembar_2" style="display: none;" src="resource/entity/itembar_2.png" />
         <img id="dirt_1" style="display: none;" src="resource/block/dirt_1.png" />
         <img id="dirt_2" style="display: none;" src="resource/block/dirt_2.png" />
         <img id="rock" style="display: none;" src="resource/block/rock.png" />
         <img id="grass" style="display: none;" src="resource/block/grass.png">
         <img id="normal_tree" style="display: none;" src="resource/block/normal_tree.png">
-        <img id="startImg" style="display: none;" src="resource/other/start.png">
-        <img id="background" style="display: none;" src="resource/other/background.png">
-        <!--IMG-->
+		<!--BLOCK-->
+        <img id="startImg" style="display: none;" src="resource/gui/start.png">
+        <img id="background" style="display: none;" src="resource/gui/background.png">
+		<img id="itembar" style="display: none;" src="resource/gui/itembar.png" />
+		<img id="itembar_2" style="display: none;" src="resource/gui/itembar_2.png" />
+		<!--GUI-->
+		<img id="character" style="display: none;" src="resource/entity/character.png" />
+        <!--ENTITY-->
+		<img id="dirt_1_drop" style="display: none;" src="resource/item/dirt_2_drop.png" />
+		<!--ITEM-->
         <canvas id="Canvas" width="1366" height="768" />
         <script id= "otherScript">
             var randomNumber = Math.random();
@@ -88,15 +92,18 @@
                     getHurt.collideVar += 1;
                 }
                 if ((lessXcondition) && (lessYcondition)) {
-                    object.collideO = getHurt;
-                    if (getHurt.collideVar < 0) {
-                        object.getYcollide();
-                    }
-                    else if ((Xcondition) && (!(Ycondition))) {
-                        if (getHurt.collideVar > 0) {
-                            object.getXcollide();
-                        }
-                    }
+					try {
+						object.collideO = getHurt;
+						if (getHurt.collideVar < 0) {
+							object.getYcollide();
+						}
+						else if ((Xcondition) && (!(Ycondition))) {
+							if (getHurt.collideVar > 0) {
+								object.getXcollide();
+							}
+						}
+					}
+					catch { }
                     object.getcollide();
                     getHurt.collideVar = null;
                 }
@@ -110,7 +117,6 @@
             }
             //////
             function keyDownHandler(e) {
-			console.log(e);
                 keyPressed[e.code] = true;
             }
             function keyUpHandler(e) {
@@ -154,7 +160,7 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 if (started)
                 {
-                    ctx.drawImage((imgs["Other"])[0], 0, 0);
+                    ctx.drawImage((imgs["Gui"])[0], 0, 0);
 					///////////////////////////////////////////////////////////////
 					///////////////////////////////////////////////////////////////
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
@@ -162,7 +168,7 @@
                             try {
                                 (tiles[i])[-j].fill.draw();
                                 if (!((tiles[i])[-j].fill.notCollide)) {
-                                    collide(character, (tiles[i])[-j].fill)
+                                    collide(character, (tiles[i])[-j].fill);
                                 }
                             }
                             catch (Error) { }
@@ -183,15 +189,27 @@
                     }
 					///////////////////////////////////////////////////////////////
 					///////////////////////////////////////////////////////////////
-					for (i = 0; i < itembar_amount;i++) {
-						itembar[i].draw();
+					for (i = 0; i < item.length;i++) {
+						if (item[i] != null) {
+							item[i].draw();
+							for (j = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); j <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); j++) {
+								for (k = (Math.floor(CamY) - 14 - Math.floor(canvas.height / 50)); k <= (Math.floor(CamY) + 14 + Math.floor(canvas.height / 50)); k++) {
+									collide(item[i], (tiles[j])[-k].fill);
+								}
+							}
+						}
+						else { }
 					}
-					///////////////////////////////////////////////////////////////
 					///////////////////////////////////////////////////////////////
                     character.controlling();
                     character.draw();
                     character.updating();
-                    drawFont();
+					///////////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////////
+					for (i = 0; i < itembar_amount;i++) {
+						itembar[i].draw();
+					}
+					drawFont();
                 }
                 else {
                     startButton.update();

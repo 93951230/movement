@@ -7,14 +7,26 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.selected = false;
 				this.draw = function () {
 					if (this.selected == true) {
-						ctx.drawImage(imgs["Entity"][2],this.x,10);
+						ctx.drawImage(imgs["Gui"][2],this.x,10);
 					}
 					else {
-						ctx.drawImage(imgs["Entity"][1],this.x,10);
+						ctx.drawImage(imgs["Gui"][1],this.x,10);
 					}
 				}
 			}
 			//other
+			function dropItem(x,y,img) {
+				this.x = x;
+				this.y = y;
+				this.img = img;
+				this.draw = function () {
+					ctx.drawImage(this.img,(this.x-12.5)+XdrawVar,(this.y-12.5)+YdrawVar);
+				}
+				this.getcollide = function () {
+					
+				}
+			}
+			//block
 			var character = new function () {
                 this.jCool = 0;
                 this.ableA = 0;
@@ -32,7 +44,7 @@ whoever copy this file just for money gets curse by endless hell flame
                 }
                 this.updating = function () {
                     CamX = -((XdrawVar / 45) - offset_X);
-                    CamY = ((YdrawVar / 45) + (Math.round((768-canvas.height)/90)));
+                    CamY = ((YdrawVar / 45) + (Math.floor((768-canvas.height)/90)));
                     //controll about
                     if (this.ableA != 0) {
                         this.ableA -= 1;

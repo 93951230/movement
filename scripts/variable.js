@@ -21,8 +21,10 @@
             var XdrawVar = 0;
             var YdrawVar = 0;
 			var progress = 0;
-            var imgs = { "Block": [], "Other": [], "Entity": []};
-            imgs["Other"][0] = document.getElementById("background");
+            var imgs = { "Block": [], "Gui": [], "Entity": [], "Item": []};
+            imgs["Gui"][0] = document.getElementById("background");
+			imgs["Gui"][1] = document.getElementById("itembar");
+			imgs["Gui"][2] = document.getElementById("itembar_2");
             imgs["Block"][0] = [];
             imgs["Block"][0][0] = document.getElementById("dirt_1");
             imgs["Block"][0][1] = document.getElementById("dirt_2");
@@ -30,8 +32,7 @@
             imgs["Block"][2] = document.getElementById("grass");
             imgs["Block"][3] = document.getElementById("normal_tree");
 			imgs["Entity"][0] = document.getElementById("character");
-			imgs["Entity"][1] = document.getElementById("itembar");
-			imgs["Entity"][2] = document.getElementById("itembar_2");
+			imgs["Item"][0] = document.getElementById("dirt_1_drop");
             var keyPressed = {}
 			//world generate
 			var tileWi = 2048;
@@ -63,9 +64,11 @@
                     }
                 }
             }
+			var item = [];
             function breakTest(block, maxli) {
                 if (block.breakTime <= 0) {
                     (tiles[block.countY])[block.countX] = new tile(air, block.countX, block.countY);
+					item[item.length] = new dropItem(block.x,block.y,imgs["Item"][0])
                 }
                 block.breakPhase = 1 - (block.breakTime / maxli);
             }
