@@ -110,10 +110,11 @@
             }
             //////
             function keyDownHandler(e) {
-                keyPressed[e.key] = true;
+			console.log(e);
+                keyPressed[e.code] = true;
             }
             function keyUpHandler(e) {
-                keyPressed[e.key] = false;
+                keyPressed[e.code] = false;
             }
             function mouse(e) {
                 if (e.buttons == 1) {

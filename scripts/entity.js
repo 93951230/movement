@@ -84,22 +84,29 @@ whoever copy this file just for money gets curse by endless hell flame
                     }
                 }
                 this.controlling = function () {
-                    if (keyPressed["d"]) {
+                    if (keyPressed["KeyD"]) {
                         if (this.ableD == 0) {
                             XdrawVar -= 3.5;
                         }
                     }
-                    if (keyPressed["a"]) {
+                    if (keyPressed["KeyA"]) {
                         if (this.ableA == 0) {
                             XdrawVar += 3.5;
                         }
                     }
-                    if (keyPressed["s"]) { }
-                    if (keyPressed[" "] || keyPressed["w"]) {
+                    if (keyPressed["KeyS"]) { }
+                    if (keyPressed["Space"] || keyPressed["KeyW"]) {
                         if (((this.upForce <= 6) && (!(this.jumpAlready))) && ((this.jCool == 0) && (this.jumpTime != 0))) {
                             this.upForce += 6;
                             this.jumpAlready = true;
                         }
                     }
+					for (i = 1; i <= itembar_amount;i++) {
+						if (keyPressed["Digit"+String(i)]) {
+							itembar[selectedBar].selected = false;
+							selectedBar = i-1;
+							itembar[selectedBar].selected = true;
+						}
+					}
                 }
 			}

@@ -51,8 +51,8 @@ whoever copy this file just for money gets curse by endless hell flame
                 YdrawVar = -(45 * igenerate[(tileWi / 2)]) +320;
 				//itembar...
 				itembar = [];
-				for (i = 0; i < 10;i++){
+				for (i = 0; i < itembar_amount;i++) {
 					itembar[i] = new itemBar();
 				}
-				itembar[0].selected = true;
+				itembar[selectedBar].selected = true;
             }

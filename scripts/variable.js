@@ -36,7 +36,8 @@
 			//world generate
 			var tileWi = 2048;
 			var tileHi = 512;
-			var itembar_amount = 10;
+			var selectedBar = 0;
+			var itembar_amount = 8;
             var randomNumber = Math.floor(Math.random()*10000000)/10000000;
 			///////
             var tiles = [];
