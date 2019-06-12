@@ -24,6 +24,7 @@
 			imgs["Entity"][0] = document.getElementById("character");
 			imgs["Item"][0] = document.getElementById("dirt_1_drop");
 			imgs["Item"][1] = document.getElementById("dirt_2_drop");
+			imgs["Item"][2] = document.getElementById("grass_drop");
             var keyPressed = {}
 			//world generate
 			var tileWi = 2048;
@@ -59,18 +60,22 @@
             function breakTest(block, maxli, ID) {
                 if (block.breakTime <= 0) {
                     (tiles[block.countY])[block.countX] = new tile(air, block.countX, block.countY);
-					//item[item.length] = new dropItem(block.x,block.y,imgs["Item"][0])
-					if (itembar[selectedBar].hold != null) {
-						if (itembar[selectedBar].hold.constructor == ID) {
-						itembar[selectedBar].hold = new ID(itembar[selectedBar].hold.count+1);
-						}
-						else {
-							itembar[selectedBar].hold = new ID(1);
-						}
-					}
-					else {
-						itembar[selectedBar].hold = new ID(1);
-					}
+					gainItem(ID,1);
                 }
                 block.breakPhase = 1 - (block.breakTime / maxli);
             }
+			function gainItem(ID,amount) {
+				for (i = 0;i < itembar_amount;i++) {
+					if (itembar[i].hold == null) {
+						itembar[i].hold = new ID(amount);
+						break;
+						
+					}
+					else if (itembar[i].hold != null) {
+						if (itembar[i].hold.constructor == ID) {
+							itembar[i].hold = new ID(itembar[i].hold.count+amount);
+							break;
+						}
+					}
+				}
+			}

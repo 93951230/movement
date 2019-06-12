@@ -22,6 +22,11 @@ whoever copy this file just for money gets curse by endless hell flame
 				}
 				this.count = count;
 			}
+			function itemGrass(count) {
+				this.settable = true;
+				this.drawImg = imgs["Item"][2];
+				this.count = count;
+			}
 			///////////////
 			function itemBar(hold) {
 				this.x = (i*50)+10;

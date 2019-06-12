@@ -36,6 +36,7 @@
         <!--ENTITY-->
 		<img id="dirt_1_drop" style="display: none;" src="resource/item/dirt_1_drop.png" />
 		<img id="dirt_2_drop" style="display: none;" src="resource/item/dirt_2_drop.png" />
+		<img id="grass_drop" style="display: none;" src="resource/item/grass_drop.png" />
 		<!--ITEM-->
         <canvas id="Canvas" width="1366" height="768" />
         <script id= "otherScript">
@@ -71,7 +72,7 @@
             ////////////////////////////
             //     method calling     //
             ////////////////////////////
-			var itemLibrary = {"dirt":itemDirt}
+			var itemLibrary = {"dirt":itemDirt,"grass":itemGrass}
             function breakBlock(e, getHurt) {
                 let Xcondition = ((e.clientX > (getHurt.x - (usualLen / 2)) + XdrawVar) && (e.clientX < (getHurt.x + (usualLen / 2)) + XdrawVar));
                 let Ycondition = ((e.clientY > (getHurt.y - (usualLen / 2)) + YdrawVar) && (e.clientY < (getHurt.y + (usualLen / 2)) + YdrawVar));
