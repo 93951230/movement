@@ -41,8 +41,8 @@ whoever copy this file just for money gets curse by endless hell flame
 				//trees
                 for (i = 0; i < tileWi; i++) {
                     if (Math.random() < 0.125) {
-						for (j = 0;j < Math.floor(Math.random()*10);j++) {
-							(tiles[i])[igenerate[i] - (1+j)] = new tile(normal_tree, igenerate[i] - (1+j), i)
+						for (j = 0;j < Math.floor(Math.random()*10)+4;j++) {
+							(tiles[i])[igenerate[i] - (1+(j))] = new tile(normal_tree, igenerate[i] - (1+j), i)
 						}
                     }
                 }
@@ -51,7 +51,7 @@ whoever copy this file just for money gets curse by endless hell flame
 				//itembar...
 				itembar = [];
 				for (i = 0; i < itembar_amount;i++) {
-					itembar[i] = new itemBar();
+					itembar[i] = new itemBar(null);
 				}
 				itembar[selectedBar].selected = true;
             }

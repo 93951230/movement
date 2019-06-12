@@ -1,16 +1,6 @@
 /*Made by 93951230 with no rights*/
             var canvas = document.getElementById("Canvas");
             var ctx = canvas.getContext("2d");
-            var startButton = new function () {
-                this.drawImg = document.getElementById("startImg");
-                this.update = function () {
-                    this.x = (canvas.width / 2)
-                    this.y = (canvas.height / 2)
-                }
-                this.draw = function () {
-                    ctx.drawImage(this.drawImg, this.x - 150, this.y - 50);
-                }
-            }
             canvas.height = innerHeight;
             canvas.width = innerWidth;
             var started = false;
@@ -33,6 +23,7 @@
             imgs["Block"][3] = document.getElementById("normal_tree");
 			imgs["Entity"][0] = document.getElementById("character");
 			imgs["Item"][0] = document.getElementById("dirt_1_drop");
+			imgs["Item"][1] = document.getElementById("dirt_2_drop");
             var keyPressed = {}
 			//world generate
 			var tileWi = 2048;
@@ -44,7 +35,7 @@
             var tiles = [];
             function tile(filled, X, Y) {
                 this.fill = new filled(X, Y);
-            }
+            }-
             function canvasUpdate() {
                 if (!(started)) {
                     canvas.height = innerHeight;
@@ -65,10 +56,21 @@
                 }
             }
 			var item = [];
-            function breakTest(block, maxli) {
+            function breakTest(block, maxli, ID) {
                 if (block.breakTime <= 0) {
                     (tiles[block.countY])[block.countX] = new tile(air, block.countX, block.countY);
-					item[item.length] = new dropItem(block.x,block.y,imgs["Item"][0])
+					//item[item.length] = new dropItem(block.x,block.y,imgs["Item"][0])
+					if (itembar[selectedBar].hold != null) {
+						if (itembar[selectedBar].hold.constructor == ID) {
+						itembar[selectedBar].hold = new ID(itembar[selectedBar].hold.count+1);
+						}
+						else {
+							itembar[selectedBar].hold = new ID(1);
+						}
+					}
+					else {
+						itembar[selectedBar].hold = new ID(1);
+					}
                 }
                 block.breakPhase = 1 - (block.breakTime / maxli);
             }
