@@ -33,6 +33,7 @@
 		<img id="itembar_2" style="display: none;" src="resource/gui/itembar_2.png" />
 		<img id="itembarin" style="display: none;" src="resource/gui/itembar_in.png" />
 		<img id="inButton" style="display: none;" src="resource/gui/in_button.png" />
+		<img id="inButtonOpen" style="display: none;" src="resource/gui/in_button_open.png" />
 		<!--GUI-->
 		<img id="character" style="display: none;" src="resource/entity/character.png" />
         <!--ENTITY-->
@@ -40,6 +41,7 @@
 		<img id="dirt_2_drop" style="display: none;" src="resource/item/dirt_2_drop.png" />
 		<img id="grass_drop" style="display: none;" src="resource/item/grass_drop.png" />
 		<img id="normal_tree_drop" style="display: none;" src="resource/item/normal_tree_drop.png" />
+		<img id="iron_pickaxe" style="display: none;" src="resource/item/iron_pickaxe.png" />
 		<!--ITEM-->
         <canvas id="Canvas" width="1366" height="768" />
         <script id= "otherScript">
@@ -77,32 +79,50 @@
             ////////////////////////////
 			var itemLibrary = {
 				"dirt":{
+					"Light":true,
+					"Collide":true,
+					"Breakable":true,
 					"item":itemdirt,
 					"breakFull":3,
 					"type":1
 				},
 				"rock":{
+					"Light":true,
+					"Collide":true,
+					"Breakable":true,
 					"item":itemrock,
 					"breakFull":7,
 					"type":2
 				},
 				"grass":{
+					"Light":true,
+					"Collide":true,
+					"Breakable":true,
 					"item":itemgrass,
 					"breakFull":2,
 					"type":1
 				},
 				"normal_tree":{
-					"notLight":true,
+					"Light":false,
+					"Collide":false,
+					"Breakable":true,
 					"item":itemtree,
 					"breakFull":35,
+					"method":function (x,y) {
+						if (tiles[y][x+1].fill.constructor == air) {
+							tiles[y][x] = new tile(air, x, y);
+						}
+					},
 					"type":0
 				},
 				"air":{
-					"notLight":true,
+					"Light":false,
+					"Collide":false,
+					"Breakable":false
 				}
 			};
 			var itemsLib = ["dirt","grass","normal_tree","rock"];
-            function breakBlock(e, getHurt, command) {
+            function breakBlockDete(e, getHurt, command) {
                 let Xcondition = ((e.clientX > (getHurt.x - (usualLen / 2)) + XdrawVar) && (e.clientX < (getHurt.x + (usualLen / 2)) + XdrawVar));
                 let Ycondition = ((e.clientY > (getHurt.y - (usualLen / 2)) + YdrawVar) && (e.clientY < (getHurt.y + (usualLen / 2)) + YdrawVar));
                 if ((Xcondition) && (Ycondition)) {
@@ -169,7 +189,7 @@
                     if (started) {
                         for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
                             for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
-                                breakBlock(e, (tiles[i])[-j].fill, "getHurt.breakTime -= 1;");
+                                breakBlockDete(e, (tiles[i])[-j].fill, "getHurt.breakTime -= 1;");
                             }
                         }
 						for (i = 0;i < buttons.length;i++) {
@@ -187,7 +207,7 @@
                             offset_Y = Math.floor((canvas.height / 2) / 45);
                             generateWorld();
                             ctx.font = "30px monospace";
-							buttons[buttons.length] = new publicButton(imgs["Gui"][4],420,32,18,45,"openIn = !openIn");
+							buttons[buttons.length] = new publicButton([imgs["Gui"][4],imgs["Gui"][5]],420,32,18,45,"openIn = !openIn","if (openIn) { ctx.drawImage(this.drawImg[0], this.x-(this.width/2), this.y-(this.height/2));} else {ctx.drawImage(this.drawImg[1], this.x-(this.width/2), this.y-(this.height/2));}");
                             started = true;
                         }
                     }
@@ -197,7 +217,7 @@
                 if (started) {
                     for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
                         for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
-                            buttonCir(e,tiles[i][-j].fill, String("ctx.fillRect((tiles["+ i +"]["+ -j +"].fill.x - ((usualLen + 1) / 2)) + XdrawVar, (tiles["+ i +"]["+ -j +"].fill.y - ((usualLen + 1) / 2)) + YdrawVar, usualLen + 1, usualLen + 1);"))
+                            buttonCir(e,tiles[i][-j].fill,"console.log(\"asd\")")
                         }
                     }
                 }
@@ -209,7 +229,7 @@
             document.addEventListener("keydown", keyDownHandler, false);
             document.addEventListener("keyup", keyUpHandler, false);
             document.addEventListener("mousedown", mouse, false);
-			document.addEventListener("mousemove", mouseMove, false);
+			//document.addEventListener("mousemove", mouseMove, false);
         </script>
         <script id="lastScript">
             function rendering() {
@@ -222,7 +242,7 @@
                         for (j = (Math.floor(CamY) - 14 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 14 + Math.floor(canvas.height / 50)); j++) {
                             try {
                                 (tiles[i])[-j].fill.draw();
-                                if (!((tiles[i])[-j].fill.notCollide)) {
+                                if (itemLibrary[tiles[i][-j].fill.ID]["Collide"]) {
                                     collide(character, (tiles[i])[-j].fill);
                                 }
                             }
@@ -231,10 +251,10 @@
                     } //update tiles that u can see on screen;canvas.height
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
                         for (j = (Math.floor(CamY) - 18 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 18 + Math.floor(canvas.height / 50)); j++) {
-                            if (!((tiles[i])[-j].fill.ID == "air")) {
+                            if (itemLibrary[tiles[i][-j].fill.ID]["Breakable"]) {
                                 breakTest((tiles[i])[-j].fill, (tiles[i])[-j].fill.breakTimeF,itemLibrary[String((tiles[i])[-j].fill.ID)]);
                             }
-                            if (!(itemLibrary[(tiles[i])[-j].fill.ID]["notLight"])) {
+                            if (itemLibrary[tiles[i][-j].fill.ID]["Light"]) {
                                 ligthTest((tiles[i])[-j].fill);
                             }
                         }

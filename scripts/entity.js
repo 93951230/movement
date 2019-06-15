@@ -12,7 +12,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     ctx.drawImage(this.drawImg, this.x - 150, this.y - 50);
                 }
             }
-			function publicButton(Img,x,y,width,height,command) {
+			function publicButton(Img,x,y,width,height,command,drawMethod) {
                 this.drawImg = Img;
 				this.height = height;
 				this.width = width;
@@ -20,7 +20,7 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.y = y;
 				this.command = command;
                 this.draw = function () {
-                    ctx.drawImage(this.drawImg, this.x-(this.width/2), this.y-(this.height/2));
+                    eval(drawMethod);
                 }
             }
 			////////////////////////////////////////////
@@ -67,6 +67,9 @@ whoever copy this file just for money gets curse by endless hell flame
 					if (this.hold != null) {
 						ctx.drawImage(this.hold.drawImg,this.x+10,20);
 						ctx.fillText(String(this.hold.count), this.x+15,70);
+						if (this.selected == true) {
+							ctx.drawImage(this.hold.drawImg,character.x,character.y);
+						}
 					}
 				}
 			}
@@ -82,7 +85,7 @@ whoever copy this file just for money gets curse by endless hell flame
 					}
 				}
 			}
-			//other
+			///////////////////////////////////////////////other
 			function dropItem(x,y,img) {
 				this.x = x;
 				this.y = y;
@@ -202,6 +205,9 @@ whoever copy this file just for money gets curse by endless hell flame
                             this.upForce += 6;
                             this.jumpAlready = true;
                         }
+                    }
+					if (keyPressed["KeyE"]) {
+                        open
                     }
 					for (i = 1; i <= itembar_amount;i++) {
 						if (keyPressed["Digit"+String(i)]) {

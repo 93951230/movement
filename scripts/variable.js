@@ -17,6 +17,7 @@
 			imgs["Gui"][2] = document.getElementById("itembar_2");
 			imgs["Gui"][3] = document.getElementById("itembarin");
 			imgs["Gui"][4] = document.getElementById("inButton");
+			imgs["Gui"][5] = document.getElementById("inButtonOpen");
             imgs["Block"][0] = [];
             imgs["Block"][0][0] = document.getElementById("dirt_1");
             imgs["Block"][0][1] = document.getElementById("dirt_2");
@@ -28,6 +29,7 @@
 			imgs["Item"][1] = document.getElementById("dirt_2_drop");
 			imgs["Item"][2] = document.getElementById("grass_drop");
 			imgs["Item"][3] = document.getElementById("normal_tree_drop");
+			imgs["Item"][4] = document.getElementById("iron_pickaxe");
             var keyPressed = {}
 			//world generate
 			var tileWi = 2048;
@@ -42,16 +44,15 @@
             function tile(filled, X, Y) {
                 this.fill = new filled(X, Y);
             }
-            function Load(arg) {
-                
+            function Load(arg) {itemLibrary[block.ID]["Light"]
             }
             function ligthTest(block) {
-                if (((tiles[block.countY - 1])[block.countX].fill.light == -1) || ((tiles[block.countY + 1])[block.countX].fill.light == -1) || ((tiles[block.countY])[block.countX - 1].fill.light == -1) || ((tiles[block.countY])[block.countX + 1].fill.light == -1)) {
-                    block.light = 4;
+                if ((itemLibrary[(tiles[block.countY - 1])[block.countX].fill.ID]["Light"] == false) || (itemLibrary[(tiles[block.countY + 1])[block.countX].fill.ID]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX - 1].fill.ID]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX + 1].fill.ID]["Light"] == false)) {
+                    block.light = 8;
                 }
                 else {
                     if (Math.max((tiles[block.countY + 1])[block.countX].fill.light, (tiles[block.countY - 1])[block.countX].fill.light, (tiles[block.countY])[block.countX + 1].fill.light, (tiles[block.countY])[block.countX - 1].fill.light) != 0) {
-                        block.light = (Math.max((tiles[block.countY + 1])[block.countX].fill.light, (tiles[block.countY - 1])[block.countX].fill.light, (tiles[block.countY])[block.countX + 1].fill.light, (tiles[block.countY])[block.countX - 1].fill.light) - 1)
+                        block.light = (Math.max((tiles[block.countY + 1])[block.countX].fill.light, (tiles[block.countY - 1])[block.countX].fill.light, (tiles[block.countY])[block.countX + 1].fill.light, (tiles[block.countY])[block.countX - 1].fill.light) - 2)
                     }
                 }
             }

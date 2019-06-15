@@ -4,7 +4,7 @@ whoever copy this file just for money gets curse by endless hell flame
 */
 			function dirt(X, Y) {
                 this.ID = "dirt";
-                this.light = 4;
+                this.light = 8;
                 this.countX = X;
                 this.countY = Y;
                 this.breakTime = itemLibrary[this.ID]["breakFull"];
@@ -23,14 +23,14 @@ whoever copy this file just for money gets curse by endless hell flame
                     ctx.drawImage(this.drawImg, (this.x - (usualLen / 2)) + XdrawVar, (this.y - (usualLen / 2)) + YdrawVar);
                     ctx.globalAlpha = this.breakPhase;
                     ctx.fillRect((this.x - ((usualLen - ((1 - this.breakPhase) * usualLen))) / 2) + XdrawVar, (this.y - ((usualLen - ((1 - this.breakPhase) * usualLen)) / 2)) + YdrawVar, usualLen - ((1 - this.breakPhase) * usualLen), usualLen - ((1 - this.breakPhase) * usualLen));
-                    ctx.globalAlpha = 1 - (this.light / 4);
+                    ctx.globalAlpha = 1 - (this.light / 8);
                     ctx.fillRect((this.x - ((usualLen + 1) / 2)) + XdrawVar, (this.y - ((usualLen + 1) / 2)) + YdrawVar, usualLen + 1, usualLen + 1);
                     ctx.globalAlpha = 1.0;
                 }
             }
             function rock(X, Y) {
                 this.ID = "rock";
-                this.light = 4;
+                this.light = 8;
                 this.countX = X;
                 this.countY = Y;
                 this.breakTime = itemLibrary[this.ID]["breakFull"];
@@ -42,7 +42,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     ctx.drawImage(imgs["Block"][1], (this.x - (usualLen / 2)) + XdrawVar, (this.y - (usualLen / 2)) + YdrawVar);
                     ctx.globalAlpha = this.breakPhase;
                     ctx.fillRect((this.x - ((usualLen - ((1 - this.breakPhase) * usualLen))) / 2) + XdrawVar, (this.y - ((usualLen - ((1 - this.breakPhase) * usualLen)) / 2)) + YdrawVar, usualLen - ((1 - this.breakPhase) * usualLen), usualLen - ((1 - this.breakPhase) * usualLen));
-                    ctx.globalAlpha = 1 - (this.light / 4);
+                    ctx.globalAlpha = 1 - (this.light / 8);
                     ctx.fillRect((this.x - ((usualLen + 1) / 2)) + XdrawVar, (this.y - ((usualLen + 1) / 2)) + YdrawVar, usualLen + 1, usualLen + 1);
                     ctx.globalAlpha = 1.0;
                 }
@@ -50,7 +50,7 @@ whoever copy this file just for money gets curse by endless hell flame
             function grass(X, Y)
             {
                 this.ID = "grass";
-                this.light = 4;
+                this.light = 8;
                 this.countX = X;
                 this.countY = Y;
                 this.breakTime = itemLibrary[this.ID]["breakFull"];
@@ -64,16 +64,15 @@ whoever copy this file just for money gets curse by endless hell flame
                         ctx.globalAlpha = this.breakPhase;
                         ctx.fillRect((this.x - ((usualLen - ((1 - this.breakPhase) * usualLen))) / 2) + XdrawVar, (this.y - ((usualLen - ((1 - this.breakPhase) * usualLen)) / 2)) + YdrawVar, usualLen - ((1 - this.breakPhase) * usualLen), usualLen - ((1 - this.breakPhase) * usualLen));
                     }
-                    ctx.globalAlpha = 1 - (this.light / 4);
+                    ctx.globalAlpha = 1 - (this.light / 8);
                     ctx.fillRect((this.x - ((usualLen + 1) / 2)) + XdrawVar, (this.y - ((usualLen + 1) / 2)) + YdrawVar, usualLen + 1, usualLen + 1);
                     ctx.globalAlpha = 1.0;
                 }
             }
             function normal_tree(X, Y)
             {
-				this.notCollide = true;
                 this.ID = "normal_tree";
-                this.light = -1;
+                this.light = 8;
                 this.countX = X;
                 this.countY = Y;
 				this.breakTime = itemLibrary[this.ID]["breakFull"];
@@ -90,12 +89,13 @@ whoever copy this file just for money gets curse by endless hell flame
                         ctx.fillRect((this.x - ((usualLen - ((1 - this.breakPhase) * usualLen))) / 2) + XdrawVar, (this.y - ((usualLen - ((1 - this.breakPhase) * usualLen)) / 2)) + YdrawVar, usualLen - ((1 - this.breakPhase) * usualLen), usualLen - ((1 - this.breakPhase) * usualLen));
 						ctx.globalAlpha = 1;
                     }
+					itemLibrary[this.ID]["method"](this.countX,this.countY);
                 }
             }
             function air(X, Y) {
 				this.notCollide = true;
                 this.ID = "air";
-                this.light = -1;
+                this.light = 8;
                 this.countX = X;
                 this.countY = Y;
                 this.breakTime = Infinity;
