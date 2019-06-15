@@ -1,72 +1,30 @@
 <!doctype html>
-<html oncontextmenu="return false;">
+<html>
 	<head>
 		<title id = "titile">How to edit a mode for this game</title>
 		<meta name="author" content="93951230">
 		<meta name="description" content="useless game">
 		<meta name="keywords" content="qazwsxedc9395">
 		<style>
-		canvas
+		font
 		{
-			cursor: crosshair;
-			position: absolute;
-			top: 0%;
-			left: 0%;
+			font-family: monospace;
+			font-size: 20px;
 		}
 		</style>
 	</head>
-    <body onresize="canvasUpdate()">
+    <body>
         <noscript>
             <bold>
-                enable JavaScript or begone. url("resource/blocks/rock.png")
-            </bold>
+                enable JavaScript or begone.
+			</bold>
         </noscript>
-        <img id="dirt_1" style="display: none;" src="resource/blocks/dirt_1.png" />
-        <img id="dirt_2" style="display: none;" src="resource/blocks/dirt_2.png" />
-        <img id="rock" style="display: none;" src="resource/blocks/rock.png" />
-        <img id="grass" style="display: none;" src="resource/blocks/grass.png">
-        <img id="normal_tree" style="display: none;" src="resource/blocks/normal_tree.png">
-        <img id="startImg" style="display: none;" src="resource/other/start.png">
-        <img id="background" style="display: none;" src="resource/other/background.png">
-        <!--IMG-->
-        <canvas id="Canvas" width="1366" height="768" />
+		<div>
+			<font color="red">
+				LOL
+			</font>
+		</div>
         <script>
-            var randomNumber = Math.random();
-            if (randomNumber <= 0.1) {
-                document.getElementById("titile").innerHTML = "93951230's trash";
-            }
-            else if ((randomNumber > 0.1) && (randomNumber <= 0.2)) {
-                document.getElementById("titile").innerHTML = "Terrarin: China";
-            }
-            else if ((randomNumber > 0.3) && (randomNumber <= 0.4)) {
-                document.getElementById("titile").innerHTML = "minecraft 2.0";
-            }
-            else if ((randomNumber > 0.5) && (randomNumber <= 0.6)) {
-                document.getElementById("titile").innerHTML = "毛澤東";
-            }
-            else if ((randomNumber > 0.7) && (randomNumber <= 0.8)) {
-                document.getElementById("titile").innerHTML = "\"吸屌\"-木木合車干";
-            }
-            else {
-                document.getElementById("titile").innerHTML = "( ͡◉ ͜ʖ ͡◉)";
-            }
-
-            delete randomNumber;
-            //other
-            var canvas = document.getElementById("Canvas");
-            var ctx = canvas.getContext("2d");
-            function canvasUpdate() {
-                if (!(started)) {
-                    canvas.height = innerHeight;
-                    canvas.width = innerWidth;
-                }
-            }
-            setInterval(function () {
-                ctx.font = "20px monospace";
-                ctx.fillText("Idk", 20, 30);
-                ctx.fillText("Its just a test", 20, 60);
-                ctx.fillText("\"sorry\" - developer", 20, 90);
-            }, 15)
         </script>
     </body>
 </html>

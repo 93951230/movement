@@ -15,10 +15,10 @@
 			}
 		</style>
 	</head>
-    <body onresize="canvasUpdate()">
+    <body>
         <noscript>
             <bold>
-                enable JavaScript or begone. url("resource/blocks/rock.png")
+                enable JavaScript or begone.
             </bold>
         </noscript>
         <img id="dirt_1" style="display: none;" src="resource/block/dirt_1.png" />
@@ -31,12 +31,15 @@
         <img id="background" style="display: none;" src="resource/gui/background.png">
 		<img id="itembar" style="display: none;" src="resource/gui/itembar.png" />
 		<img id="itembar_2" style="display: none;" src="resource/gui/itembar_2.png" />
+		<img id="itembarin" style="display: none;" src="resource/gui/itembar_in.png" />
+		<img id="inButton" style="display: none;" src="resource/gui/in_button.png" />
 		<!--GUI-->
 		<img id="character" style="display: none;" src="resource/entity/character.png" />
         <!--ENTITY-->
 		<img id="dirt_1_drop" style="display: none;" src="resource/item/dirt_1_drop.png" />
 		<img id="dirt_2_drop" style="display: none;" src="resource/item/dirt_2_drop.png" />
 		<img id="grass_drop" style="display: none;" src="resource/item/grass_drop.png" />
+		<img id="normal_tree_drop" style="display: none;" src="resource/item/normal_tree_drop.png" />
 		<!--ITEM-->
         <canvas id="Canvas" width="1366" height="768" />
         <script id= "otherScript">
@@ -72,14 +75,47 @@
             ////////////////////////////
             //     method calling     //
             ////////////////////////////
-			var itemLibrary = {"dirt":itemDirt,"grass":itemGrass}
-            function breakBlock(e, getHurt) {
+			var itemLibrary = {
+				"dirt":{
+					"item":itemdirt,
+					"breakFull":3,
+					"type":1
+				},
+				"rock":{
+					"item":itemrock,
+					"breakFull":7,
+					"type":2
+				},
+				"grass":{
+					"item":itemgrass,
+					"breakFull":2,
+					"type":1
+				},
+				"normal_tree":{
+					"notLight":true,
+					"item":itemtree,
+					"breakFull":35,
+					"type":0
+				},
+				"air":{
+					"notLight":true,
+				}
+			};
+			var itemsLib = ["dirt","grass","normal_tree","rock"];
+            function breakBlock(e, getHurt, command) {
                 let Xcondition = ((e.clientX > (getHurt.x - (usualLen / 2)) + XdrawVar) && (e.clientX < (getHurt.x + (usualLen / 2)) + XdrawVar));
                 let Ycondition = ((e.clientY > (getHurt.y - (usualLen / 2)) + YdrawVar) && (e.clientY < (getHurt.y + (usualLen / 2)) + YdrawVar));
                 if ((Xcondition) && (Ycondition)) {
-                    getHurt.breakTime -= 1;
+                    eval(command);
                 }
             }
+			function buttonCir(e,getHurt,command) {
+				let Xcondition = ((e.clientX > (getHurt.x - (getHurt.width / 2))) && (e.clientX < (getHurt.x + (getHurt.width / 2))));
+                let Ycondition = ((e.clientY > (getHurt.y - (getHurt.height / 2))) && (e.clientY < (getHurt.y + (getHurt.height / 2))));
+				if ((Xcondition) && (Ycondition)) {
+                    eval(command);
+                }
+			}
             function collide(object, getHurt) {
                 let Xcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) +4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2)-4) + XdrawVar));
                 let lessXcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) - 4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2) + 4) + XdrawVar));
@@ -117,9 +153,9 @@
             function drawFont() {
 				ctx.fillStyle = "White";
                 ctx.fillText("Made by 80102 Weirdo :/", 10, canvas.height - 10);
+				ctx.fillText("x : " + String(Math.floor(CamX * 100) / 100), 10, canvas.height - 40);
+				ctx.fillText("y : " + String(Math.floor(CamY * 100) / 100), 10, canvas.height - 70);
 				ctx.fillStyle = "Black";
-				ctx.fillText("x : " + String(Math.floor(CamX * 100) / 100), 420, 30);
-				ctx.fillText("y : " + String(Math.floor(CamY * 100) / 100), 420, 60);
             }
             //////
             function keyDownHandler(e) {
@@ -133,12 +169,12 @@
                     if (started) {
                         for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
                             for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
-                                try {
-                                    breakBlock(e, (tiles[i])[-j].fill);
-                                }
-                                catch (Error) { }
+                                breakBlock(e, (tiles[i])[-j].fill, "getHurt.breakTime -= 1;");
                             }
                         }
+						for (i = 0;i < buttons.length;i++) {
+							buttonCir(e,buttons[i],String(eval("buttons["+ i +"].command")))
+						}
                     }
                     else {
                         let Xcondition = ((e.clientX > (startButton.x - (300 / 2))) && (e.clientX < (startButton.x + (300 / 2))));
@@ -151,14 +187,29 @@
                             offset_Y = Math.floor((canvas.height / 2) / 45);
                             generateWorld();
                             ctx.font = "30px monospace";
+							buttons[buttons.length] = new publicButton(imgs["Gui"][4],420,32,18,45,"openIn = !openIn");
                             started = true;
                         }
                     }
                 }
             }
+			function mouseMove(e) {
+                if (started) {
+                    for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
+                        for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
+                            buttonCir(e,tiles[i][-j].fill, String("ctx.fillRect((tiles["+ i +"]["+ -j +"].fill.x - ((usualLen + 1) / 2)) + XdrawVar, (tiles["+ i +"]["+ -j +"].fill.y - ((usualLen + 1) / 2)) + YdrawVar, usualLen + 1, usualLen + 1);"))
+                        }
+                    }
+                }
+                else {
+                        
+				}
+            }
+            
             document.addEventListener("keydown", keyDownHandler, false);
             document.addEventListener("keyup", keyUpHandler, false);
             document.addEventListener("mousedown", mouse, false);
+			document.addEventListener("mousemove", mouseMove, false);
         </script>
         <script id="lastScript">
             function rendering() {
@@ -180,16 +231,13 @@
                     } //update tiles that u can see on screen;canvas.height
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
                         for (j = (Math.floor(CamY) - 18 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 18 + Math.floor(canvas.height / 50)); j++) {
-                            
-                                if (!((tiles[i])[-j].fill.ID == "air")) {
-                                    breakTest((tiles[i])[-j].fill, (tiles[i])[-j].fill.breakTimeF,itemLibrary[String((tiles[i])[-j].fill.ID)]);
-                                }
-                                if (!((tiles[i])[-j].fill.light == -1)) {
-                                    ligthTest((tiles[i])[-j].fill);
-                                }
+                            if (!((tiles[i])[-j].fill.ID == "air")) {
+                                breakTest((tiles[i])[-j].fill, (tiles[i])[-j].fill.breakTimeF,itemLibrary[String((tiles[i])[-j].fill.ID)]);
                             }
-                            
-                        
+                            if (!(itemLibrary[(tiles[i])[-j].fill.ID]["notLight"])) {
+                                ligthTest((tiles[i])[-j].fill);
+                            }
+                        }
                     }
 					///////////////////////////////////////////////////////////////
 					///////////////////////////////////////////////////////////////
@@ -206,6 +254,17 @@
 						else { }
 					}
 					ctx.font = "20px monospace";
+					if (openIn) {
+						for (i = 0; i < itembar_amount;i++) {
+							for (j = 0; j < 3;j++) {
+								itembarIn[i][j].draw();
+							}
+						}
+					}
+					ctx.font = "20px monospace";
+					for (i = 0;i < buttons.length;i++) {
+						buttons[i].draw();
+					}
 					/////////////////////////////////////////////////////////////// 
                     character.controlling();
                     character.draw();
@@ -219,6 +278,8 @@
 					drawFont();
                 }
                 else {
+					canvas.height = innerHeight;
+                    canvas.width = innerWidth;
                     startButton.update();
                     startButton.draw();
                     ctx.font = "20px monospace";

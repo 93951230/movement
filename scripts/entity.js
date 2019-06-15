@@ -12,7 +12,19 @@ whoever copy this file just for money gets curse by endless hell flame
                     ctx.drawImage(this.drawImg, this.x - 150, this.y - 50);
                 }
             }
-			function itemDirt(count) {
+			function publicButton(Img,x,y,width,height,command) {
+                this.drawImg = Img;
+				this.height = height;
+				this.width = width;
+				this.x = x;
+				this.y = y;
+				this.command = command;
+                this.draw = function () {
+                    ctx.drawImage(this.drawImg, this.x-(this.width/2), this.y-(this.height/2));
+                }
+            }
+			////////////////////////////////////////////
+			function itemdirt(count) {
 				this.settable = true;
 				if (Math.random() > 0.5) {
 					this.drawImg = imgs["Item"][0];
@@ -22,12 +34,25 @@ whoever copy this file just for money gets curse by endless hell flame
 				}
 				this.count = count;
 			}
-			function itemGrass(count) {
+			function itemrock(count) {
 				this.settable = true;
 				this.drawImg = imgs["Item"][2];
 				this.count = count;
 			}
-			///////////////
+			function itemgrass(count) {
+				this.settable = true;
+				this.drawImg = imgs["Item"][2];
+				this.count = count;
+			}
+			function itemtree(count) {
+				this.settable = true;
+				this.drawImg = imgs["Item"][3];
+				this.count = count;
+			}
+			function itemiron_pickaxe() {
+				
+			}
+			//////////////////////////////////////////////
 			function itemBar(hold) {
 				this.x = (i*50)+10;
 				this.selected = false;
@@ -39,6 +64,18 @@ whoever copy this file just for money gets curse by endless hell flame
 					else {
 						ctx.drawImage(imgs["Gui"][1],this.x,10);
 					}
+					if (this.hold != null) {
+						ctx.drawImage(this.hold.drawImg,this.x+10,20);
+						ctx.fillText(String(this.hold.count), this.x+15,70);
+					}
+				}
+			}
+			function itemBarIn(hold) {
+				this.x = (i*50)+10;
+				this.y = (j*50)+60;
+				this.hold = hold;
+				this.draw = function () {
+					ctx.drawImage(imgs["Gui"][3],this.x,this.y);
 					if (this.hold != null) {
 						ctx.drawImage(this.hold.drawImg,this.x+10,20);
 						ctx.fillText(String(this.hold.count), this.x+15,70);

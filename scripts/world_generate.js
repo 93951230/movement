@@ -3,7 +3,6 @@ Made by 93951230
 whoever copy this file just for money gets curse by endless hell flame
 */
 			function generateWorld() {
-				ctx.fillText("???", 20, 120);
                 var igenerate = [256];
                 for (i = 0; i < tileWi; i++) {
                     if ((Math.random() < 0.2) && (igenerate[i] + 1 < 224)) {
@@ -50,8 +49,15 @@ whoever copy this file just for money gets curse by endless hell flame
                 YdrawVar = -(45 * igenerate[(tileWi / 2)]) +320;
 				//itembar...
 				itembar = [];
+				itembarIn = [];
 				for (i = 0; i < itembar_amount;i++) {
 					itembar[i] = new itemBar(null);
+				}
+				for (i = 0; i < itembar_amount;i++) {
+					itembarIn[i] = [];
+					for (j = 0; j < 3;j++) {
+						itembarIn[i][j] = new itemBarIn(null);
+					}
 				}
 				itembar[selectedBar].selected = true;
             }

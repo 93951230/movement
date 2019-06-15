@@ -7,8 +7,7 @@ whoever copy this file just for money gets curse by endless hell flame
                 this.light = 4;
                 this.countX = X;
                 this.countY = Y;
-				this.breakTimeF = 3;
-                this.breakTime = 3;
+                this.breakTime = itemLibrary[this.ID]["breakFull"];
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
@@ -34,8 +33,7 @@ whoever copy this file just for money gets curse by endless hell flame
                 this.light = 4;
                 this.countX = X;
                 this.countY = Y;
-				this.breakTimeF = 7;
-                this.breakTime = 7;
+                this.breakTime = itemLibrary[this.ID]["breakFull"];
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
@@ -55,8 +53,7 @@ whoever copy this file just for money gets curse by endless hell flame
                 this.light = 4;
                 this.countX = X;
                 this.countY = Y;
-				this.breakTimeF = 2;
-                this.breakTime = 2;
+                this.breakTime = itemLibrary[this.ID]["breakFull"];
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
@@ -79,8 +76,7 @@ whoever copy this file just for money gets curse by endless hell flame
                 this.light = -1;
                 this.countX = X;
                 this.countY = Y;
-                this.breakTimeF = 2;
-				this.breakTime = 2;
+				this.breakTime = itemLibrary[this.ID]["breakFull"];
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
