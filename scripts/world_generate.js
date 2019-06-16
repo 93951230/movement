@@ -15,24 +15,47 @@ whoever copy this file just for money gets curse by endless hell flame
                         igenerate[i + 1] = igenerate[i];
                     }
                 }
-                for (i = 0; i < tileWi; i++) {
-                    tiles[i] = [];
-                    for (j = 0; j < tileHi; j++) {
-                        if (j >= igenerate[i]) {
-                            // really creatin'
-                            if (Math.random() > ((j - 256) / 256)) {
-                                (tiles[i])[j] = new tile(dirt, j, i);
-                            }
-                            else // not dirt how about rocks?
-                            {
-                                (tiles[i])[j] = new tile(rock, j, i);
-                            }
-                        }
-                        else {
-                            (tiles[i])[j] = new tile(air, j, i);
-                        }
-                    }
-                }
+				var Worlding = function () {
+					for (i = 0; i < tileWi*(5/10); i++) {
+						tiles[i] = [];
+						for (j = 0; j < tileHi; j++) {
+							if (j >= igenerate[i]) {
+								// really creatin'
+								if (Math.random() > ((j - 256) / 256)) {
+									(tiles[i])[j] = new tile(dirt, j, i);
+								}
+								else // not dirt how about rocks?
+								{
+									(tiles[i])[j] = new tile(rock, j, i);
+								}
+							}
+							else {
+								(tiles[i])[j] = new tile(air, j, i);
+							}
+						}
+					}
+					ctx.fillText("j of now : "+String(i), 20, 120);
+					ctx.fillText("j of now : "+String(i), 20, 120);
+					for (i; i < tileWi; i++) {
+						tiles[i] = [];
+						for (j = 0; j < tileHi; j++) {
+							if (j >= igenerate[i]) {
+								// really creatin'
+								if (Math.random() > ((j - 256) / 256)) {
+									(tiles[i])[j] = new tile(dirt, j, i);
+								}
+								else // not dirt how about rocks?
+								{
+									(tiles[i])[j] = new tile(rock, j, i);
+								}
+							}
+							else {
+								(tiles[i])[j] = new tile(air, j, i);
+							}
+						}
+					}
+				}
+				Worlding();
 				//grass (surface)
                 for (i = 0; i < tileWi; i++) {
                     (tiles[i])[igenerate[i]] = new tile(grass, igenerate[i], i)

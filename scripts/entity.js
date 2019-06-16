@@ -121,6 +121,7 @@ whoever copy this file just for money gets curse by endless hell flame
 			}
 			//block
 			var character = new function () {
+				this.Time = 0;
                 this.jCool = 0;
                 this.ableA = 0;
                 this.ableD = 0;
@@ -136,6 +137,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     ctx.drawImage(this.drawImg,this.x - 16,this.y - 32);
                 }
                 this.updating = function () {
+					this.Time += 1;
                     CamX = -((XdrawVar / 45) - offset_X);
                     CamY = ((YdrawVar / 45) + (Math.floor((768-canvas.height)/90)));
                     //controll about
