@@ -5,10 +5,10 @@ whoever copy this file just for money gets curse by endless hell flame
 			function generateWorld() {
                 var igenerate = [256];
                 for (i = 0; i < tileWi; i++) {
-                    if ((Math.random() < 0.2) && (igenerate[i] + 1 < 224)) {
+                    if ((Math.random() < 0.2) || (igenerate[i] + 1 < 224)) {
                         igenerate[i + 1] = igenerate[i] + 1;
                     }
-                    else if (((Math.random() >= 0.2) && (Math.random() < 0.4)) && (igenerate[i] - 1 < 288)) {
+                    else if (((Math.random() >= 0.2) && (Math.random() < 0.4)) || (igenerate[i] - 1 < 288)) {
                         igenerate[i + 1] = igenerate[i] - 1;
                     }
                     else {
@@ -41,7 +41,7 @@ whoever copy this file just for money gets curse by endless hell flame
 						for (j = 0; j < tileHi; j++) {
 							if (j >= igenerate[i]) {
 								// really creatin'
-								if (Math.random() > ((j - 256) / 256)) {
+								if (Math.random() > ((j - 256) / 256)+0.2) {
 									(tiles[i])[j] = new tile(dirt, j, i);
 								}
 								else // not dirt how about rocks?
