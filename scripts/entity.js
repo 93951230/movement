@@ -25,7 +25,7 @@ whoever copy this file just for money gets curse by endless hell flame
             }
 			////////////////////////////////////////////
 			function itemdirt(count) {
-				this.settable = true;
+			this.type = {"type":0,"set":true};
 				if (Math.random() > 0.5) {
 					this.drawImg = imgs["Item"][0];
 				}
@@ -35,22 +35,24 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.count = count;
 			}
 			function itemrock(count) {
-				this.settable = true;
+				this.type = {"type":0,"set":true};
 				this.drawImg = imgs["Item"][2];
 				this.count = count;
 			}
 			function itemgrass(count) {
-				this.settable = true;
+				this.type = {"type":0,"set":true};
 				this.drawImg = imgs["Item"][2];
 				this.count = count;
 			}
 			function itemtree(count) {
-				this.settable = true;
+				this.type = {"type":0,"set":true};
 				this.drawImg = imgs["Item"][3];
 				this.count = count;
 			}
-			function itemiron_pickaxe() {
-				
+			function itemiron_pickaxe(count) {
+				this.drawImg = imgs["Item"][4];
+				this.count = count;
+				this.type = {"type":1};
 			}
 			//////////////////////////////////////////////
 			function itemBar(hold) {
@@ -207,9 +209,6 @@ whoever copy this file just for money gets curse by endless hell flame
                             this.upForce += 6;
                             this.jumpAlready = true;
                         }
-                    }
-					if (keyPressed["KeyE"]) {
-                        open
                     }
 					for (i = 1; i <= itembar_amount;i++) {
 						if (keyPressed["Digit"+String(i)]) {

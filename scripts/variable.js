@@ -32,7 +32,8 @@
 			imgs["Item"][4] = document.getElementById("iron_pickaxe");
             var keyPressed = {}
 			//world generate
-			var tileWi = 4096;
+			var progress = 0;
+			var tileWi = 2048;
 			var tileHi = 512;
 			var selectedBar = 0;
 			var itembar_amount = 8;
