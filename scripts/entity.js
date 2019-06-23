@@ -76,7 +76,6 @@ whoever copy this file just for money gets curse by endless hell flame
 						}
 						if (this.hold.count <= 0) {
 							this.hold = null;
-							console.log("suucesad")
 						}
 					}
 				}
@@ -90,6 +89,9 @@ whoever copy this file just for money gets curse by endless hell flame
 					if (this.hold != null) {
 						ctx.drawImage(this.hold.drawImg,this.x+10,20);
 						ctx.fillText(String(this.hold.count), this.x+15,70);
+						if (this.hold.count <= 0) {
+							this.hold = null;
+						}
 					}
 				}
 			}

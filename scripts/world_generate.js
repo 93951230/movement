@@ -23,7 +23,7 @@ whoever copy this file just for money gets curse by endless hell flame
 						for (j = 0; j < tileHi; j++) {
 							if (j >= this.igenerate[i]) {
 								// really creatin'
-								if (Math.random() > ((j - 256) / 256)) {
+								if (Math.random() > ((j - 256) / 256)+0.2) {
 									(tiles[i])[j] = new tile(dirt, j, i);
 								}
 								else // not dirt how about rocks?
