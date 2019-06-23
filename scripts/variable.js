@@ -33,7 +33,7 @@
             var keyPressed = {}
 			//world generate
 			var progress = 0;
-			var tileWi = 2048;
+			var tileWi = 350;
 			var tileHi = 512;
 			var selectedBar = 0;
 			var itembar_amount = 8;
@@ -45,10 +45,10 @@
             function tile(filled, X, Y) {
                 this.fill = new filled(X, Y);
             }
-            function Load(arg) {itemLibrary[block.ID]["Light"]
+            function Load(arg) {itemLibrary[block.constructor.name]["Light"]
             }
             function ligthTest(block) {
-                if ((itemLibrary[(tiles[block.countY - 1])[block.countX].fill.ID]["Light"] == false) || (itemLibrary[(tiles[block.countY + 1])[block.countX].fill.ID]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX - 1].fill.ID]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX + 1].fill.ID]["Light"] == false)) {
+                if ((itemLibrary[(tiles[block.countY - 1])[block.countX].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY + 1])[block.countX].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX - 1].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX + 1].fill.constructor.name]["Light"] == false)) {
                     block.light = 8;
                 }
                 else {
@@ -61,9 +61,9 @@
             function breakTest(block) {
                 if (block.breakTime <= 0) {
                     (tiles[block.countY])[block.countX] = new tile(air, block.countX, block.countY);
-					getItem(itemLibrary[block.ID]["item"],1);
+					getItem(itemLibrary[block.constructor.name]["item"],1);
                 }
-                block.breakPhase = 1 - (block.breakTime / itemLibrary[block.ID]["breakFull"]);
+                block.breakPhase = 1 - (block.breakTime / itemLibrary[block.constructor.name]["breakFull"]);
             }
 			function getItem(ID,amount) {
 				for (i = 0;i < itembar_amount;i++) {

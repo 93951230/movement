@@ -83,7 +83,7 @@
 					"Collide":true,
 					"Breakable":true,
 					"item":itemdirt,
-					"breakFull":3,
+					"breakFull":20,
 					"type":1
 				},
 				"rock":{
@@ -99,17 +99,17 @@
 					"Collide":true,
 					"Breakable":true,
 					"item":itemgrass,
-					"breakFull":2,
+					"breakFull":12,
 					"type":1
 				},
 				"normal_tree":{
 					"Light":false,
 					"Collide":false,
 					"Breakable":true,
-					"item":itemtree,
+					"item":itemnormal_tree,
 					"breakFull":35,
 					"method":function (x,y) {
-						if (tiles[y][x+1].fill.constructor == air) {
+						if (tiles[y][x+1].fill.constructor.name == "air") {
 							tiles[y][x] = new tile(air, x, y);
 						}
 					},
@@ -121,12 +121,42 @@
 					"Breakable":false
 				}
 			};
-			var itemsLib = ["dirt","grass","normal_tree","rock"];
+			var blockLibrary = {
+				"itemrock":{
+					
+				},
+				"itemdirt":{
+					
+				},
+				"itemgrass":{
+					
+				},
+				"itemnormal_tree":{
+				},
+				"itemiron_pickaxe":{
+					
+				}
+			};
             function breakBlockDete(e, getHurt, command) {
                 let Xcondition = ((e.clientX > (getHurt.x - (usualLen / 2)) + XdrawVar) && (e.clientX < (getHurt.x + (usualLen / 2)) + XdrawVar));
                 let Ycondition = ((e.clientY > (getHurt.y - (usualLen / 2)) + YdrawVar) && (e.clientY < (getHurt.y + (usualLen / 2)) + YdrawVar));
                 if ((Xcondition) && (Ycondition)) {
                     eval(command);
+                }
+            }
+			function placeBlockDete(e, getHurt, target) {
+                let Xcondition = ((e.clientX > (getHurt.x - (usualLen / 2)) + XdrawVar) && (e.clientX < (getHurt.x + (usualLen / 2)) + XdrawVar));
+                let Ycondition = ((e.clientY > (getHurt.y - (usualLen / 2)) + YdrawVar) && (e.clientY < (getHurt.y + (usualLen / 2)) + YdrawVar));
+                if ((Xcondition) && (Ycondition)) {
+					if (getHurt.constructor.name != "air") {
+						getHurt.breakTime -= 1;
+					}
+                    else {
+						if (((tiles[getHurt.countY - 1][getHurt.countX].fill.constructor.name != "air") || (tiles[getHurt.countY + 1][getHurt.countX].fill.constructor.name != "air")) || ((tiles[getHurt.countY][getHurt.countX-1].fill.constructor.name != "air") || (tiles[getHurt.countY][getHurt.countX +1].fill.constructor.name != "air"))) {
+							tiles[getHurt.countY][getHurt.countX] = new tile(eval(String(target.constructor.name).replace(/item/,"")),getHurt.countX,getHurt.countY);
+							target.count -= 1;
+						}
+					}
                 }
             }
 			function buttonCir(e,getHurt,command) {
@@ -181,17 +211,22 @@
             }
             function mouse(e) {
                 if (e.buttons == 1) {
-                    if (started) {
-						if (itembar[selectedBar].hold.type["type"] == 1)
-							for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
-								for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
-									breakBlockDete(e, (tiles[i])[-j].fill, "getHurt.breakTime -= 1;");
+                    if (started) {//pyramid of doom test
+						if (!(itembar[selectedBar].hold == null)) {
+							if (itembar[selectedBar].hold.type["type"] == 1) {
+								for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
+									for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
+										if ((tiles[i])[-j].fill.constructor.name != "air") {
+											breakBlockDete(e, (tiles[i])[-j].fill, "getHurt.breakTime -= search;".replace(/search/m,itembar[selectedBar].hold.type["speed"]));
+										}
+									}
 								}
 							}
-						else {
-							for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
-								for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
-									breakBlockDete(e, (tiles[i])[-j].fill, "getHurt.breakTime -= 1;");
+							else if (itembar[selectedBar].hold.type["type"] == 0) {
+								for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
+									for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
+										placeBlockDete(e, (tiles[i])[-j].fill,itembar[selectedBar].hold);
+									}
 								}
 							}
 						}
@@ -215,18 +250,6 @@
                         }
                     }
                 }
-            }
-			function mouseMove(e) {
-                if (started) {
-                    for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
-                        for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
-                            buttonCir(e,tiles[i][-j].fill,"console.log(\"asd\")")
-                        }
-                    }
-                }
-                else {
-                        
-				}
             }
             document.addEventListener("keydown", keyDownHandler, false);
             document.addEventListener("keyup", keyUpHandler, false);
@@ -260,7 +283,7 @@
                         for (j = (Math.floor(CamY) - 14 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 14 + Math.floor(canvas.height / 50)); j++) {
                             try {
                                 (tiles[i])[-j].fill.draw();
-                                if (itemLibrary[tiles[i][-j].fill.ID]["Collide"]) {
+                                if (itemLibrary[tiles[i][-j].fill.constructor.name]["Collide"]) {
                                     collide(character, (tiles[i])[-j].fill);
                                 }
                             }
@@ -269,10 +292,10 @@
                     } //update tiles that u can see on screen;canvas.height
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
                         for (j = (Math.floor(CamY) - 18 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 18 + Math.floor(canvas.height / 50)); j++) {
-                            if (itemLibrary[tiles[i][-j].fill.ID]["Breakable"]) {
-                                breakTest((tiles[i])[-j].fill, (tiles[i])[-j].fill.breakTimeF,itemLibrary[String((tiles[i])[-j].fill.ID)]);
+                            if (itemLibrary[tiles[i][-j].fill.constructor.name]["Breakable"]) {
+                                breakTest((tiles[i])[-j].fill,itemLibrary[String((tiles[i])[-j].fill.ID)]);
                             }
-                            if (itemLibrary[tiles[i][-j].fill.ID]["Light"]) {
+                            if (itemLibrary[tiles[i][-j].fill.constructor.name]["Light"]) {
                                 ligthTest((tiles[i])[-j].fill);
                             }
                         }

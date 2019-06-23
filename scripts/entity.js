@@ -23,7 +23,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     eval(drawMethod);
                 }
             }
-			////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			function itemdirt(count) {
 			this.type = {"type":0,"set":true};
 				if (Math.random() > 0.5) {
@@ -44,7 +44,7 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.drawImg = imgs["Item"][2];
 				this.count = count;
 			}
-			function itemtree(count) {
+			function itemnormal_tree(count) {
 				this.type = {"type":0,"set":true};
 				this.drawImg = imgs["Item"][3];
 				this.count = count;
@@ -52,9 +52,9 @@ whoever copy this file just for money gets curse by endless hell flame
 			function itemiron_pickaxe(count) {
 				this.drawImg = imgs["Item"][4];
 				this.count = count;
-				this.type = {"type":1};
+				this.type = {"type":1,"speed":5};
 			}
-			//////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			function itemBar(hold) {
 				this.x = (i*50)+10;
 				this.selected = false;
@@ -68,9 +68,15 @@ whoever copy this file just for money gets curse by endless hell flame
 					}
 					if (this.hold != null) {
 						ctx.drawImage(this.hold.drawImg,this.x+10,20);
-						ctx.fillText(String(this.hold.count), this.x+15,70);
+						ctx.fillStyle = "White";
+						ctx.fillText(String(this.hold.count), this.x+5,50);
+						ctx.fillStyle = "Black";
 						if (this.selected == true) {
 							ctx.drawImage(this.hold.drawImg,character.x,character.y);
+						}
+						if (this.hold.count <= 0) {
+							this.hold = null;
+							console.log("suucesad")
 						}
 					}
 				}
