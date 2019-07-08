@@ -22,7 +22,9 @@
             imgs["Block"][0][0] = document.getElementById("dirt_1");
             imgs["Block"][0][1] = document.getElementById("dirt_2");
             imgs["Block"][1] = document.getElementById("rock");
-            imgs["Block"][2] = document.getElementById("grass");
+            imgs["Block"][2] = []
+			imgs["Block"][2][0] = document.getElementById("grass_1");
+			imgs["Block"][2][1] = document.getElementById("grass_2");
             imgs["Block"][3] = document.getElementById("normal_tree");
 			imgs["Entity"][0] = document.getElementById("character");
 			imgs["Item"][0] = document.getElementById("dirt_1_drop");

@@ -24,7 +24,8 @@
         <img id="dirt_1" style="display: none;" src="resource/block/dirt_1.png" />
         <img id="dirt_2" style="display: none;" src="resource/block/dirt_2.png" />
         <img id="rock" style="display: none;" src="resource/block/rock.png" />
-        <img id="grass" style="display: none;" src="resource/block/grass.png">
+        <img id="grass_1" style="display: none;" src="resource/block/grass_1.png">
+		<img id="grass_2" style="display: none;" src="resource/block/grass_2.png">
         <img id="normal_tree" style="display: none;" src="resource/block/normal_tree.png">
 		<!--BLOCK-->
         <img id="startImg" style="display: none;" src="resource/gui/start.png">
@@ -119,22 +120,6 @@
 					"Light":false,
 					"Collide":false,
 					"Breakable":false
-				}
-			};
-			var blockLibrary = {
-				"itemrock":{
-					
-				},
-				"itemdirt":{
-					
-				},
-				"itemgrass":{
-					
-				},
-				"itemnormal_tree":{
-				},
-				"itemiron_pickaxe":{
-					
 				}
 			};
             function breakBlockDete(e, getHurt, command) {
@@ -257,20 +242,14 @@
 			//document.addEventListener("mousemove", mouseMove, false);
 			function drawFont() {
 				ctx.fillStyle = "White";
-                ctx.fillText("Made by 80102 Weirdo :/", 10, canvas.height - 10);
-				ctx.fillText("x : " + String(Math.floor(CamX * 100) / 100), 10, canvas.height - 40);
-				ctx.fillText("y : " + String(Math.floor(CamY * 100) / 100), 10, canvas.height - 70);
-				ctx.fillText("time of the game : " + String(character.Time), 10, canvas.height - 100);
+				ctx.font = "20px wingdings";
+                ctx.fillText("Do you is fucking?", 10, canvas.height - 10);
+				ctx.font = "20px monospace";
+				ctx.fillText("x : " + String(Math.floor(CamX * 100) / 100), 10, canvas.height - 30);
+				ctx.fillText("y : " + String(Math.floor(CamY * 100) / 100), 10, canvas.height - 50);
+				ctx.fillText("Running Time : " + String(character.Time), 10, canvas.height - 70);
 				ctx.fillStyle = "Black";
             }
-			function before() {
-				ctx.font = "20px monospace";
-				ctx.fillStyle = "Black";
-                ctx.fillText("When the start button being click", 20, 30);
-                ctx.fillText("the height and width of the game will be fix", 20, 60);
-                ctx.fillText("\"如果當的話就調小視窗:)\" - developer", 20, 90);
-				ctx.fillText("j of now : "+String(progress), 20, 120)
-			}
         </script>
         <script id="lastScript">
             function rendering() {
@@ -300,6 +279,7 @@
                             }
                         }
                     }
+					//ctx.fillstyle = "black";
 					///////////////////////////////////////////////////////////////
 					///////////////////////////////////////////////////////////////
 					for (i = 0; i < item.length;i++) {

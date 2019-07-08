@@ -3,6 +3,7 @@ Made by 93951230
 whoever copy this file just for money gets curse by endless hell flame
 */
 function drawTile(Img,x,y,breakP,light) {
+	ctx.fillStyle = "#141012";
 	ctx.drawImage(Img, (x - (usualLen / 2)) + XdrawVar, (y - (usualLen / 2)) + YdrawVar);
     ctx.globalAlpha = breakP;
     ctx.fillRect((x - ((usualLen - ((1 - breakP) * usualLen))) / 2) + XdrawVar, (y - ((usualLen - ((1 - breakP) * usualLen)) / 2)) + YdrawVar, usualLen - ((1 - breakP) * usualLen), usualLen - ((1 - breakP) * usualLen));
@@ -49,9 +50,15 @@ function drawTile(Img,x,y,breakP,light) {
                 this.collideVar = null;
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
+				if (Math.random() > 0.5) {
+                    this.drawImg = imgs["Block"][2][0];
+                }
+                else {
+                    this.drawImg = imgs["Block"][2][1];
+                }
                 this.update = function () { }
                 this.draw = function () {
-					drawTile(imgs["Block"][2],this.x,this.y,this.breakPhase,this.light);
+					drawTile(this.drawImg,this.x,this.y,this.breakPhase,this.light);
                 }
             }
             function normal_tree(X, Y)

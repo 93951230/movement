@@ -133,8 +133,8 @@ whoever copy this file just for money gets curse by endless hell flame
 			var character = new function () {
 				this.Time = 0;
                 this.jCool = 0;
-                this.ableA = 0;
-                this.ableD = 0;
+                this.Left_Time = [0,true];
+                this.Right_Time = [0,true];
                 this.upForce = 0;
                 this.downForce = 0;
                 this.height = 64;
@@ -151,13 +151,13 @@ whoever copy this file just for money gets curse by endless hell flame
                     CamX = -((XdrawVar / 45) - offset_X);
                     CamY = ((YdrawVar / 45) + (Math.floor((768-canvas.height)/90)));
                     //controll about
-                    if (this.ableA != 0) {
-                        this.ableA -= 1;
-                    }
-                    if (this.ableD != 0) {
-                        this.ableD -= 1;
-                    }
                     //jumping about
+					if (this.Time > this.Left_Time[0]) {
+						this.Left_Time[1] = true;
+					}
+					if (this.Time > this.Right_Time[0]) {
+						this.Right_Time[1] = true;
+					}
                     if (this.jumpTime != 0) {
                         this.jumpTime -= 1;
                     }
@@ -180,10 +180,10 @@ whoever copy this file just for money gets curse by endless hell flame
                 }
                 this.getXcollide = function () {
                     if (this.x > this.collideO.x + XdrawVar) {
-                        this.ableA = 10;
+                        this.Left_Time = [this.Time+10,false];
                     }
                     if (this.x < this.collideO.x + XdrawVar) {
-                        this.ableD = 10;
+                        this.Right_Time = [this.Time+10,false];
                     }
                 }
                 this.getYcollide = function () {
@@ -202,12 +202,12 @@ whoever copy this file just for money gets curse by endless hell flame
                 }
                 this.controlling = function () {
                     if (keyPressed["KeyD"]) {
-                        if (this.ableD == 0) {
+                        if (this.Right_Time[1]) {
                             XdrawVar -= 3.5;
                         }
                     }
                     if (keyPressed["KeyA"]) {
-                        if (this.ableA == 0) {
+                        if (this.Left_Time[1]) {
                             XdrawVar += 3.5;
                         }
                     }
