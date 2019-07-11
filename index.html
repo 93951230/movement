@@ -1,7 +1,7 @@
 <!doctype html>
 <html oncontextmenu="return false;">
 	<head>
-		<title id = "titile">unknown LA</title>
+		<title id = "title">>:(</title>
 		<meta name="author" content="93951230">
 		<meta name="description" content="useless game">
 		<meta name="keywords" content="qazwsxedc9395">
@@ -51,22 +51,22 @@
 			var canvas = document.getElementById("Canvas");
             var ctx = canvas.getContext("2d");
             if (randomNumber <= 0.1) {
-                document.getElementById("titile").innerHTML = "93951230's trash";
+                document.getElementById("title").innerHTML = "警告:手機不能用";
             }
             else if ((randomNumber > 0.1) && (randomNumber <= 0.2)) {
-                document.getElementById("titile").innerHTML = "Terrarin: China";
+                document.getElementById("title").innerHTML = "hi there";
             }
             else if ((randomNumber > 0.3) && (randomNumber <= 0.4)) {
-                document.getElementById("titile").innerHTML = "minecraft 2.0";
+                document.getElementById("title").innerHTML = "警告:電腦不能用";
             }
             else if ((randomNumber > 0.5) && (randomNumber <= 0.6)) {
-                document.getElementById("titile").innerHTML = "毛澤東";
+                document.getElementById("title").innerHTML = "沒事多喝水";
             }
             else if ((randomNumber > 0.7) && (randomNumber <= 0.8)) {
-                document.getElementById("titile").innerHTML = "7% :(";
+                document.getElementById("title").innerHTML = "\"高完?成度\"";
             }
             else {
-                document.getElementById("titile").innerHTML = "( ͡◉ ͜ʖ ͡◉)";
+                document.getElementById("title").innerHTML = "多喝水沒事";
             }
 
             delete randomNumber;
@@ -229,8 +229,7 @@
                             character.y = (canvas.height / 2);
                             offset_X = Math.floor((canvas.width / 2) / 45);
                             offset_Y = Math.floor((canvas.height / 2) / 45);
-                            generateWorld.main(1);
-							generateWorld.initialize();generateWorldISL();generateWorld.initialize();
+                            generateWorld.main(confirm("生成空島?"));
                             ctx.font = "30px monospace";
 							buttons[buttons.length] = new publicButton([imgs["Gui"][4],imgs["Gui"][5]],420,32,18,45,"openIn = !openIn","if (openIn) { ctx.drawImage(this.drawImg[0], this.x-(this.width/2), this.y-(this.height/2));} else {ctx.drawImage(this.drawImg[1], this.x-(this.width/2), this.y-(this.height/2));}");
                             started = true;

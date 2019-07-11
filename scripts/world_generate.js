@@ -84,11 +84,11 @@ for (i = 0; i < tileWi; i++) {
 				}
 				this.main = async function () {
 					this.randomly();
-					if (type==0) {
-						await this.land();
+					if (true) {
+						await this.highland();
 					}
 					else {
-						await this.highland();
+						await this.land();
 					}
 					this.initialize();
 					XdrawVar = (-Math.floor((45 * (tileWi / 2))));
@@ -127,13 +127,18 @@ for (i = 0; i < tileWi; i++) {
 					else if ((Math.random() >= 0.1) && (Math.random() < 0.2)) {
 						surfaceH[i + 1] = surfaceH[i] - 1;
 					}
-					else {
+					else {j/Math.max.apply(null,bottomH)
 						surfaceH[i + 1] = surfaceH[i];
-					}
-				}//Math.max.apply(null,bottomH)
-				for (i = pos[0]; i < width+pos[0]; i++) {
+					}-(j-bottomH[i-pos[0]];)
+				}//Math.max.apply(null,bottomH)  bottomH[i-pos[0]]-surfaceH[i-pos[0]]
+				for (i = pos[0]; i < width+pos[0]; i++) {surfaceH[i]
 					for (j = bottomH[i-pos[0]]; j > surfaceH[i-pos[0]]; j--) {
-						(tiles[i])[j] = new tile(dirt, j, i);
+						if (Math.random() > pos[1]) {
+							(tiles[i])[j] = new tile(rock, j, i);
+						}
+						else {
+							(tiles[i])[j] = new tile(dirt, j, i);
+						}
 					}
 				}
 				for (i = pos[0]; i < width+pos[0]; i++) {
@@ -141,10 +146,3 @@ for (i = 0; i < tileWi; i++) {
 				}
 			}
 			
-			function generateWorldISL() {
-				for (i=0;i < tileWi;i++) {
-					if (Math.random() < 0.07) {
-						island(Math.floor((Math.random()*100)/5)+5,[i,256])
-					}
-				}
-			}
