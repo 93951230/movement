@@ -35,6 +35,7 @@
 		<img id="itembarin" style="display: none;" src="resource/gui/itembar_in.png" />
 		<img id="inButton" style="display: none;" src="resource/gui/in_button.png" />
 		<img id="inButtonOpen" style="display: none;" src="resource/gui/in_button_open.png" />
+		<img id="bg_before" style="display: none;" src="resource/gui/bg_before.png" />
 		<!--GUI-->
 		<img id="character" style="display: none;" src="resource/entity/character.png" />
         <!--ENTITY-->
@@ -228,8 +229,8 @@
                             character.y = (canvas.height / 2);
                             offset_X = Math.floor((canvas.width / 2) / 45);
                             offset_Y = Math.floor((canvas.height / 2) / 45);
-                            generateWorld.main();
-							//generateWorldISL();
+                            generateWorld.main(1);
+							generateWorld.initialize();generateWorldISL();generateWorld.initialize();
                             ctx.font = "30px monospace";
 							buttons[buttons.length] = new publicButton([imgs["Gui"][4],imgs["Gui"][5]],420,32,18,45,"openIn = !openIn","if (openIn) { ctx.drawImage(this.drawImg[0], this.x-(this.width/2), this.y-(this.height/2));} else {ctx.drawImage(this.drawImg[1], this.x-(this.width/2), this.y-(this.height/2));}");
                             started = true;
@@ -322,11 +323,14 @@
                 else {
 					canvas.height = innerHeight;
                     canvas.width = innerWidth;
+					ctx.scale(2,1.6);
+					ctx.drawImage(imgs["Gui"][6],0,0);
+					ctx.scale(1/2,1/1.6);
                     startButton.update();
                     startButton.draw();
 					ctx.font = "23px Microsoft YaHei";
 					ctx.fillStyle = "Black";
-					ctx.fillText("IQ Warining:按下按鈕後 遊戲視窗就會被固定", 20, 60);
+					ctx.fillText("IQ Warining : 按下按鈕後 遊戲視窗就會被固定", 20, 60);
 					ctx.fillText("如果當的話就調小視窗  :)", 20, 90);
 					ctx.font = "23px Comic Sans MS";
 					ctx.fillText("Made by Xx_93951230_xX ", 20, 30);

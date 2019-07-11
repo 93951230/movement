@@ -5,7 +5,7 @@ whoever copy this file just for money gets curse by endless hell flame
 for (i = 0; i < tileWi; i++) {
 	tiles[i] = [];
 }
-			var generateWorld = new function() {
+			var generateWorld = new function(type) {
 				this.randomly = function () {
 					this.igenerate = [256];
 					for (i = 0; i < tileWi; i++) {
@@ -20,7 +20,7 @@ for (i = 0; i < tileWi; i++) {
 						}
 					}
 				}
-				this.constructing = function () {
+				this.land = function () {
 					for (i = 0; i < tileWi; i++) {
 						for (j = 0; j < tileHi; j++) {
 							if (j >= this.igenerate[i]) {
@@ -38,9 +38,6 @@ for (i = 0; i < tileWi; i++) {
 							}
 						}
 					}
-				}
-				this.surface = function () {
-					//grass (surface)
 					for (i = 0; i < tileWi; i++) {
 						(tiles[i])[this.igenerate[i]] = new tile(grass, this.igenerate[i], i)
 					}
@@ -53,9 +50,23 @@ for (i = 0; i < tileWi; i++) {
 						}
 					}
 				}
+				this.highland = function () {
+					for (i = 0; i < tileWi; i++) {
+						for (j = 0; j < tileHi; j++) {
+							(tiles[i])[j] = new tile(air, j, i);
+						}
+					}
+					var random = 0;
+					for (i=0;i < tileWi-40;i++) {
+						if (Math.random() < 0.09) {
+							random = Math.floor((Math.random()*100)/4)+5;
+							island(random,[i,256-Math.round(Math.random()*100)-50]);
+							i += random;
+						}
+					}
+					island(60,[tileWi/2-30,256]);
+				}
 				this.initialize = function () {
-					XdrawVar = (-Math.floor((45 * (tileWi / 2))));
-					YdrawVar = -(45 * this.igenerate[(tileWi / 2)]) +320;
 					//itembar...
 					itembar = [];
 					itembarIn = [];
@@ -73,9 +84,15 @@ for (i = 0; i < tileWi; i++) {
 				}
 				this.main = async function () {
 					this.randomly();
-					await this.constructing();
-					this.surface();
+					if (type==0) {
+						await this.land();
+					}
+					else {
+						await this.highland();
+					}
 					this.initialize();
+					XdrawVar = (-Math.floor((45 * (tileWi / 2))));
+					YdrawVar = -(45 * this.igenerate[(tileWi / 2)]) +320;
 				}
             }
 			////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,24 +130,21 @@ for (i = 0; i < tileWi; i++) {
 					else {
 						surfaceH[i + 1] = surfaceH[i];
 					}
-				}
-				for (i = pos[0]; i < width+pos[0]; i++) {
-					tiles[i][surfaceH[i]] = new tile(grass, surfaceH[i], i);
-				}
+				}//Math.max.apply(null,bottomH)
 				for (i = pos[0]; i < width+pos[0]; i++) {
 					for (j = bottomH[i-pos[0]]; j > surfaceH[i-pos[0]]; j--) {
 						(tiles[i])[j] = new tile(dirt, j, i);
 					}
 				}
 				for (i = pos[0]; i < width+pos[0]; i++) {
-					tiles[i][surfaceH[i]] = new tile(grass, surfaceH[i], i);
+					tiles[i][surfaceH[i-pos[0]]] = new tile(grass, surfaceH[i-pos[0]], i);
 				}
 			}
 			
 			function generateWorldISL() {
 				for (i=0;i < tileWi;i++) {
-					if (Math.random() < 0.05) {
-						island(Math.floor((Math.random()*100)/5)+5,[i,100])
+					if (Math.random() < 0.07) {
+						island(Math.floor((Math.random()*100)/5)+5,[i,256])
 					}
 				}
 			}

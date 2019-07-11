@@ -18,6 +18,7 @@
 			imgs["Gui"][3] = document.getElementById("itembarin");
 			imgs["Gui"][4] = document.getElementById("inButton");
 			imgs["Gui"][5] = document.getElementById("inButtonOpen");
+			imgs["Gui"][6] = document.getElementById("bg_before");
             imgs["Block"][0] = [];
             imgs["Block"][0][0] = document.getElementById("dirt_1");
             imgs["Block"][0][1] = document.getElementById("dirt_2");
