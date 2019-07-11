@@ -2,6 +2,7 @@
 Made by 93951230 
 whoever copy this file just for money gets curse by endless hell flame
 */
+
 function drawTile(Img,x,y,breakP,light) {
 	ctx.fillStyle = "#141012";
 	ctx.drawImage(Img, (x - (usualLen / 2)) + XdrawVar, (y - (usualLen / 2)) + YdrawVar);

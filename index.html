@@ -229,6 +229,7 @@
                             offset_X = Math.floor((canvas.width / 2) / 45);
                             offset_Y = Math.floor((canvas.height / 2) / 45);
                             generateWorld.main();
+							//generateWorldISL();
                             ctx.font = "30px monospace";
 							buttons[buttons.length] = new publicButton([imgs["Gui"][4],imgs["Gui"][5]],420,32,18,45,"openIn = !openIn","if (openIn) { ctx.drawImage(this.drawImg[0], this.x-(this.width/2), this.y-(this.height/2));} else {ctx.drawImage(this.drawImg[1], this.x-(this.width/2), this.y-(this.height/2));}");
                             started = true;
@@ -323,11 +324,12 @@
                     canvas.width = innerWidth;
                     startButton.update();
                     startButton.draw();
-					ctx.font = "20px monospace";
+					ctx.font = "23px Microsoft YaHei";
 					ctx.fillStyle = "Black";
-					ctx.fillText("When the start button being click", 20, 30);
-					ctx.fillText("the height and width of the game will be fix", 20, 60);
-					ctx.fillText("\"如果當的話就調小視窗:)\" - developer", 20, 90);
+					ctx.fillText("IQ Warining:按下按鈕後 遊戲視窗就會被固定", 20, 60);
+					ctx.fillText("如果當的話就調小視窗  :)", 20, 90);
+					ctx.font = "23px Comic Sans MS";
+					ctx.fillText("Made by Xx_93951230_xX ", 20, 30);
                 }
             }
             function startGame() { //start the (game)

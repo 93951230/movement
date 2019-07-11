@@ -34,8 +34,7 @@
 			imgs["Item"][4] = document.getElementById("iron_pickaxe");
             var keyPressed = {}
 			//world generate
-			var progress = 0;
-			var tileWi = 350;
+			var tileWi = 3500;
 			var tileHi = 512;
 			var selectedBar = 0;
 			var itembar_amount = 8;
@@ -57,6 +56,9 @@
                     if (Math.max((tiles[block.countY + 1])[block.countX].fill.light, (tiles[block.countY - 1])[block.countX].fill.light, (tiles[block.countY])[block.countX + 1].fill.light, (tiles[block.countY])[block.countX - 1].fill.light) != 0) {
                         block.light = (Math.max((tiles[block.countY + 1])[block.countX].fill.light, (tiles[block.countY - 1])[block.countX].fill.light, (tiles[block.countY])[block.countX + 1].fill.light, (tiles[block.countY])[block.countX - 1].fill.light) - 2)
                     }
+					else {
+						block.light = 0;
+					}
                 }
             }
 			var item = [];
@@ -82,20 +84,3 @@
 					}
 				}
 			}//execute getitem dirt 10
-			function Command(answer = prompt()) {
-				if (/help/i.test(answer)) {
-					alert("execute (被執行目標): 為(被執行目標)執行動作\n");
-				}
-				else if (/execute/i.test(answer)) {
-					if (/getitem/i.test(answer)) {
-						for (i = 0;i < itemsLib.length;i++) {
-							if (eval("/" + itemsLib[i] + "/").test(answer)) {
-								getItem(eval(itemsLib[i]),10);
-							}
-						}
-					}
-				}
-				else {
-					alert("!:(! execute (被執行目標): 為(被執行目標)執行動作");
-				}
-			}
