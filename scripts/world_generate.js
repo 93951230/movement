@@ -58,9 +58,9 @@ for (i = 0; i < tileWi; i++) {
 					}
 					var random = 0;
 					for (i=0;i < tileWi-40;i++) {
-						if (Math.random() < 0.09) {
+						if (Math.random() < 0.5) {
 							random = Math.floor((Math.random()*100)/4)+5;
-							island(random,[i,256-Math.round(Math.random()*100)-50]);
+							island(random,[i,256+(Math.round(Math.random()*100)-50)/2]);
 							i += random;
 						}
 					}
