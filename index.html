@@ -1,9 +1,9 @@
 <!doctype html>
 <html oncontextmenu="return false;">
 	<head>
-		<title id = "title">>:(</title>
+		<title id = "title">等一下</title>
 		<meta name="author" content="93951230">
-		<meta name="description" content="useless game">
+		<meta name="description" content="what...">
 		<meta name="keywords" content="qazwsxedc9395">
 		<style>
 			canvas
@@ -56,19 +56,24 @@
             else if ((randomNumber > 0.1) && (randomNumber <= 0.2)) {
                 document.getElementById("title").innerHTML = "hi there";
             }
-            else if ((randomNumber > 0.3) && (randomNumber <= 0.4)) {
+            else if ((randomNumber > 0.2) && (randomNumber <= 0.3)) {
                 document.getElementById("title").innerHTML = "警告:電腦不能用";
             }
-            else if ((randomNumber > 0.5) && (randomNumber <= 0.6)) {
+            else if ((randomNumber > 0.3) && (randomNumber <= 0.4)) {
                 document.getElementById("title").innerHTML = "沒事多喝水";
             }
-            else if ((randomNumber > 0.7) && (randomNumber <= 0.8)) {
+            else if ((randomNumber > 0.4) && (randomNumber <= 0.5)) {
                 document.getElementById("title").innerHTML = "\"高完?成度\"";
             }
-            else {
-                document.getElementById("title").innerHTML = "多喝水沒事";
+            else if ((randomNumber > 0.5) && (randomNumber <= 0.6)){
+                document.getElementById("title").innerHTML = "版本:ALPHA 0.1";
             }
-
+			else if ((randomNumber > 0.5) && (randomNumber <= 0.6)){
+                document.getElementById("title").innerHTML = "O--<I=======>";
+            }
+			else {
+                document.getElementById("title").innerHTML = "為啥這標題一直出現@@";
+            }
             delete randomNumber;
         </script>
         <script src="scripts/variable.js"></script>
@@ -229,7 +234,7 @@
                             character.y = (canvas.height / 2);
                             offset_X = Math.floor((canvas.width / 2) / 45);
                             offset_Y = Math.floor((canvas.height / 2) / 45);
-                            generateWorld.main(confirm("生成空島?"));
+                            generateWorld.main(confirm("選擇題 \n (1)世界類型是空島嗎?"));
                             ctx.font = "30px monospace";
 							buttons[buttons.length] = new publicButton([imgs["Gui"][4],imgs["Gui"][5]],420,32,18,45,"openIn = !openIn","if (openIn) { ctx.drawImage(this.drawImg[0], this.x-(this.width/2), this.y-(this.height/2));} else {ctx.drawImage(this.drawImg[1], this.x-(this.width/2), this.y-(this.height/2));}");
                             started = true;

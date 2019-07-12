@@ -5,7 +5,7 @@ whoever copy this file just for money gets curse by endless hell flame
 for (i = 0; i < tileWi; i++) {
 	tiles[i] = [];
 }
-			var generateWorld = new function(type) {
+			var generateWorld = new function() {
 				this.randomly = function () {
 					this.igenerate = [256];
 					for (i = 0; i < tileWi; i++) {
@@ -82,9 +82,9 @@ for (i = 0; i < tileWi; i++) {
 					itembar[selectedBar].selected = true;
 					itembar[0].hold = new itemiron_pickaxe(1);
 				}
-				this.main = async function () {
+				this.main = async function (type) {
 					this.randomly();
-					if (true) {
+					if (type) {
 						await this.highland();
 					}
 					else {
@@ -129,11 +129,11 @@ for (i = 0; i < tileWi; i++) {
 					}
 					else {j/Math.max.apply(null,bottomH)
 						surfaceH[i + 1] = surfaceH[i];
-					}-(j-bottomH[i-pos[0]];)
-				}//Math.max.apply(null,bottomH)  bottomH[i-pos[0]]-surfaceH[i-pos[0]]
+					}
+				}
 				for (i = pos[0]; i < width+pos[0]; i++) {surfaceH[i]
-					for (j = bottomH[i-pos[0]]; j > surfaceH[i-pos[0]]; j--) {
-						if (Math.random() > pos[1]) {
+					for (j = surfaceH[i-pos[0]]; j < bottomH[i-pos[0]]; j++) {
+						if (Math.random() < ((j-pos[1])/(Math.max.apply(null,bottomH)-pos[1]))) {
 							(tiles[i])[j] = new tile(rock, j, i);
 						}
 						else {
@@ -143,6 +143,11 @@ for (i = 0; i < tileWi; i++) {
 				}
 				for (i = pos[0]; i < width+pos[0]; i++) {
 					tiles[i][surfaceH[i-pos[0]]] = new tile(grass, surfaceH[i-pos[0]], i);
+					if (Math.random() < 0.2) {
+						for (j = 0;j < Math.floor(Math.random()*10)+4;j++) {
+							tiles[i][surfaceH[i-pos[0]] - (1+j)] = new tile(normal_tree, surfaceH[i-pos[0]] - (1+j), i)
+						}
+					}
 				}
 			}
 			
