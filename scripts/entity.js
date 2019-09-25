@@ -102,10 +102,11 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.Time = 0;
 				this.x = canvas.width/2;
 				this.y = canvas.height/2;
-                this.upForce = 0;
                 this.gravity = 0;
+				this.up_force = 0;
 				this.Ycollision = false;
 				this.rejumpSet = true;
+				//重力&跳躍
                 this.height = 64;
                 this.width = 32;
                 this.collideVar = null;
@@ -123,9 +124,9 @@ whoever copy this file just for money gets curse by endless hell flame
                     if (keyPressed["KeyS"]) { }
                     if (keyPressed["Space"] || keyPressed["KeyW"]) {
 						if (this.rejumpSet) {
-							this.upForce = 6;
+							this.up_force = 10;
 							this.rejumpSet = false;
-						}
+						}//跳躍啥的
                     }
 					for (i = 1; i <= itembar_amount;i++) {
 						if (keyPressed["Digit"+String(i)]) {
@@ -134,12 +135,18 @@ whoever copy this file just for money gets curse by endless hell flame
 							itembar[selectedBar].selected = true;
 						}
 					}
-					//腳色控制
+					//<腳 色 控 制>
 					this.Time += 1;
                     CamX = -((XdrawVar / 45) - offset_X);
                     CamY = ((YdrawVar / 45) + (Math.floor((768-canvas.height)/90)));
                     //一些更新
                     //falling
+					if (this.up_force > 0) {
+						this.up_force -= 0.3;
+					}
+					else {
+						this.up_force = 0;
+					}
 					for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
                         for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+2); j++) {
                             if (itemLibrary[tiles[i][-j].fill.constructor.name]["Collide"]) {
@@ -156,52 +163,11 @@ whoever copy this file just for money gets curse by endless hell flame
 					}
 					if (this.Ycollision) {
 						this.gravity = 0;
+						this.Ycollision = true;
+						this.rejumpSet = true;
 					}
-					YdrawVar += this.upForce - this.gravity;
+					YdrawVar += this.up_force - this.gravity;
 					this.Ycollision = false;
-                }
-                this.getXcollide = function () {
-                    if (this.x > this.collideO.x + XdrawVar) {
-                    
-                    }
-                    if (this.x < this.collideO.x + XdrawVar) {
-                    
-                    }
-                }
-                this.getYcollide = function () {
-                    if (this.y > this.collideO.y + YdrawVar) {
-                        this.downForce = 0;
-                        this.upForce = 0;
-                        this.jumpTime = 8;
-                    }
-                    else {
-                        this.downForce = 0;
-                        this.upForce = 0;
-                        this.jumpTime = 8;
-                        this.jumpAlready = false;
-                    }
-                }
-                this.controlling = function () {
-                    if (keyPressed["KeyD"]) {
-                        XdrawVar -= 3.5;
-                    }
-                    if (keyPressed["KeyA"]) {
-                        XdrawVar += 3.5;
-                    }
-                    if (keyPressed["KeyS"]) { }
-                    if (keyPressed["Space"] || keyPressed["KeyW"]) {
-						if (this.rejumpSet) {
-							this.upForce = 6;
-							this.rejumpSet = false;
-						}
-                    }
-					for (i = 1; i <= itembar_amount;i++) {
-						if (keyPressed["Digit"+String(i)]) {
-							itembar[selectedBar].selected = false;
-							selectedBar = i-1;
-							itembar[selectedBar].selected = true;
-						}
-					}
                 }
 			}
 			/*
