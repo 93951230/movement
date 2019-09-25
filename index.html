@@ -165,6 +165,11 @@
                     eval(command);
                 }
 			}
+		    function place_meeting(x1,y1,width1,height1,x2,y2,width2,height2) {
+				if ((((x1 + (width1/2)) > (x2 - (width2/2))) && ((x1 - (width1/2)) < (x2 + (width2/2)))) && (((y1 + (height1/2)) > (y2 - (height2/2))) && ((y1 - (height1/2)) < (y2 + (height2/2))))) {
+					return true;
+				}
+			}
             function collide(object, getHurt) {
                 let Xcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) +4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2)-4) + XdrawVar));
                 let lessXcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) - 4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2) + 4) + XdrawVar));
@@ -210,7 +215,7 @@
             }
             function mouse(e) {
                 if (e.buttons == 1) {
-                    if (started) {//pyramid of doom test
+                    if (started) {
 						if (!(itembar[selectedBar].hold == null)) {
 							if (itembar[selectedBar].hold.type["type"] == 1) {
 								for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
@@ -218,7 +223,7 @@
 										if ((tiles[i])[-j].fill.constructor.name != "air") {
 											breakBlockDete(e, (tiles[i])[-j].fill, "getHurt.breakTime -= search;".replace(/search/m,itembar[selectedBar].hold.type["speed"]));
 										}
-									}
+									}//挖方塊
 								}
 							}
 							else if (itembar[selectedBar].hold.type["type"] == 0) {
@@ -270,19 +275,14 @@
                 if (started) {
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
                     ctx.drawImage((imgs["Gui"])[0], 0, 0);
-					///////////////////////////////////////////////////////////////
-					///////////////////////////////////////////////////////////////
-                    for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
-                        for (j = (Math.floor(CamY) - 14 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 14 + Math.floor(canvas.height / 50)); j++) {
-                            try {
-                                (tiles[i])[-j].fill.draw();
-                                if (itemLibrary[tiles[i][-j].fill.constructor.name]["Collide"]) {
-                                    collide(character, (tiles[i])[-j].fill);
-                                }
-                            }
-                            catch (Error) { }
+					//腳色碰撞
+                    for (i = (Math.floor(CamX) - (10 + Math.floor(canvas.width / 80))); i <= (Math.floor(CamX) + 10 + Math.floor(canvas.width / 80)); i++) {
+                        for (j = (Math.floor(CamY) - (10 + Math.floor(canvas.height / 50))); j <= (Math.floor(CamY) + 10 + Math.floor(canvas.height / 50)); j++) {
+                            (tiles[i])[-j].fill.draw();
                         }
-                    } //update tiles that u can see on screen;canvas.height
+                    } 
+					
+					//更新方塊
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
                         for (j = (Math.floor(CamY) - 18 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 18 + Math.floor(canvas.height / 50)); j++) {
                             if (itemLibrary[tiles[i][-j].fill.constructor.name]["Breakable"]) {
@@ -293,21 +293,7 @@
                             }
                         }
                     }
-					//ctx.fillstyle = "black";
-					///////////////////////////////////////////////////////////////
-					///////////////////////////////////////////////////////////////
-					for (i = 0; i < item.length;i++) {
-						if (item[i] != null) {
-							item[i].draw();
-							item[i].update();
-							for (j = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); j <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); j++) {
-								for (k = (Math.floor(CamY) - 14 - Math.floor(canvas.height / 50)); k <= (Math.floor(CamY) + 14 + Math.floor(canvas.height / 50)); k++) {
-									collide(item[i], (tiles[j])[-k].fill);
-								}
-							}
-						}
-						else { }
-					}
+					//畫背包
 					ctx.font = "20px monospace";
 					if (openIn) {
 						for (i = 0; i < itembar_amount;i++) {
@@ -320,12 +306,10 @@
 					for (i = 0;i < buttons.length;i++) {
 						buttons[i].draw();
 					}
-					/////////////////////////////////////////////////////////////// 
-                    character.controlling();
+					//腳色處理
+					character.updating();
                     character.draw();
-                    character.updating();
-					///////////////////////////////////////////////////////////////
-					///////////////////////////////////////////////////////////////
+					//畫物品籃
 					for (i = 0; i < itembar_amount;i++) {
 						itembar[i].draw();
 					}

@@ -47,8 +47,6 @@
             function tile(filled, X, Y) {
                 this.fill = new filled(X, Y);
             }
-            function Load(arg) {itemLibrary[block.constructor.name]["Light"]
-            }
             function ligthTest(block) {
                 if ((itemLibrary[(tiles[block.countY - 1])[block.countX].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY + 1])[block.countX].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX - 1].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX + 1].fill.constructor.name]["Light"] == false)) {
                     block.light = 8;
@@ -65,7 +63,7 @@
 			var item = [];
             function breakTest(block) {
                 if (block.breakTime <= 0) {
-                    (tiles[block.countY])[block.countX] = new tile(air, block.countX, block.countY);
+                    (tiles[block.countY])[block.countX] = new tile(air,block.countX,block.countY);
 					getItem(itemLibrary[block.constructor.name]["item"],1);
                 }
                 block.breakPhase = 1 - (block.breakTime / itemLibrary[block.constructor.name]["breakFull"]);
