@@ -68,6 +68,9 @@
                 }
                 block.breakPhase = 1 - (block.breakTime / itemLibrary[block.constructor.name]["breakFull"]);
             }
+			function gapTest(x1,y1,x2,y2) {
+				return Math.sqrt(Math.abs(x1-x2)**2+Math.abs(y1-y2)**2);
+			}
 			function getItem(ID,amount) {
 				for (i = 0;i < itembar_amount;i++) {
 					if (itembar[i].hold == null) {

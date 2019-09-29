@@ -104,7 +104,7 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.y = canvas.height/2;
                 this.gravity = 0;
 				this.up_force = 0;
-				this.Ycollision = false;
+				this.Ymeet_low = false;
 				this.rejumpSet = true;
 				//重力&跳躍
                 this.height = 64;
@@ -124,7 +124,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     if (keyPressed["KeyS"]) { }
                     if (keyPressed["Space"] || keyPressed["KeyW"]) {
 						if (this.rejumpSet) {
-							this.up_force = 10;
+							this.up_force = 8;
 							this.rejumpSet = false;
 						}//跳躍啥的
                     }
@@ -150,24 +150,36 @@ whoever copy this file just for money gets curse by endless hell flame
 					for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
                         for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+2); j++) {
                             if (itemLibrary[tiles[i][-j].fill.constructor.name]["Collide"]) {
+								if (place_meeting(this.x,this.y-2-this.up_force,32,64,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+									this.Ymeet_high = true;
+									say(this.up_force);
+									this.up_force = 0;
+									YdrawVar -= 5
+									break;
+								}
 								if (place_meeting(this.x,this.y+this.gravity,32,64,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
-									this.Ycollision = true;
+									this.Ymeet_low = true;
 									break;
 								}
                             }
                         }
-						if (this.Ycollision) {break;}
+						if (this.Ymeet_low) {break;}
                     }
-					if ((!(this.Ycollision)) && (this.gravity < 10)) {
+					if (this.Ymeet_high) {
+						this.gravity = 0;
+						this.up_force = 0;
+					}
+					if ((!(this.Ymeet_low)) && (this.gravity < 10)) {
 						this.gravity += 0.1;
 					}
-					if (this.Ycollision) {
+					if (this.Ymeet_low) {
 						this.gravity = 0;
-						this.Ycollision = true;
+						this.Ymeet_low = true;
 						this.rejumpSet = true;
 					}
 					YdrawVar += this.up_force - this.gravity;
-					this.Ycollision = false;
+					this.Ymeet_low = false;
+					this.Ymeet_high = false;
                 }
 			}
 			/*
