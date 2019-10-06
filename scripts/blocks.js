@@ -4,7 +4,6 @@ whoever copy this file just for money gets curse by endless hell flame
 */
 
 function drawTile(Img,x,y,breakP,light,isMarked) {
-	ctx.strokeRect(x, y, 45, 45);
 	ctx.fillStyle = "#141012";
 	ctx.drawImage(Img, (x - (usualLen / 2)) + XdrawVar, (y - (usualLen / 2)) + YdrawVar);
     ctx.globalAlpha = breakP;
@@ -13,7 +12,7 @@ function drawTile(Img,x,y,breakP,light,isMarked) {
     ctx.fillRect((x - ((usualLen + 1) / 2)) + XdrawVar, (y - ((usualLen + 1) / 2)) + YdrawVar, usualLen + 1, usualLen + 1);
     ctx.globalAlpha = 1.0;
 	if (isMarked) {
-		ctx.strokeRect(x, y, 45, 45);
+		ctx.strokeRect(x - (usualLen / 2) + XdrawVar, (y - (usualLen / 2)) + YdrawVar, 45, 45);
 	}
 }
 			function dirt(X, Y) {
