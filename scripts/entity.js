@@ -117,7 +117,7 @@ whoever copy this file just for money gets curse by endless hell flame
                 this.updating = function () {
 					if (keyPressed["KeyD"]) {
 						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
-							for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+1); j++) {
+							for (j = (Math.floor(CamY)+1); j <= (Math.floor(CamY)+2); j++) {
 								if (!(place_meeting(this.x+3.5,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen))) {
 									XdrawVar -= 3.5;
 									i=Infinity;
@@ -130,7 +130,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     }
                     if (keyPressed["KeyA"]) {
 						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
-							for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+1); j++) {
+							for (j = (Math.floor(CamY)+1); j <= (Math.floor(CamY)+2); j++) {
 								if (!(place_meeting(this.x-3.5,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen))) {
 									XdrawVar += 3.5;
 									i=Infinity;
