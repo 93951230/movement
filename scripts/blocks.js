@@ -3,7 +3,8 @@ Made by 93951230
 whoever copy this file just for money gets curse by endless hell flame
 */
 
-function drawTile(Img,x,y,breakP,light) {
+function drawTile(Img,x,y,breakP,light,isMarked) {
+	ctx.strokeRect(x, y, 45, 45);
 	ctx.fillStyle = "#141012";
 	ctx.drawImage(Img, (x - (usualLen / 2)) + XdrawVar, (y - (usualLen / 2)) + YdrawVar);
     ctx.globalAlpha = breakP;
@@ -11,8 +12,12 @@ function drawTile(Img,x,y,breakP,light) {
     ctx.globalAlpha = 1 - (light / 8);
     ctx.fillRect((x - ((usualLen + 1) / 2)) + XdrawVar, (y - ((usualLen + 1) / 2)) + YdrawVar, usualLen + 1, usualLen + 1);
     ctx.globalAlpha = 1.0;
+	if (isMarked) {
+		ctx.strokeRect(x, y, 45, 45);
+	}
 }
 			function dirt(X, Y) {
+				this.isMarked= false;
                 this.light = 8;
                 this.countX = X;
                 this.countY = Y;
@@ -27,10 +32,11 @@ function drawTile(Img,x,y,breakP,light) {
                     this.drawImg = imgs["Block"][0][1];
                 }
                 this.draw = function () {
-                    drawTile(this.drawImg,this.x,this.y,this.breakPhase,this.light);
+                    drawTile(this.drawImg,this.x,this.y,this.breakPhase,this.light,this.isMarked);
                 }
             }
             function rock(X, Y) {
+				this.isMarked= false;
                 this.light = 8;
                 this.countX = X;
                 this.countY = Y;
@@ -39,12 +45,13 @@ function drawTile(Img,x,y,breakP,light) {
                 this.x = 22.5 + (Y * (usualLen));
                 this.y = 405 + (X * (usualLen));
                 this.draw = function () {
-                    drawTile(imgs["Block"][1],this.x,this.y,this.breakPhase,this.light);
+                    drawTile(imgs["Block"][1],this.x,this.y,this.breakPhase,this.light,this.isMarked);
                 }
             }
             function grass(X, Y)
             {
                 this.light = 8;
+				this.isMarked= false;
                 this.countX = X;
                 this.countY = Y;
                 this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
@@ -59,12 +66,13 @@ function drawTile(Img,x,y,breakP,light) {
                 }
                 this.update = function () { }
                 this.draw = function () {
-					drawTile(this.drawImg,this.x,this.y,this.breakPhase,this.light);
+					drawTile(this.drawImg,this.x,this.y,this.breakPhase,this.light,this.isMarked);
                 }
             }
             function normal_tree(X, Y)
             {
                 this.light = 8;
+				this.isMarked= false;
                 this.countX = X;
                 this.countY = Y;
 				this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
@@ -86,6 +94,7 @@ function drawTile(Img,x,y,breakP,light) {
             }
             function air(X, Y) {
                 this.light = 8;
+				this.isMarked= false;
                 this.countX = X;
                 this.countY = Y;
 				this.x = 22.5 + (Y * (usualLen));

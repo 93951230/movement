@@ -107,19 +107,38 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.Ymeet_low = false;
 				this.rejumpSet = true;
 				//重力&跳躍
-                this.height = 64;
-                this.width = 32;
+                this.height = 80;
+                this.width = 40;
                 this.collideVar = null;
 				this.drawImg = imgs["Entity"][0];
                 this.draw = function () {
-                    ctx.drawImage(this.drawImg,this.x - 16,this.y - 32);
+                    ctx.drawImage(this.drawImg,this.x - this.width/2,this.y - this.height/2);
                 }
                 this.updating = function () {
 					if (keyPressed["KeyD"]) {
-                        XdrawVar -= 3.5;
+						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
+							for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+1); j++) {
+								if (!(place_meeting(this.x+3.5,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen))) {
+									XdrawVar -= 3.5;
+									i=Infinity;
+									j=Infinity;
+									break;
+								}
+								else {say("ok")}
+							}
+						}
                     }
                     if (keyPressed["KeyA"]) {
-                        XdrawVar += 3.5;
+						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
+							for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+1); j++) {
+								if (!(place_meeting(this.x-3.5,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen))) {
+									XdrawVar += 3.5;
+									i=Infinity;
+									j=Infinity;
+									break;
+								}
+							}
+						}
                     }
                     if (keyPressed["KeyS"]) { }
                     if (keyPressed["Space"] || keyPressed["KeyW"]) {
@@ -150,14 +169,18 @@ whoever copy this file just for money gets curse by endless hell flame
 					for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
                         for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+2); j++) {
                             if (itemLibrary[tiles[i][-j].fill.constructor.name]["Collide"]) {
-								if (place_meeting(this.x,this.y-2-this.up_force,32,64,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+								if (place_meeting(this.x,this.y-2-this.up_force,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 									this.Ymeet_high = true;
 									say(this.up_force);
 									this.up_force = 0;
-									YdrawVar -= 5
+									YdrawVar -= 5;
 									break;
 								}
-								if (place_meeting(this.x,this.y+this.gravity,32,64,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+								if (place_meeting(this.x,this.y+this.gravity,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+									this.Ymeet_low = true;
+									break;
+								}
+								if (place_meeting(this.x,this.y+this.gravity,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 									this.Ymeet_low = true;
 									break;
 								}
