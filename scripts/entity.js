@@ -123,7 +123,7 @@ whoever copy this file just for money gets curse by endless hell flame
                 this.updating = function () {
 					if (keyPressed["KeyD"]) {
 						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
-							for (j = (Math.floor(CamY)+1); j <= (Math.floor(CamY)+2); j++) {
+							for (j = (Math.round(CamY)+1); j <= (Math.round(CamY)+2); j++) {
 								if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
 									if (place_meeting(this.x+3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 										this.XposCondition = true;
@@ -142,7 +142,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     }
                     if (keyPressed["KeyA"]) {
 						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
-							for (j = (Math.floor(CamY)+1); j <= (Math.floor(CamY)+2); j++) {
+							for (j = (Math.round(CamY)+1); j <= (Math.round(CamY)+2); j++) {
 								if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
 									if (place_meeting(this.x-3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 										this.XposCondition = true;
