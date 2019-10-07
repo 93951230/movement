@@ -73,7 +73,11 @@ whoever copy this file just for money gets curse by endless hell flame
 						ctx.fillText(String(this.hold.count), this.x+5,50);
 						ctx.fillStyle = "Black";
 						if (this.selected == true) {
-							ctx.drawImage(this.hold.drawImg,character.x,character.y);
+							ctx.save();
+							ctx.translate(character.x,character.y-10);
+							ctx.scale(1.5,1.5);
+							ctx.drawImage(this.hold.drawImg,0,0);
+							ctx.restore();
 						}
 						if (this.hold.count <= 0) {
 							this.hold = null;
@@ -88,7 +92,6 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.draw = function () {
 					ctx.drawImage(imgs["Gui"][3],this.x,this.y);
 					if (this.hold != null) {
-						ctx.scale()
 						ctx.drawImage(this.hold.drawImg,this.x+10,20);
 						ctx.fillText(String(this.hold.count), this.x+15,70);
 						if (this.hold.count <= 0) {
@@ -106,6 +109,8 @@ whoever copy this file just for money gets curse by endless hell flame
                 this.gravity = 0;
 				this.up_force = 0;
 				this.Ymeet_low = false;
+				this.Ymeet_high = false;
+				this.XposCondition = false;
 				this.rejumpSet = true;
 				//重力&跳躍
                 this.height = 80;
@@ -119,27 +124,40 @@ whoever copy this file just for money gets curse by endless hell flame
 					if (keyPressed["KeyD"]) {
 						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
 							for (j = (Math.floor(CamY)+1); j <= (Math.floor(CamY)+2); j++) {
-								if (!(place_meeting(this.x+3.5,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen))) {
-									XdrawVar -= 3.5;
-									i=Infinity;
-									j=Infinity;
-									break;
+								if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
+									if (place_meeting(this.x+3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+										this.XposCondition = true;
+										i=Infinity;
+										j=Infinity;
+										break;
+									}
 								}
-								else {say("ok")}
+								say((itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]))
 							}
 						}
+						if (!(this.XposCondition)) {
+							XdrawVar -= 3;
+						}
+						this.XposCondition = false;
                     }
                     if (keyPressed["KeyA"]) {
 						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
 							for (j = (Math.floor(CamY)+1); j <= (Math.floor(CamY)+2); j++) {
-								if (!(place_meeting(this.x-3.5,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen))) {
-									XdrawVar += 3.5;
-									i=Infinity;
-									j=Infinity;
-									break;
+								if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
+									if (place_meeting(this.x-3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+										this.XposCondition = true;
+										i=Infinity;
+										j=Infinity;
+										break;
+									}
 								}
+								say((itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]))
 							}
 						}
+						if (!(this.XposCondition)) {
+							XdrawVar += 3;
+						}
+						this.XposCondition = false;
                     }
                     if (keyPressed["KeyS"]) { }
                     if (keyPressed["Space"] || keyPressed["KeyW"]) {
