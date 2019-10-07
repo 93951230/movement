@@ -88,6 +88,7 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.draw = function () {
 					ctx.drawImage(imgs["Gui"][3],this.x,this.y);
 					if (this.hold != null) {
+						ctx.scale()
 						ctx.drawImage(this.hold.drawImg,this.x+10,20);
 						ctx.fillText(String(this.hold.count), this.x+15,70);
 						if (this.hold.count <= 0) {
