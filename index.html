@@ -261,10 +261,11 @@
                     }
                 }
             }
+			function mouseMove(e) {say(e);}
             document.addEventListener("keydown", keyDownHandler, false);
             document.addEventListener("keyup", keyUpHandler, false);
             document.addEventListener("mousedown", mouse, false);
-			//document.addEventListener("mousemove", mouseMove, false);
+			document.addEventListener("mousemove", mouseMove, false);
 			function drawFont() {
 				ctx.fillStyle = "White";
 				ctx.font = "20px wingdings";
@@ -291,8 +292,8 @@
                         }
                     }
 					//更新方塊
-                    for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
-                        for (j = (Math.floor(CamY) - 18 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 18 + Math.floor(canvas.height / 50)); j++) {
+                    for (i = (Math.floor(CamX) - 5 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 5 + Math.floor(canvas.width / 80)); i++) {
+                        for (j = (Math.floor(CamY) - 10 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 10 + Math.floor(canvas.height / 50)); j++) {
                             if (itemLibrary[tiles[i][-j].fill.constructor.name]["Breakable"]) {
                                 breakTest((tiles[i])[-j].fill,itemLibrary[String((tiles[i])[-j].fill.ID)]);
                             }

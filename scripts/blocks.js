@@ -90,6 +90,27 @@ function drawTile(Img,x,y,breakP,light,isMarked) {
 					itemLibrary[this.constructor.name]["method"](this.countX,this.countY);
                 }
             }
+			function tin_ore(X, Y)
+            {
+                this.light = 8;
+				this.isMarked= false;
+                this.countX = X;
+                this.countY = Y;
+                this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
+                this.collideVar = null;
+                this.x = 22.5 + (Y * (usualLen));
+                this.y = 405 + (X * (usualLen));
+				if (Math.random() > 0.5) {
+                    this.drawImg = imgs["Block"][2][0];
+                }
+                else {
+                    this.drawImg = imgs["Block"][2][1];
+                }
+                this.update = function () { }
+                this.draw = function () {
+					drawTile(this.drawImg,this.x,this.y,this.breakPhase,this.light,this.isMarked);
+                }
+            }
             function air(X, Y) {
                 this.light = 8;
 				this.isMarked= false;
