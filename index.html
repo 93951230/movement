@@ -28,7 +28,8 @@
 		<img id="grass_2" style="display: none;" src="resource/block/grass_2.png">
         <img id="normal_tree" style="display: none;" src="resource/block/normal_tree.png">
 		<!--BLOCK-->
-        <img id="startImg" style="display: none;" src="resource/gui/start.png">
+		<img id="type_1_start" style="display: none;" src="resource/gui/type_1_start.png">
+        <img id="type_2_start" style="display: none;" src="resource/gui/type_2_start.png">
         <img id="background" style="display: none;" src="resource/gui/background.png">
 		<img id="itembar" style="display: none;" src="resource/gui/itembar.png" />
 		<img id="itembar_2" style="display: none;" src="resource/gui/itembar_2.png" />
@@ -214,7 +215,7 @@
             function keyUpHandler(e) {
                 keyPressed[e.code] = false;
             }
-            function mouse(e) {
+            function mouse(e) {//滑鼠
                 if (e.buttons == 1) {
                     if (started) {
 						if (!(itembar[selectedBar].hold == null)) {
@@ -240,19 +241,23 @@
 						}
                     }
                     else {
-                        let Xcondition = ((e.clientX > (startButton.x - (300 / 2))) && (e.clientX < (startButton.x + (300 / 2))));
-                        let Ycondition = ((e.clientY > (startButton.y - (50 / 2))) && (e.clientY < (startButton.y + (50 / 2))));
-                        if ((Xcondition) && (Ycondition)) {
-                            /////////////////////////////////////////////////////////////////////////////////////////start
-                            character.x = (canvas.width / 2);
+                        if (place_meeting(buttons[0].x,buttons[0].y,150,100,e.clientX,e.clientY,0,0)) {
+                            generateWorld.main(false);
+                            started = true;
+                        }
+						if (place_meeting(buttons[1].x,buttons[1].y,150,100,e.clientX,e.clientY,0,0)) {
+                            generateWorld.main(true);
+                            started = true;
+                        }
+						if (started == true) {
+							character.x = (canvas.width / 2);
                             character.y = (canvas.height / 2);
                             offset_X = Math.floor((canvas.width / 2) / 45);
                             offset_Y = Math.floor((canvas.height / 2) / 45);
-                            generateWorld.main(confirm("選擇題 \n (1)世界類型是空島嗎?"));
-                            ctx.font = "30px monospace";
-							buttons[buttons.length] = new publicButton([imgs["Gui"][4],imgs["Gui"][5]],420,32,18,45,"openIn = !openIn","if (openIn) { ctx.drawImage(this.drawImg[0], this.x-(this.width/2), this.y-(this.height/2));} else {ctx.drawImage(this.drawImg[1], this.x-(this.width/2), this.y-(this.height/2));}");
-                            started = true;
-                        }
+							ctx.font = "30px monospace";
+							delete buttons[0];delete buttons[1];
+							buttons = [new publicButton([imgs["Gui"][4],imgs["Gui"][5]],420,32,18,45,"openIn = !openIn","if (openIn) { ctx.drawImage(this.drawImg[0], this.x-(this.width/2), this.y-(this.height/2));} else {ctx.drawImage(this.drawImg[1], this.x-(this.width/2), this.y-(this.height/2));}")];
+						}
                     }
                 }
             }
@@ -272,7 +277,10 @@
             }
         </script>
         <script id="lastScript">
+			buttons[0] = new publicButton(document.getElementById("type_1_start"),(canvas.width / 2),(canvas.height / 2),150,100,() => {},"ctx.drawImage(this.drawImg, this.x - 75, this.y - 50);")
+			buttons[1] = new publicButton(document.getElementById("type_2_start"),(canvas.width / 2),(canvas.height / 2),150,100,() => {},"ctx.drawImage(this.drawImg, this.x - 75, this.y - 50);")
             function rendering() {
+				//畫按鈕
                 if (started) {
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
                     ctx.drawImage((imgs["Gui"])[0], 0, 0);
@@ -281,8 +289,7 @@
                         for (j = (Math.floor(CamY) - (10 + Math.floor(canvas.height / 50))); j <= (Math.floor(CamY) + 10 + Math.floor(canvas.height / 50)); j++) {
                             (tiles[i])[-j].fill.draw();
                         }
-                    } 
-					
+                    }
 					//更新方塊
                     for (i = (Math.floor(CamX) - 15 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 15 + Math.floor(canvas.width / 80)); i++) {
                         for (j = (Math.floor(CamY) - 18 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 18 + Math.floor(canvas.height / 50)); j++) {
@@ -303,10 +310,10 @@
 							}
 						}
 					}
-					ctx.font = "20px monospace";
 					for (i = 0;i < buttons.length;i++) {
 						buttons[i].draw();
 					}
+					ctx.font = "20px monospace";
 					//腳色處理
 					character.updating();
                     character.draw();
@@ -323,8 +330,13 @@
 					ctx.scale(2,1.6);
 					ctx.drawImage(imgs["Gui"][6],0,0);
 					ctx.scale(1/2,1/1.6);
-                    startButton.update();
-                    startButton.draw();
+					for (i = 0;i < buttons.length;i++) {
+						buttons[i].draw();
+					}
+					//button update
+					buttons[0].x = (canvas.width / 2)+75;buttons[0].y = (canvas.height / 2);
+					buttons[1].x = (canvas.width / 2)-75;buttons[1].y = (canvas.height / 2);
+					//fonts
 					ctx.font = "23px Microsoft YaHei";
 					ctx.fillStyle = "Black";
 					ctx.fillText("IQ Warining : 按下按鈕後 遊戲視窗就會被固定", 20, 60);

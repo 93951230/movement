@@ -1,18 +1,7 @@
 say = console.log;
 /*
-Made by 93951230 
-whoever copy this file just for money gets curse by endless hell flame
+Made In Tawian
 */
-			var startButton = new function () {
-                this.drawImg = document.getElementById("startImg");
-                this.update = function () {
-                    this.x = (canvas.width / 2)
-                    this.y = (canvas.height / 2)
-                }
-                this.draw = function () {
-                    ctx.drawImage(this.drawImg, this.x - 150, this.y - 50);
-                }
-            }
 			function publicButton(Img,x,y,width,height,command,drawMethod) {
                 this.drawImg = Img;
 				this.height = height;
@@ -107,7 +96,7 @@ whoever copy this file just for money gets curse by endless hell flame
 				this.x = canvas.width/2;
 				this.y = canvas.height/2;
                 this.gravity = 0;
-				this.up_force = 0;
+				this.up_force = [0,0];
 				this.Ymeet_low = false;
 				this.Ymeet_high = false;
 				this.XposCondition = false;
@@ -123,7 +112,7 @@ whoever copy this file just for money gets curse by endless hell flame
                 this.updating = function () {
 					if (keyPressed["KeyD"]) {
 						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
-							for (j = (Math.round(CamY)+1); j <= (Math.round(CamY)+2); j++) {
+							for (j = (Math.round(CamY)); j <= (Math.round(CamY)+2); j++) {
 								if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
 									if (place_meeting(this.x+3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 										this.XposCondition = true;
@@ -132,7 +121,6 @@ whoever copy this file just for money gets curse by endless hell flame
 										break;
 									}
 								}
-								say((itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]))
 							}
 						}
 						if (!(this.XposCondition)) {
@@ -142,7 +130,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     }
                     if (keyPressed["KeyA"]) {
 						for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
-							for (j = (Math.round(CamY)+1); j <= (Math.round(CamY)+2); j++) {
+							for (j = (Math.round(CamY)); j <= (Math.round(CamY)+2); j++) {
 								if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
 									if (place_meeting(this.x-3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 										this.XposCondition = true;
@@ -151,7 +139,6 @@ whoever copy this file just for money gets curse by endless hell flame
 										break;
 									}
 								}
-								say((itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]))
 							}
 						}
 						if (!(this.XposCondition)) {
@@ -162,7 +149,7 @@ whoever copy this file just for money gets curse by endless hell flame
                     if (keyPressed["KeyS"]) { }
                     if (keyPressed["Space"] || keyPressed["KeyW"]) {
 						if (this.rejumpSet) {
-							this.up_force = 8;
+							this.up_force[0] = 10;
 							this.rejumpSet = false;
 						}//跳躍啥的
                     }
@@ -179,38 +166,50 @@ whoever copy this file just for money gets curse by endless hell flame
                     CamY = ((YdrawVar / 45) + (Math.floor((768-canvas.height)/90)));
                     //一些更新
                     //falling
-					if (this.up_force > 0) {
-						this.up_force -= 0.3;
+					if (this.up_force[0] > 0) {
+						this.up_force[0] -= 0.3;
 					}
 					else {
-						this.up_force = 0;
+						this.up_force[0] = 0;
 					}
 					for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
-                        for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+2); j++) {
+                        for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+1); j++) {
                             if (itemLibrary[tiles[i][-j].fill.constructor.name]["Collide"]) {
-								if (place_meeting(this.x,this.y-2-this.up_force,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
-									this.Ymeet_high = true;
-									say(this.up_force);
-									this.up_force = 0;
-									YdrawVar -= 5;
-									break;
-								}
 								if (place_meeting(this.x,this.y+this.gravity,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 									this.Ymeet_low = true;
-									break;
-								}
-								if (place_meeting(this.x,this.y+this.gravity,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
-									this.Ymeet_low = true;
+									i=Infinity;
+									j=Infinity;
 									break;
 								}
                             }
                         }
-						if (this.Ymeet_low) {break;}
                     }
-					if (this.Ymeet_high) {
-						this.gravity = 0;
-						this.up_force = 0;
+					
+                    for (j = (Math.floor(CamY)+2); j <= (Math.floor(CamY)+3); j++) {
+                        if (itemLibrary[tiles[Math.floor(CamX)][-j].fill.constructor.name]["Collide"]) {
+							for (k = 1;k <= Math.round(this.up_force[0]);k++) {
+								if (place_meeting(this.x,this.y-(k+4),this.width,this.height,(tiles[Math.floor(CamX)])[-j].fill.x + XdrawVar,(tiles[Math.floor(CamX)])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+									if (j == 1) {
+										this.up_force[0] = 0
+										j=Infinity;
+										break;
+									}
+									this.up_force[1] = k;
+									j=Infinity;
+									break;
+								}
+							}
+						}
+						else if (j == (Math.floor(CamY)+2)) {
+							this.up_force[1] = this.up_force[0];
+						}
 					}
+					
+					////
+					//if (this.Ymeet_high) {
+					//	this.gravity = 0;
+					//	this.up_force[0] = 0;
+					//}
 					if ((!(this.Ymeet_low)) && (this.gravity < 10)) {
 						this.gravity += 0.1;
 					}
@@ -219,9 +218,11 @@ whoever copy this file just for money gets curse by endless hell flame
 						this.Ymeet_low = true;
 						this.rejumpSet = true;
 					}
-					YdrawVar += this.up_force - this.gravity;
+					YdrawVar -= this.gravity;
+					YdrawVar += this.up_force[1];
 					this.Ymeet_low = false;
 					this.Ymeet_high = false;
+					this.up_force[1] = 0;
                 }
 			}
 			/*

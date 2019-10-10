@@ -1,6 +1,5 @@
 /*
-Made by 93951230 
-whoever copy this file just for money gets curse by endless hell flame
+Made In Tawian
 */
 
 function drawTile(Img,x,y,breakP,light,isMarked) {
