@@ -45,6 +45,7 @@
 		<img id="grass_drop" style="display: none;" src="resource/item/grass_drop.png" />
 		<img id="normal_tree_drop" style="display: none;" src="resource/item/normal_tree_drop.png" />
 		<img id="iron_pickaxe" style="display: none;" src="resource/item/iron_pickaxe.png" />
+		<img id="pebble" style="display: none;" src="resource/item/pebble.png" />
 		<!--ITEM-->
         <canvas id="Canvas" width="1366" height="768">瀏覽器要更新一下sorry</canvas>
         <script id= "otherScript">
@@ -90,6 +91,7 @@
         <script src="scripts/blocks.js"></script>
         <script src="scripts/world_generate.js"></script>
         <script src ="scripts/entity.js"></script>
+		<script src ="scripts/program_gui.js"></script>
         <script id = "logicScript">
             ////////////////////////////
             //     method calling     //
@@ -107,7 +109,7 @@
 					"Light":true,
 					"Collide":true,
 					"Breakable":true,
-					"item":itemrock,
+					"item":itempebble,
 					"breakFull":7,
 					"type":2
 				},
@@ -138,13 +140,6 @@
 					"Breakable":false
 				}
 			};
-            function breakBlockDete(e, getHurt, command) {
-                let Xcondition = ((e.clientX > (getHurt.x - (usualLen / 2)) + XdrawVar) && (e.clientX < (getHurt.x + (usualLen / 2)) + XdrawVar));
-                let Ycondition = ((e.clientY > (getHurt.y - (usualLen / 2)) + YdrawVar) && (e.clientY < (getHurt.y + (usualLen / 2)) + YdrawVar));
-                if ((Xcondition) && (Ycondition)) {
-                    eval(command);
-                }
-            }
 			function placeBlockDete(e, getHurt, target) {
                 let Xcondition = ((e.clientX > (getHurt.x - (usualLen / 2)) + XdrawVar) && (e.clientX < (getHurt.x + (usualLen / 2)) + XdrawVar));
                 let Ycondition = ((e.clientY > (getHurt.y - (usualLen / 2)) + YdrawVar) && (e.clientY < (getHurt.y + (usualLen / 2)) + YdrawVar));
@@ -160,18 +155,7 @@
 					}
                 }
             }
-			function buttonCir(e,getHurt,command) {
-				let Xcondition = ((e.clientX > (getHurt.x - (getHurt.width / 2))) && (e.clientX < (getHurt.x + (getHurt.width / 2))));
-                let Ycondition = ((e.clientY > (getHurt.y - (getHurt.height / 2))) && (e.clientY < (getHurt.y + (getHurt.height / 2))));
-				if ((Xcondition) && (Ycondition)) {
-                    eval(command);
-                }
-			}
-		    function place_meeting(x1,y1,width1,height1,x2,y2,width2,height2) {
-				if ((((x1 + (width1/2)) > (x2 - (width2/2))) && ((x1 - (width1/2)) < (x2 + (width2/2)))) && (((y1 + (height1/2)) > (y2 - (height2/2))) && ((y1 - (height1/2)) < (y2 + (height2/2))))) {
-					return true;
-				}
-			}
+			
             function collide(object, getHurt) {
                 let Xcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) +4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2)-4) + XdrawVar));
                 let lessXcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) - 4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2) + 4) + XdrawVar));
@@ -223,7 +207,10 @@
 								for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
 									for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
 										if ((tiles[i])[-j].fill.constructor.name != "air") {
-											breakBlockDete(e, (tiles[i])[-j].fill, "getHurt.breakTime -= search;".replace(/search/m,itembar[selectedBar].hold.type["speed"]));
+											if (place_meeting(e.clientX,e.clientY,0,0,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+												(tiles[i])[-j].fill.breakTime -= itembar[selectedBar].hold.type["speed"];
+												say((tiles[i])[-j].fill.breakTime);
+											}
 										}
 									}//挖方塊
 								}
@@ -236,8 +223,8 @@
 								}
 							}
 						}
-						for (i = 0;i < buttons.length;i++) {
-							buttonCir(e,buttons[i],String(eval("buttons["+ i +"].command")))
+						if (place_meeting(buttons[0].x,buttons[0].y,150,100,e.clientX,e.clientY,0,0)) {
+							eval(buttons[0].command);
 						}
                     }
                     else {
@@ -261,11 +248,14 @@
                     }
                 }
             }
-			function mouseMove(e) {say(e);}
             document.addEventListener("keydown", keyDownHandler, false);
             document.addEventListener("keyup", keyUpHandler, false);
-            document.addEventListener("mousedown", mouse, false);
-			document.addEventListener("mousemove", mouseMove, false);
+			if (isMobile()) {
+				document.addEventListener("touchstart", mouse, false);
+			}
+			else {
+				document.addEventListener("mousedown", mouse, false);
+			}
 			function drawFont() {
 				ctx.fillStyle = "White";
 				ctx.font = "20px wingdings";
