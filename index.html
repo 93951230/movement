@@ -27,6 +27,7 @@
         <img id="grass_1" style="display: none;" src="resource/block/grass_1.png">
 		<img id="grass_2" style="display: none;" src="resource/block/grass_2.png">
         <img id="normal_tree" style="display: none;" src="resource/block/normal_tree.png">
+		<img id="hard_rock" style="display: none;" src="resource/block/hard_rock.png">
 		<!--BLOCK-->
 		<img id="type_1_start" style="display: none;" src="resource/gui/type_1_start.png">
         <img id="type_2_start" style="display: none;" src="resource/gui/type_2_start.png">
@@ -101,7 +102,7 @@
 					"Light":true,
 					"Collide":true,
 					"Breakable":true,
-					"item":itemdirt,
+					"item":[itemdirt,() =>{return 1}],
 					"breakFull":20,
 					"type":1
 				},
@@ -109,7 +110,7 @@
 					"Light":true,
 					"Collide":true,
 					"Breakable":true,
-					"item":itempebble,
+					"item":[itempebble,() =>{return Math.round((Math.random()*0.04)*100)+1;}],
 					"breakFull":7,
 					"type":2
 				},
@@ -117,7 +118,7 @@
 					"Light":true,
 					"Collide":true,
 					"Breakable":true,
-					"item":itemgrass,
+					"item":[itemgrass,() =>{return 1}],
 					"breakFull":12,
 					"type":1
 				},
@@ -125,7 +126,7 @@
 					"Light":false,
 					"Collide":false,
 					"Breakable":true,
-					"item":itemnormal_tree,
+					"item":[itemnormal_tree,() =>{return 1}],
 					"breakFull":35,
 					"method":function (x,y) {
 						if (tiles[y][x+1].fill.constructor.name == "air") {
@@ -133,6 +134,14 @@
 						}
 					},
 					"type":0
+				},
+				"hard_rock":{
+					"Light":true,
+					"Collide":true,
+					"Breakable":true,
+					"item":[itemgrass,() =>{return 1}],
+					"breakFull":20,
+					"type":1
 				},
 				"air":{
 					"Light":false,
@@ -274,7 +283,10 @@
 				//畫按鈕
                 if (started) {
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					ctx.save();
+					ctx.scale(0.4,0.4);
                     ctx.drawImage((imgs["Gui"])[0], 0, 0);
+					ctx.restore();
 					//腳色碰撞
                     for (i = (Math.floor(CamX) - (10 + Math.floor(canvas.width / 80))); i <= (Math.floor(CamX) + 10 + Math.floor(canvas.width / 80)); i++) {
                         for (j = (Math.floor(CamY) - (10 + Math.floor(canvas.height / 50))); j <= (Math.floor(CamY) + 10 + Math.floor(canvas.height / 50)); j++) {

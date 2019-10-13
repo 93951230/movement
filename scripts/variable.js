@@ -27,6 +27,7 @@ imgs["Block"][2] = []
 imgs["Block"][2][0] = document.getElementById("grass_1");
 imgs["Block"][2][1] = document.getElementById("grass_2");
 imgs["Block"][3] = document.getElementById("normal_tree");
+imgs["Block"][4] = document.getElementById("hard_rock");
 imgs["Entity"][0] = document.getElementById("character");
 imgs["Item"][0] = document.getElementById("dirt_1_drop");
 imgs["Item"][1] = document.getElementById("dirt_2_drop");

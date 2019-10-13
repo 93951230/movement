@@ -104,7 +104,7 @@ var character = new function () {
 	}
 	this.updating = function () {
 		if (keyPressed["KeyD"]) {
-			for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
+			for (i = (Math.floor(CamX)); i <= (Math.floor(CamX)+2); i++) {
 				for (j = (Math.round(CamY)); j <= (Math.round(CamY)+2); j++) {
 					if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
 						if (place_meeting(this.x+3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
@@ -122,7 +122,7 @@ var character = new function () {
 			this.XposCondition = false;
 		}
 		if (keyPressed["KeyA"]) {
-			for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
+			for (i = (Math.floor(CamX)-2); i <= (Math.floor(CamX)); i++) {
 				for (j = (Math.round(CamY)); j <= (Math.round(CamY)+2); j++) {
 					if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
 						if (place_meeting(this.x-3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {

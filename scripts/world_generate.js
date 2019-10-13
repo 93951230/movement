@@ -1,7 +1,3 @@
-/*
-Made by 93951230 
-whoever copy this file just for money gets curse by endless hell flame
-*/
 for (i = 0; i < tileWi; i++) {
 	tiles[i] = [];
 }
@@ -66,7 +62,7 @@ for (i = 0; i < tileWi; i++) {
 					}
 					island(60,[tileWi/2-30,256]);
 				}
-				this.initialize = function () {
+				this.initialize = function () {//初始化
 					//itembar...
 					itembar = [];
 					itembarIn = [];
@@ -95,7 +91,7 @@ for (i = 0; i < tileWi; i++) {
 					YdrawVar = -(45 * this.igenerate[(tileWi / 2)]) +320;
 				}
             }
-			////////////////////////////////////////////////////////////////////////////////////////////////
+			//生成島嶼
 			function island(width,pos) {
 				bottomH = [pos[1]+1];
 				for (i = 0; i < width; i++) {
@@ -134,14 +130,19 @@ for (i = 0; i < tileWi; i++) {
 				for (i = pos[0]; i < width+pos[0]; i++) {surfaceH[i]
 					for (j = surfaceH[i-pos[0]]; j < bottomH[i-pos[0]]; j++) {
 						if (Math.random() < ((j-pos[1])/(Math.max.apply(null,bottomH)-pos[1]))) {
-							(tiles[i])[j] = new tile(rock, j, i);
+							if (Math.random() < ((j-pos[1])/(Math.max.apply(null,bottomH)-pos[1]))) {
+								(tiles[i])[j] = new tile(hard_rock, j, i);
+							}
+							else {
+								(tiles[i])[j] = new tile(rock, j, i);
+							}
 						}
 						else {
 							(tiles[i])[j] = new tile(dirt, j, i);
 						}
 					}
 				}
-				for (i = pos[0]; i < width+pos[0]; i++) {
+				for (i = pos[0]; i < width+pos[0]; i++) {//生成樹
 					tiles[i][surfaceH[i-pos[0]]] = new tile(grass, surfaceH[i-pos[0]], i);
 					if (Math.random() < 0.2) {
 						for (j = 0;j < Math.floor(Math.random()*10)+4;j++) {

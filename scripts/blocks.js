@@ -46,8 +46,7 @@ function rock(X, Y) {
 		drawTile(imgs["Block"][1],this.x,this.y,this.breakPhase,this.light,this.isMarked);
 	}
 }
-function grass(X, Y)
-{
+function grass(X, Y) {
 	this.light = 8;
 	this.isMarked= false;
 	this.countX = X;
@@ -67,8 +66,7 @@ function grass(X, Y)
 		drawTile(this.drawImg,this.x,this.y,this.breakPhase,this.light,this.isMarked);
 	}
 }
-function normal_tree(X, Y)
-{
+function normal_tree(X, Y) {
 	this.light = 8;
 	this.isMarked= false;
 	this.countX = X;
@@ -90,25 +88,17 @@ function normal_tree(X, Y)
 		itemLibrary[this.constructor.name]["method"](this.countX,this.countY);
 	}
 }
-function tin_ore(X, Y)
-{
-	this.light = 8;
+function hard_rock(X, Y) {
 	this.isMarked= false;
+	this.light = 8;
 	this.countX = X;
 	this.countY = Y;
 	this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
 	this.collideVar = null;
 	this.x = 22.5 + (Y * (usualLen));
 	this.y = 405 + (X * (usualLen));
-	if (Math.random() > 0.5) {
-		this.drawImg = imgs["Block"][2][0];
-	}
-	else {
-		this.drawImg = imgs["Block"][2][1];
-	}
-	this.update = function () { }
 	this.draw = function () {
-		drawTile(this.drawImg,this.x,this.y,this.breakPhase,this.light,this.isMarked);
+		drawTile(imgs["Block"][4],this.x,this.y,this.breakPhase,this.light,this.isMarked);
 	}
 }
 function air(X, Y) {

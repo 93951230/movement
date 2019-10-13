@@ -1,7 +1,7 @@
 function breakTest(block) {
 	if (block.breakTime <= 0) {
 		(tiles[block.countY])[block.countX] = new tile(air,block.countX,block.countY);
-		getItem(itemLibrary[block.constructor.name]["item"],1);
+		getItem(itemLibrary[block.constructor.name]["item"][0],itemLibrary[block.constructor.name]["item"][1]());
 	}
 	block.breakPhase = 1 - (block.breakTime / itemLibrary[block.constructor.name]["breakFull"]);
 }//用以檢測方塊是否破壞完全
