@@ -2,6 +2,12 @@ say = console.log;
 /*
 Made In Tawian
 */
+/*type
+0:blocks
+1:tools
+2:special-tool
+3:material
+*/
 function itemdirt(count) {
 	this.type = {"type":0,"set":true};
 	if (Math.random() > 0.5) {
@@ -13,17 +19,17 @@ function itemdirt(count) {
 	this.count = count;
 }//泥土
 function itemrock(count) {
-	this.type = {"type":0,"set":true};
+	this.type = {"type":0,"set":rock};
 	this.drawImg = imgs["Item"][2];
 	this.count = count;
 }//石頭
 function itemgrass(count) {
-	this.type = {"type":0,"set":true};
+	this.type = {"type":0,"set":grass};
 	this.drawImg = imgs["Item"][2];
 	this.count = count;
 }//草
 function itemnormal_tree(count) {
-	this.type = {"type":0,"set":true};
+	this.type = {"type":0,"set":normal_tree};
 	this.drawImg = imgs["Item"][3];
 	this.count = count;
 }//樹
@@ -32,11 +38,26 @@ function itemiron_pickaxe(count) {
 	this.count = count;
 	this.type = {"type":1,"speed":5};
 }//鐵槁
+function itembow(count) {
+	this.drawImg = imgs["Item"][6];
+	this.count = count;
+	this.type = {"type":2,"react":(e)=>{
+		ctx.beginPath();
+		ctx.lineWidth = 10;
+		ctx.moveTo(canvas.width/2,canvas.height/2);
+		ctx.lineTo(e.clientX,e.clientY);
+		ctx.stroke();
+		console.log([e.clientX,e.clientY]);
+		ctx.closePath();
+		playAudio("audio/yee.mp3");
+	}
+};
+}//彈弓
 function itempebble(count) {
 	this.drawImg = imgs["Item"][5];
 	this.count = count;
-	this.type = {"type":2};
-}
+	this.type = {"type":3};
+}//鵝卵石
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function itemBar(hold) {
 	this.x = (i*50)+10;
@@ -106,7 +127,7 @@ var character = new function () {
 		if (keyPressed["KeyD"]) {
 			for (i = (Math.floor(CamX)); i <= (Math.floor(CamX)+2); i++) {
 				for (j = (Math.round(CamY)); j <= (Math.round(CamY)+2); j++) {
-					if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
+					if (blockDetail[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
 						if (place_meeting(this.x+3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 							this.XposCondition = true;
 							i=Infinity;
@@ -124,7 +145,7 @@ var character = new function () {
 		if (keyPressed["KeyA"]) {
 			for (i = (Math.floor(CamX)-2); i <= (Math.floor(CamX)); i++) {
 				for (j = (Math.round(CamY)); j <= (Math.round(CamY)+2); j++) {
-					if (itemLibrary[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
+					if (blockDetail[(tiles[i])[-j].fill.constructor.name]["Collide"]) {
 						if (place_meeting(this.x-3,this.y-3,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 							this.XposCondition = true;
 							i=Infinity;
@@ -167,7 +188,7 @@ var character = new function () {
 		}
 		for (i = (Math.floor(CamX) -1); i <= (Math.floor(CamX)+1); i++) {
 			for (j = (Math.floor(CamY)); j <= (Math.floor(CamY)+1); j++) {
-				if (itemLibrary[tiles[i][-j].fill.constructor.name]["Collide"]) {
+				if (blockDetail[tiles[i][-j].fill.constructor.name]["Collide"]) {
 					if (place_meeting(this.x,this.y+this.gravity,this.width,this.height,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 						this.Ymeet_low = true;
 						i=Infinity;
@@ -179,7 +200,7 @@ var character = new function () {
 		}
 		
 		for (j = (Math.floor(CamY)+2); j <= (Math.floor(CamY)+3); j++) {
-			if (itemLibrary[tiles[Math.floor(CamX)][-j].fill.constructor.name]["Collide"]) {
+			if (blockDetail[tiles[Math.floor(CamX)][-j].fill.constructor.name]["Collide"]) {
 				for (k = 1;k <= Math.round(this.up_force[0]);k++) {
 					if (place_meeting(this.x,this.y-(k+4),this.width,this.height,(tiles[Math.floor(CamX)])[-j].fill.x + XdrawVar,(tiles[Math.floor(CamX)])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 						if (j == 1) {

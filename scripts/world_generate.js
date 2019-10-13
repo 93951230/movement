@@ -76,7 +76,8 @@ for (i = 0; i < tileWi; i++) {
 						}
 					}
 					itembar[selectedBar].selected = true;
-					itembar[0].hold = new itemiron_pickaxe(1);
+					itembar[0].hold = new itemiron_pickaxe(81000);
+					itembar[1].hold = new itembow(1)
 				}
 				this.main = async function (type) {
 					this.randomly();

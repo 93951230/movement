@@ -19,7 +19,7 @@ function dirt(X, Y) {
 	this.light = 8;
 	this.countX = X;
 	this.countY = Y;
-	this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
+	this.breakTime = blockDetail[this.constructor.name]["breakFull"];
 	this.collideVar = null;
 	this.x = 22.5 + (Y * (usualLen));
 	this.y = 405 + (X * (usualLen));
@@ -38,7 +38,7 @@ function rock(X, Y) {
 	this.light = 8;
 	this.countX = X;
 	this.countY = Y;
-	this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
+	this.breakTime = blockDetail[this.constructor.name]["breakFull"];
 	this.collideVar = null;
 	this.x = 22.5 + (Y * (usualLen));
 	this.y = 405 + (X * (usualLen));
@@ -51,7 +51,7 @@ function grass(X, Y) {
 	this.isMarked= false;
 	this.countX = X;
 	this.countY = Y;
-	this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
+	this.breakTime = blockDetail[this.constructor.name]["breakFull"];
 	this.collideVar = null;
 	this.x = 22.5 + (Y * (usualLen));
 	this.y = 405 + (X * (usualLen));
@@ -71,7 +71,7 @@ function normal_tree(X, Y) {
 	this.isMarked= false;
 	this.countX = X;
 	this.countY = Y;
-	this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
+	this.breakTime = blockDetail[this.constructor.name]["breakFull"];
 	this.collideVar = null;
 	this.x = 22.5 + (Y * (usualLen));
 	this.y = 405 + (X * (usualLen));
@@ -85,7 +85,7 @@ function normal_tree(X, Y) {
 			ctx.fillRect((this.x - ((usualLen - ((1 - this.breakPhase) * usualLen))) / 2) + XdrawVar, (this.y - ((usualLen - ((1 - this.breakPhase) * usualLen)) / 2)) + YdrawVar, usualLen - ((1 - this.breakPhase) * usualLen), usualLen - ((1 - this.breakPhase) * usualLen));
 			ctx.globalAlpha = 1;
 		}
-		itemLibrary[this.constructor.name]["method"](this.countX,this.countY);
+		blockDetail[this.constructor.name]["method"](this.countX,this.countY);
 	}
 }
 function hard_rock(X, Y) {
@@ -93,7 +93,7 @@ function hard_rock(X, Y) {
 	this.light = 8;
 	this.countX = X;
 	this.countY = Y;
-	this.breakTime = itemLibrary[this.constructor.name]["breakFull"];
+	this.breakTime = blockDetail[this.constructor.name]["breakFull"];
 	this.collideVar = null;
 	this.x = 22.5 + (Y * (usualLen));
 	this.y = 405 + (X * (usualLen));

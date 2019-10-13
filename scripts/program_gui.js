@@ -1,9 +1,9 @@
 function breakTest(block) {
 	if (block.breakTime <= 0) {
 		(tiles[block.countY])[block.countX] = new tile(air,block.countX,block.countY);
-		getItem(itemLibrary[block.constructor.name]["item"][0],itemLibrary[block.constructor.name]["item"][1]());
+		getItem(blockDetail[block.constructor.name]["item"][0],blockDetail[block.constructor.name]["item"][1]());
 	}
-	block.breakPhase = 1 - (block.breakTime / itemLibrary[block.constructor.name]["breakFull"]);
+	block.breakPhase = 1 - (block.breakTime / blockDetail[block.constructor.name]["breakFull"]);
 }//用以檢測方塊是否破壞完全
 function getItem(ID,amount) {
 	for (i = 0;i < itembar_amount;i++) {
@@ -23,7 +23,7 @@ function tile(filled, X, Y) {
     this.fill = new filled(X, Y);
 }//生成方塊
 function ligthTest(block) {
-    if ((itemLibrary[(tiles[block.countY - 1])[block.countX].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY + 1])[block.countX].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX - 1].fill.constructor.name]["Light"] == false) || (itemLibrary[(tiles[block.countY])[block.countX + 1].fill.constructor.name]["Light"] == false)) {
+    if ((blockDetail[(tiles[block.countY - 1])[block.countX].fill.constructor.name]["Light"] == false) || (blockDetail[(tiles[block.countY + 1])[block.countX].fill.constructor.name]["Light"] == false) || (blockDetail[(tiles[block.countY])[block.countX - 1].fill.constructor.name]["Light"] == false) || (blockDetail[(tiles[block.countY])[block.countX + 1].fill.constructor.name]["Light"] == false)) {
         block.light = 8;
 	}
 	else {
@@ -64,3 +64,9 @@ function isMobile() {
 		return false;
 	}
 }//是手機嗎
+function playAudio(src) {
+	var audio = document.createElement('audio');
+	audio.src=src;
+	audio.play();
+	audio.remove();
+}

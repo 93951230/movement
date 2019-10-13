@@ -35,6 +35,7 @@ imgs["Item"][2] = document.getElementById("grass_drop");
 imgs["Item"][3] = document.getElementById("normal_tree_drop");
 imgs["Item"][4] = document.getElementById("iron_pickaxe");
 imgs["Item"][5] = document.getElementById("pebble");
+imgs["Item"][6] = document.getElementById("bow");
 var keyPressed = {}
 //world generate
 var tileWi = 3500;

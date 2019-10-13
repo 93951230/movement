@@ -47,6 +47,7 @@
 		<img id="normal_tree_drop" style="display: none;" src="resource/item/normal_tree_drop.png" />
 		<img id="iron_pickaxe" style="display: none;" src="resource/item/iron_pickaxe.png" />
 		<img id="pebble" style="display: none;" src="resource/item/pebble.png" />
+		<img id="bow" style="display: none;" src="resource/item/bow.png" />
 		<!--ITEM-->
         <canvas id="Canvas" width="1366" height="768">瀏覽器要更新一下sorry</canvas>
         <script id= "otherScript">
@@ -97,7 +98,7 @@
             ////////////////////////////
             //     method calling     //
             ////////////////////////////
-			var itemLibrary = {
+			var blockDetail = {
 				"dirt":{
 					"Light":true,
 					"Collide":true,
@@ -149,56 +150,9 @@
 					"Breakable":false
 				}
 			};
-			function placeBlockDete(e, getHurt, target) {
-                let Xcondition = ((e.clientX > (getHurt.x - (usualLen / 2)) + XdrawVar) && (e.clientX < (getHurt.x + (usualLen / 2)) + XdrawVar));
-                let Ycondition = ((e.clientY > (getHurt.y - (usualLen / 2)) + YdrawVar) && (e.clientY < (getHurt.y + (usualLen / 2)) + YdrawVar));
-                if ((Xcondition) && (Ycondition)) {
-					if (getHurt.constructor.name != "air") {
-						getHurt.breakTime -= 1;
-					}
-                    else {
-						if (((tiles[getHurt.countY - 1][getHurt.countX].fill.constructor.name != "air") || (tiles[getHurt.countY + 1][getHurt.countX].fill.constructor.name != "air")) || ((tiles[getHurt.countY][getHurt.countX-1].fill.constructor.name != "air") || (tiles[getHurt.countY][getHurt.countX +1].fill.constructor.name != "air"))) {
-							tiles[getHurt.countY][getHurt.countX] = new tile(eval(String(target.constructor.name).replace(/item/,"")),getHurt.countX,getHurt.countY);
-							target.count -= 1;
-						}
-					}
-                }
-            }
 			
-            function collide(object, getHurt) {
-                let Xcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) +4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2)-4) + XdrawVar));
-                let lessXcondition = ((object.x + (object.width / 2) > (getHurt.x - (usualLen / 2) - 4) + XdrawVar) && (object.x - (object.width / 2) < (getHurt.x + (usualLen / 2) + 4) + XdrawVar));
-                let Ycondition = ((object.y + (object.height / 2) > (getHurt.y - (usualLen / 2)+4) + YdrawVar) && (object.y - (object.height / 2) < (getHurt.y + (usualLen / 2)-4) + YdrawVar));
-                let lessYcondition = ((object.y + (object.height / 2) > (getHurt.y - (usualLen / 2) - 4) + YdrawVar) && (object.y - (object.height / 2) < (getHurt.y + (usualLen / 2) + 4) + YdrawVar));
-                if (!((lessXcondition) || (lessYcondition))) {
-                    getHurt.collideVar = null;
-                }
-                if (lessXcondition) {
-                    getHurt.collideVar -= 1;
-                }
-                else if (lessYcondition) {
-                    getHurt.collideVar += 1;
-                }
-                if ((lessXcondition) && (lessYcondition)) {
-					
-					try {
-						object.collideO = getHurt;
-						if (getHurt.collideVar < 0) {
-							object.getYcollide();
-						}
-						else if ((Xcondition) && (!(Ycondition))) {
-							if (getHurt.collideVar > 0) {
-								object.getXcollide();
-							}
-						}
-					}
-					finally {
-						object.getcollide();
-						getHurt.collideVar = null;
-					}
-                }
-            }
-            //////
+            
+            //遊戲控制
             function keyDownHandler(e) {
                 keyPressed[e.code] = true;
 				if (keyPressed["KeyE"]) {
@@ -212,30 +166,41 @@
                 if (e.buttons == 1) {
                     if (started) {
 						if (!(itembar[selectedBar].hold == null)) {
-							if (itembar[selectedBar].hold.type["type"] == 1) {
+							//處理手持之物
+							/*type
+							0:blocks
+							1:tools
+							2:special-tools
+							*/
+							if (itembar[selectedBar].hold.type["type"] == 0) {
+								for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
+									for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
+										if (place_meeting(e.clientX,e.clientY,0,0,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
+											if (((tiles[(tiles[i])[-j].fill.countY - 1][(tiles[i])[-j].fill.countX].fill.constructor.name != "air") || (tiles[(tiles[i])[-j].fill.countY + 1][(tiles[i])[-j].fill.countX].fill.constructor.name != "air")) || ((tiles[(tiles[i])[-j].fill.countY][(tiles[i])[-j].fill.countX-1].fill.constructor.name != "air") || (tiles[(tiles[i])[-j].fill.countY][(tiles[i])[-j].fill.countX +1].fill.constructor.name != "air"))) {
+												tiles[(tiles[i])[-j].fill.countY][(tiles[i])[-j].fill.countX] = new tile(itembar[selectedBar].hold.type["set"],(tiles[i])[-j].fill.countX,(tiles[i])[-j].fill.countY);
+												itembar[selectedBar].hold.count -= 1;
+											}
+										}
+									}
+								}
+							}
+							else if (itembar[selectedBar].hold.type["type"] == 1) {
 								for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
 									for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
 										if ((tiles[i])[-j].fill.constructor.name != "air") {
 											if (place_meeting(e.clientX,e.clientY,0,0,(tiles[i])[-j].fill.x + XdrawVar,(tiles[i])[-j].fill.y + YdrawVar,usualLen,usualLen)) {
 												(tiles[i])[-j].fill.breakTime -= itembar[selectedBar].hold.type["speed"];
-												say((tiles[i])[-j].fill.breakTime);
 											}
 										}
 									}//挖方塊
 								}
 							}
-							else if (itembar[selectedBar].hold.type["type"] == 0) {
-								for (i = (Math.round(CamX) - 3); i <= (Math.round(CamX) + 3); i++) {
-									for (j = (Math.floor(CamY - 2)); j <= (Math.floor(CamY + 4)); j++) {
-										placeBlockDete(e, (tiles[i])[-j].fill,itembar[selectedBar].hold);
-									}
-								}
-							}
+							else if (itembar[selectedBar].hold.type["type"] == 2) {itembar[selectedBar].hold.type["react"](e);}
 						}
 						if (place_meeting(buttons[0].x,buttons[0].y,150,100,e.clientX,e.clientY,0,0)) {
 							eval(buttons[0].command);
 						}
-                    }
+                    }//主要之前=======================================================================
                     else {
                         if (place_meeting(buttons[0].x,buttons[0].y,150,100,e.clientX,e.clientY,0,0)) {
                             generateWorld.main(false);
@@ -296,10 +261,10 @@
 					//更新方塊
                     for (i = (Math.floor(CamX) - 5 - Math.floor(canvas.width / 80)); i <= (Math.floor(CamX) + 5 + Math.floor(canvas.width / 80)); i++) {
                         for (j = (Math.floor(CamY) - 10 - Math.floor(canvas.height / 50)); j <= (Math.floor(CamY) + 10 + Math.floor(canvas.height / 50)); j++) {
-                            if (itemLibrary[tiles[i][-j].fill.constructor.name]["Breakable"]) {
-                                breakTest((tiles[i])[-j].fill,itemLibrary[String((tiles[i])[-j].fill.ID)]);
+                            if (blockDetail[tiles[i][-j].fill.constructor.name]["Breakable"]) {
+                                breakTest((tiles[i])[-j].fill,blockDetail[String((tiles[i])[-j].fill.ID)]);
                             }
-                            if (itemLibrary[tiles[i][-j].fill.constructor.name]["Light"]) {
+                            if (blockDetail[tiles[i][-j].fill.constructor.name]["Light"]) {
                                 ligthTest((tiles[i])[-j].fill);
                             }
                         }
