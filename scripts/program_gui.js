@@ -69,4 +69,4 @@ function playAudio(src) {
 	audio.src=src;
 	audio.play();
 	audio.remove();
-}
+}//放音效
