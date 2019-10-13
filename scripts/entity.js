@@ -9,7 +9,7 @@ Made In Tawian
 3:material
 */
 function itemdirt(count) {
-	this.type = {"type":0,"set":true};
+	this.type = {"type":0,"set":dirt};
 	if (Math.random() > 0.5) {
 		this.drawImg = imgs["Item"][0];
 	}
