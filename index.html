@@ -232,8 +232,6 @@
 			}
 			function drawFont() {
 				ctx.fillStyle = "White";
-				ctx.font = "20px wingdings";
-                ctx.fillText("Do you is fucking?", 10, canvas.height - 10);
 				ctx.font = "20px monospace";
 				ctx.fillText("x : " + String(Math.floor(CamX * 100) / 100), 10, canvas.height - 30);
 				ctx.fillText("y : " + String(Math.floor(CamY * 100) / 100), 10, canvas.height - 50);
@@ -307,7 +305,7 @@
 					//fonts
 					ctx.font = "23px Microsoft YaHei";
 					ctx.fillStyle = "Black";
-					ctx.fillText("IQ Warining : 按下按鈕後 遊戲視窗就會被固定", 20, 60);
+					ctx.fillText("Warning : 按下按鈕後 遊戲視窗就會被固定", 20, 60);
 					ctx.fillText("如果當的話就調小視窗  :)", 20, 90);
 					ctx.font = "23px Comic Sans MS";
 					ctx.fillText("Made by Xx_93951230_xX ", 20, 30);
