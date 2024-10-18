@@ -1,37 +1,36 @@
-## Welcome to GitHub Pages
+> [time=Fri, Oct 27, 2023 2:31 PM]
+### Proof of AM-GM inequality
+:::info
+Let $a_1,a_2,\dots,a_k$ be all posivitive integers, denote $A,G$ as the arithmetic mean and geometric mean of $a_1,a_2,\dots,a_k$,respectively. Then $A \ge G$ 
+:::
+Proof.
+>Claim: $k = 2^n, n \in \mathbb{N}$, the inequality hold
 
-You can use the [editor on GitHub](https://github.com/93951230/movement/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Proof of claim: let n = 1, then by $(\sqrt{a_2}-\sqrt{a_1})^2 \ge 0$, we have $\frac{a_1+a_2}{2} \ge \sqrt{a_1a_2}$. Hence the claim hold.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Suppose at some value of $n$, this claim hold, namely,
+$$A=\frac{a_1+a_2+\dots+a_{2^n}}{2^n} \ge \left(a_1a_2\dots a_{2^n}\right)^{1/2^n}=GM$$
+Then, for case $n+1$
+$$\begin{align}  \\
+A & = \frac{a_1+a_2+\dots+a_{2^n}+a_{2^n+1}+\dots+a_{2^n+1}+a_{2^{n+1}}}{2^{n+1}} \\
+&= \frac{\left(\frac{a_1+a_2+\dots+a_{2^n}}{2^n}\right) + \left(\frac{a_{2^n+1}+\dots+a_{2^n+1}+a_{2^{n+1}}}{2^n}\right)}{2}\\
+& \ge_{\text{(by hypothesis that n hold)}} \sqrt{(a_1a_2\dots a_{2^n})^{1/2^n} (a_{2^n+1} a_{2^n+2} \dots a_{2^{n+1}})^{1/2^n}} \\
+&=\left(a_1a_2\dots a_{2^{n+1}}  \right)^{1/{2^n}} = G
+\end{align}$$
+Therefore, AM-GM ineq. hold for $k$ as a power of two.
 
-### Markdown
+---
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/93951230/movement/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+For cases where $k \in \mathbb{N}$, choose $n$ such that $2^n \ge k$.
+$$\begin{cases}
+A = \frac{a_1 + a_2 + \dots + a_k}{k} \\
+G = (a_1 a_2 \dots a_k)^{1/k} \\
+\end{cases}$$
+Consider a true-by-claim inequality, $$\frac{(a_1+a_2+\dots +a_k)+ (a_{k+1} + a_{k+2} + \dots + a_{2^n})}{2^n} \ge (a_1 a_2\dots a_k  a_{k+1}  a_{k+2}  \dots  a_{2^n})^{1/2^n}$$
+Take $A = a_{k+1} = a_{k+2} = \dots = a_{2^n}$, we have
+$$\begin{align}
+\frac{a_1+a_2+\dots + a_k + (2^n-k)A}{2^n} & \ge (a_1 \dots a_k A^{2^n-k})^{1/2^k} \\
+\implies A & \ge (a_1 \dots a_k)^{1/2^n} A^{1-{k/2^n}} \\
+\implies A & \ge G \text{, by simplification}
+\end{align}$$
+Q.E.D.
